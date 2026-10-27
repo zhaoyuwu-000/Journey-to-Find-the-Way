@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://code/touch_buttons.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://sprite/ui/touch_left.png" id="2_left"]
+[ext_resource type="Texture2D" path="res://sprite/ui/touch_right.png" id="3_right"]
+[ext_resource type="Texture2D" path="res://sprite/ui/touch_jump.png" id="4_jump"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_touch"]
+radius = 90.0
+
+[node name="TouchButtons" type="CanvasLayer"]
+layer = 10
+script = ExtResource("1_script")
+
+[node name="Left" type="TouchScreenButton" parent="."]
+position = Vector2(170, 570)
+texture_normal = ExtResource("2_left")
+shape = SubResource("CircleShape2D_touch")
+action = "left"
+passby_press = true
+
+[node name="Right" type="TouchScreenButton" parent="."]
+position = Vector2(390, 570)
+texture_normal = ExtResource("3_right")
+shape = SubResource("CircleShape2D_touch")
+action = "right"
+passby_press = true
+
+[node name="Jump" type="TouchScreenButton" parent="."]
+position = Vector2(1110, 560)
+texture_normal = ExtResource("4_jump")
+shape = SubResource("CircleShape2D_touch")
+action = "jump"
+passby_press = true
