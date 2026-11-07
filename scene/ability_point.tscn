@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d13ddgqu885q0" path="res://code/ability_point.gd" id="1_xjvku"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fytpu"]
-radius = 84.29116
+radius = 283.00177
 
 [node name="AbilityPoint" type="Node2D" unique_id=881492649 groups=["abilitypoints"]]
 script = ExtResource("1_xjvku")

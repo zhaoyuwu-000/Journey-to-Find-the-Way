@@ -18,10 +18,10 @@ config/icon="res://icon.svg"
 [autoload]
 
 TouchButtons="*res://scene/touch_buttons.tscn"
-_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 Dialogue="*res://code/dialogue_manager.gd"
 Save="*res://code/save_manager.gd"
 Settings="*res://code/settings.gd"
+_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
 

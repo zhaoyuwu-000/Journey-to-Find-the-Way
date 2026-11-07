@@ -18,10 +18,6 @@ var ability_manager: Node = null
 var _checkpoint: Dictionary = {}   # 到达重生点时记下的关卡状态（死亡时恢复）
 
 func _ready() -> void:
-	# decortile 只是编辑器里标装饰位置的图层，游戏里不画
-	var markers := get_node_or_null("DecorTile/Markers")
-	if markers != null:
-		markers.visible = false
 	if start_point != null:
 		revive_position = start_point.global_position
 
@@ -49,7 +45,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if camera_2d and player:
-		camera_2d.global_position = cameraowner.global_position
+		camera_2d.global_position = Vector2(cameraowner.global_position.x, cameraowner.global_position.y - 1000)
 
 func _revive_position_set(pos: Vector2) -> void:
 	revive_position = pos
