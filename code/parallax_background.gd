@@ -55,6 +55,16 @@ const BASE_SCALE := 0.8318
 		fall_speed = maxf(v, 0.0)
 		_refresh()
 
+@export_group("上下浮动范围")
+## 相对静止位置最多往上浮多少像素（负数，例如 -600 表示最多上移 600）
+@export var float_up_limit := -600.0:
+	set(v):
+		float_up_limit = minf(v, 0.0)
+## 相对静止位置最多往下沉多少像素
+@export var float_down_limit := 600.0:
+	set(v):
+		float_down_limit = maxf(v, 0.0)
+
 var _frames: Array[Node2D] = []
 var _static_y: Array[float] = []
 var _rises: Array[float] = []
@@ -158,10 +168,11 @@ func _process(_delta: float) -> void:
 	var dy := cam_y - _ref_cam_y
 	if dy > 0.0:
 		# 从基准往下落：整块背景一起跟随，不分层
-		var follow := fall_speed * dy
+		var follow := clampf(fall_speed * dy, float_up_limit, float_down_limit)
 		for i in _frames.size():
 			_frames[i].position.y = _static_y[i] + follow
 	else:
-		# 往上跳：越远的层浮动越大
+		# 往上跳：越远的层浮动越大，但每层都不超过上下限
 		for i in _frames.size():
-			_frames[i].position.y = _static_y[i] + _rises[i] * dy
+			var off := clampf(_rises[i] * dy, float_up_limit, float_down_limit)
+			_frames[i].position.y = _static_y[i] + off
