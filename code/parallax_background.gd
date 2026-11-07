@@ -57,18 +57,18 @@ const BASE_SCALE := 0.8318
 
 @export_group("上下浮动范围")
 ## 相对静止位置最多往上浮多少像素（负数，例如 -600 表示最多上移 600）
-@export var float_up_limit := -600.0:
+@export var float_up_limit := -240.0:
 	set(v):
 		float_up_limit = minf(v, 0.0)
 ## 相对静止位置最多往下沉多少像素
-@export var float_down_limit := 600.0:
+@export var float_down_limit := 240.0:
 	set(v):
 		float_down_limit = maxf(v, 0.0)
 
 var _frames: Array[Node2D] = []
 var _static_y: Array[float] = []
 var _rises: Array[float] = []
-var _ref_cam_y := NAN
+var _ref_cam_y := NAN     # 相对"狐狸落地时的相机高度"
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
 
 func _ready() -> void:
@@ -156,6 +156,16 @@ func _texture_bottom(sp: Sprite2D) -> float:
 		_tex_bottom[key] = offset
 	return float(_tex_bottom[key])
 
+## 当前被相机跟随的"狐狸"（关卡里的 cameraowner / Player）
+func _camera_owner() -> Node2D:
+	var parent := get_parent()
+	if parent == null:
+		return null
+	var owner_node = parent.get("cameraowner")
+	if owner_node is Node2D and is_instance_valid(owner_node):
+		return owner_node
+	return parent.get_node_or_null("Player") as Node2D
+
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() or _frames.is_empty():
 		return
@@ -163,7 +173,10 @@ func _process(_delta: float) -> void:
 	if cam == null:
 		return
 	var cam_y := cam.global_position.y
-	if is_nan(_ref_cam_y):
+	# 以"狐狸站着的地方"为基准：落地就重置基准，只有跳跃/下落时才浮动
+	var fox := _camera_owner()
+	var grounded := fox is CharacterBody2D and (fox as CharacterBody2D).is_on_floor()
+	if is_nan(_ref_cam_y) or grounded:
 		_ref_cam_y = cam_y
 	var dy := cam_y - _ref_cam_y
 	if dy > 0.0:
