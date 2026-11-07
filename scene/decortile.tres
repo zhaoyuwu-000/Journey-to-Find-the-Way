@@ -1,12 +1,26 @@
 [gd_resource type="TileSet" format=3 uid="uid://ceoj8lxnigats"]
 
-[ext_resource type="Texture2D" uid="uid://cclh8d8oyfvwv" path="res://sprite/decor_marker.png" id="1_ootyi"]
+[ext_resource type="Texture2D" path="res://sprite/decor_near.png" id="1_near"]
+[ext_resource type="Texture2D" path="res://sprite/decor_mid.png" id="2_mid"]
+[ext_resource type="Texture2D" path="res://sprite/decor_far.png" id="3_far"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4ede"]
-texture = ExtResource("1_ootyi")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_near"]
+texture = ExtResource("1_near")
+texture_region_size = Vector2i(600, 600)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mid"]
+texture = ExtResource("2_mid")
+texture_region_size = Vector2i(600, 600)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_far"]
+texture = ExtResource("3_far")
 texture_region_size = Vector2i(600, 600)
 0:0/0 = 0
 
 [resource]
 tile_size = Vector2i(600, 600)
-sources/0 = SubResource("TileSetAtlasSource_b4ede")
+sources/0 = SubResource("TileSetAtlasSource_near")
+sources/1 = SubResource("TileSetAtlasSource_mid")
+sources/2 = SubResource("TileSetAtlasSource_far")
