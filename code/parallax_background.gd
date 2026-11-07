@@ -28,6 +28,10 @@ const BASE_SCALE := 0.8318
 		y_offsets = v
 		_refresh()
 
+@export_group("浮动方向")
+## 除了最前面一层，其余层的浮动方向取反（经典景深效果）
+@export var invert_except_front := true
+
 @export_group("循环滚动")
 ## 背景自己缓慢漂移的速度（像素/秒，0 = 不自动滚）
 @export var drift_speed := 0.0
@@ -90,6 +94,7 @@ var _rises: Array[float] = []
 var _ref_cam_y := NAN     # 平滑后的"狐狸落地点对应的相机高度"
 var _cur_off: Array[float] = []   # 平滑后的实际偏移
 var _loop_w: Array[float] = []    # 每层循环一次的宽度
+var _sign: Array[float] = []      # 浮动方向：+1 正常，-1 反向
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
 
 func _ready() -> void:
@@ -104,6 +109,7 @@ func _refresh() -> void:
 	_static_y.clear()
 	_rises.clear()
 	_cur_off.clear()
+	_sign.clear()
 	var layers: Array = []
 	for c in get_children():
 		if c is ParallaxLayer:
@@ -120,6 +126,9 @@ func _refresh() -> void:
 		_frames.append(frame)
 		_static_y.append(-raise_spread * (1.0 - t) + float(y_offsets.get(String(layer.name), 0.0)))
 		_cur_off.append(0.0)
+		# 最前面一层（最后一个）正常；其余层反向
+		var is_front := i == n - 1
+		_sign.append(1.0 if (is_front or not invert_except_front) else -1.0)
 		_rises.append(lerpf(far_rise, near_rise, t))
 		frame.scale = Vector2(BASE_SCALE, BASE_SCALE) * layer_scale
 		frame.position.y = _static_y[-1]
@@ -258,10 +267,11 @@ func _process(_delta: float) -> void:
 	# 每层目标偏移（含上下限），再平滑逼近
 	for i in _frames.size():
 		var target: float
+		var dir := _sign[i] if _sign.size() > i else 1.0
 		if dy > 0.0:
-			target = clampf(fall_speed * dy, float_up_limit, float_down_limit)
+			target = clampf(fall_speed * dy * dir, float_up_limit, float_down_limit)
 		else:
-			target = clampf(_rises[i] * dy, float_up_limit, float_down_limit)
+			target = clampf(_rises[i] * dy * dir, float_up_limit, float_down_limit)
 		if _cur_off.size() <= i:
 			_cur_off.append(0.0)
 		_cur_off[i] = lerpf(_cur_off[i], target, kref)
