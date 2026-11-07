@@ -38,9 +38,10 @@ const FAR := [
 const LAYER_Z := [40, -20, -60]
 const LAYER_ALPHA := [1.0, 0.82, 0.6]
 const LAYER_TINT := [Color(1, 1, 1), Color(1, 1, 1), Color(1.0, 0.99, 0.9)]
-const LAYER_HEIGHT := [Vector2(300, 680), Vector2(1500, 3000), Vector2(2000, 3600)]
-const LAYER_WIDTH_CAP := [800.0, 1500.0, 1700.0]
+const LAYER_HEIGHT := [Vector2(300, 680), Vector2(7500, 15000), Vector2(2000, 3600)]
+const LAYER_WIDTH_CAP := [800.0, 7500.0, 1700.0]
 const LAYER_PERIOD := [1.1, 1.6, 2.6]      # 每层每隔几格长一个（越小越密）
+# 中景：高度范围 7500~15000（相当原来的 5 倍）
 
 const BG_COLOR := Color(0.99, 0.96, 0.82)
 
