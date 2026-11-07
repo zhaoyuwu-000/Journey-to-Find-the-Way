@@ -36,6 +36,10 @@ const BASE_SCALE := 0.8318
 ## 背景自己缓慢漂移的速度（像素/秒，0 = 不自动滚）
 @export var drift_speed := 0.0
 
+@export_group("循环滚动")
+## 循环接缝额外压紧的像素（让两段内容稍微重叠，避免漏缝）
+@export var loop_overlap := 60.0
+
 @export_group("缩放")
 ## 所有层 Frame 的缩放倍率（1.0 对应基准 0.8318）
 @export var layer_scale := 1.0:
@@ -96,6 +100,7 @@ var _cur_off: Array[float] = []   # 平滑后的实际偏移
 var _loop_w: Array[float] = []    # 每层循环一次的宽度
 var _sign: Array[float] = []      # 浮动方向：+1 正常，-1 反向
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
+var _tex_x := {}        # 贴图 id -> Vector2(可见左边界, 可见右边界)（相对贴图中心）
 
 func _ready() -> void:
 	_refresh()
@@ -139,7 +144,7 @@ func _refresh() -> void:
 		var f := _frames[i]
 		var layer := f.get_parent() as ParallaxLayer
 		var b := _frame_bounds_x(f)
-		var w: float = maxf((b.y - b.x) * f.scale.x, 1.0)
+		var w: float = maxf((b.y - b.x) * f.scale.x - loop_overlap, 1.0)
 		f.position.x = -b.x * f.scale.x
 		if layer != null:
 			layer.motion_mirroring = Vector2(w, 0.0)
@@ -151,7 +156,7 @@ func _refresh() -> void:
 		_static_y[i] += delta
 		_frames[i].position.y = _static_y[i]
 
-## Frame 内所有 Sprite2D 在 Frame 本地坐标里的横向范围
+## Frame 内所有 Sprite2D 的可见横向范围（按贴图 alpha 去掉透明边）
 func _frame_bounds_x(frame: Node2D) -> Vector2:
 	var lo := INF
 	var hi := -INF
@@ -162,12 +167,50 @@ func _frame_bounds_x(frame: Node2D) -> Vector2:
 		var tex := sp.texture
 		if tex == null:
 			continue
-		var half: float = tex.get_size().x * 0.5 * sp.scale.x
-		lo = minf(lo, sp.position.x - half)
-		hi = maxf(hi, sp.position.x + half)
+		var xr := _texture_x_range(tex)
+		lo = minf(lo, sp.position.x + xr.x * sp.scale.x)
+		hi = maxf(hi, sp.position.x + xr.y * sp.scale.x)
 	if lo == INF:
 		return Vector2(0.0, 1.0)
 	return Vector2(lo, hi)
+
+## 贴图可见横向范围（相对贴图中心，贴着像素）
+func _texture_x_range(tex: Texture2D) -> Vector2:
+	if _tex_x == null:
+		_tex_x = {}
+	var key := tex.get_instance_id()
+	if _tex_x.has(key):
+		return _tex_x[key]
+	var size := tex.get_size()
+	var out := Vector2(-size.x * 0.5, size.x * 0.5)
+	var img := tex.get_image()
+	if img != null:
+		var w := img.get_width()
+		var h := img.get_height()
+		var left := -1
+		var right := -1
+		var x := 0
+		while x < w and left < 0:
+			var y := 0
+			while y < h:
+				if img.get_pixel(x, y).a > 0.5:
+					left = x
+					break
+				y += 4
+			x += 2
+		x = w - 1
+		while x >= 0 and right < 0:
+			var y := 0
+			while y < h:
+				if img.get_pixel(x, y).a > 0.5:
+					right = x
+					break
+				y += 4
+			x -= 2
+		if left >= 0 and right >= left:
+			out = Vector2(float(left) - size.x * 0.5, float(right) + 1.0 - size.x * 0.5)
+	_tex_x[key] = out
+	return out
 
 func _art_bottom() -> float:
 	var lowest := -INF
