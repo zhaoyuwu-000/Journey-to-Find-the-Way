@@ -229,7 +229,7 @@ func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary) -> v
 	sp.position = Vector2(cx, float(surface_row) * TILE + SURFACE)
 	add_child(sp, false, Node.INTERNAL_MODE_FRONT)
 
-## 悬空检测：只在"和锚点同高的连续地面"上放，太靠边就向内收
+## 边缘检测：只在真正有落差（相邻地面更低/没地面）的一侧做，坑内（两侧更高）不做
 func _pull_inside(cell_x: int, cx: float, half_w: float, margin: float, surface_row: int, surface: Dictionary) -> float:
 	var lo_col := cell_x
 	var hi_col := cell_x
@@ -237,11 +237,22 @@ func _pull_inside(cell_x: int, cx: float, half_w: float, margin: float, surface_
 		lo_col -= 1
 	while surface.get(hi_col + 1, -99999) == surface_row:
 		hi_col += 1
-	var lo := float(lo_col) * TILE + half_w + margin
-	var hi := float(hi_col + 1) * TILE - half_w - margin
+	var lo := -1.0e18
+	var hi := 1.0e18
+	if _is_drop(lo_col - 1, surface_row, surface):
+		lo = float(lo_col) * TILE + half_w + margin
+	if _is_drop(hi_col + 1, surface_row, surface):
+		hi = float(hi_col + 1) * TILE - half_w - margin
 	if lo > hi:
-		return -1e9      # 放不下就跳过，宁可少长也不悬空
+		return -1e9      # 两侧都是落差、这段地放不下 → 不放
 	return clampf(cx, lo, hi)
+
+## 这一列相对锚点是不是"更低/没有地面"（真正的悬崖边）
+func _is_drop(col: int, surface_row: int, surface: Dictionary) -> bool:
+	var v = surface.get(col, null)
+	if v == null:
+		return true       # 没有地面 = 悬空
+	return int(v) > surface_row    # 行号更大 = 更低
 
 ## 素材的可见区域（去透明边），缓存
 func _bbox(tex: Texture2D) -> Rect2:
