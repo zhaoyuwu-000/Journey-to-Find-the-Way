@@ -36,6 +36,8 @@ const FAR := [
 ]
 
 const LAYER_Z := [40, -20, -60]
+const MID_Z := [-48, -36, -24, -12]      # 中景在前后四个深度上均匀分布
+const FAR_Z := [-104, -92, -80]          # 远景整体更深
 const LAYER_ALPHA := [1.0, 0.82, 0.6]
 const LAYER_TINT := [Color(1, 1, 1), Color(1, 1, 1), Color(1.0, 0.99, 0.9)]
 const LAYER_HEIGHT := [Vector2(300, 680), Vector2(1500, 3000), Vector2(2000, 3600)]   # 基准
@@ -53,7 +55,7 @@ var _tm: TileMapLayer
 	set(v):
 		mid_scale = v
 		_rebuild()
-@export var far_scale := 1.0:
+@export var far_scale := 5.0:
 	set(v):
 		far_scale = v
 		_rebuild()
@@ -85,8 +87,11 @@ var _bbox_cache := {}
 func _ready() -> void:
 	_rng.seed = 20261107
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
-	if Engine.is_editor_hint() and _tm != null:
-		_tm.changed.connect(_rebuild, CONNECT_DEFERRED)
+	if Engine.is_editor_hint():
+		if _tm != null:
+			_tm.changed.connect(_rebuild, CONNECT_DEFERRED)
+		call_deferred("_rebuild")   # 编辑器里等 tile 数据就绪再生成，保证场景里能看到
+		return
 	_rebuild()
 
 func _rebuild() -> void:
@@ -165,8 +170,16 @@ func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary) -> v
 	sp.offset = Vector2(tex.get_size().x * 0.5 - bbox.get_center().x,
 		tex.get_size().y * 0.5 - bbox.end.y)
 	sp.flip_h = _rng.randf() < 0.5
-	sp.z_index = LAYER_Z[layer]
-	sp.modulate = Color(LAYER_TINT[layer].r, LAYER_TINT[layer].g, LAYER_TINT[layer].b, LAYER_ALPHA[layer])
+	var alpha: float = LAYER_ALPHA[layer]
+	if layer == 1:
+		var k := _rng.randi() % MID_Z.size()
+		sp.z_index = MID_Z[k]
+		alpha = 0.9 - 0.06 * float(k)      # 越靠后越淡一点
+	elif layer == 2:
+		sp.z_index = FAR_Z[_rng.randi() % FAR_Z.size()]
+	else:
+		sp.z_index = LAYER_Z[0]
+	sp.modulate = Color(LAYER_TINT[layer].r, LAYER_TINT[layer].g, LAYER_TINT[layer].b, alpha)
 	var jitter := _rng.randf_range(-0.35, 0.35) * TILE
 	var cx: float = float(cell_x) * TILE + TILE * 0.5 + jitter
 	# 悬空检测：按可见宽度看左右两端，落到同一高度的地面才站得住，否则往里收
