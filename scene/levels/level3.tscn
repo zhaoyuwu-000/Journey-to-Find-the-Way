@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
 [ext_resource type="PackedScene" uid="uid://cxyxcw0ia7e8q" path="res://scene/视差背景.tscn" id="95_bg"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
+size = Vector2(108.68205, 104.39134)
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_us4mx")
 
@@ -41,6 +43,7 @@ size_tiles = 5.0
 
 [node name="AbilityPoint" parent="." unique_id=881492649 instance=ExtResource("9_cc7lp")]
 position = Vector2(32639, -2369)
+scale = Vector2(1.7203623, 1.7199805)
 property = 0
 
 [node name="AbilityPoint2" parent="." unique_id=1252686078 instance=ExtResource("9_cc7lp")]
@@ -71,7 +74,18 @@ property = 0
 [node name="Barrier" parent="." unique_id=1207360845 instance=ExtResource("10_lrvtc")]
 position = Vector2(117683, -8156)
 
+[node name="CollisionShape2D" parent="Barrier" index="0" unique_id=323140085]
+position = Vector2(35.999996, -509.99997)
+scale = Vector2(9.127542, 15.449547)
+
+shape = SubResource("RectangleShape2D_barrier")
+[node name="Sprite2D" parent="Barrier" index="1" unique_id=1028381399]
+position = Vector2(539, -286)
+scale = Vector2(5.4, 19.76835)
+
 [node name="AbilityPoint7" parent="." unique_id=1238127482 instance=ExtResource("9_cc7lp")]
 position = Vector2(189503, -5222)
+scale = Vector2(1.28, 1.28)
+property = 0
 
 [editable path="Barrier"]

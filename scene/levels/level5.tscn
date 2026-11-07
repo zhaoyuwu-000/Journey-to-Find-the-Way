@@ -11,6 +11,20 @@
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
 [ext_resource type="PackedScene" uid="uid://cxyxcw0ia7e8q" path="res://scene/视差背景.tscn" id="95_bg"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
+size = Vector2(108.68205, 104.39134)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier2"]
+size = Vector2(108.68205, 104.39134)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier3"]
+size = Vector2(108.68205, 104.39134)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier4"]
+size = Vector2(108.68205, 104.39134)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier5"]
+size = Vector2(108.68205, 104.39134)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier6"]
+size = Vector2(108.68205, 104.39134)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier7"]
+size = Vector2(108.68205, 104.39134)
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_pdhpm")
 
@@ -52,6 +66,7 @@ position = Vector2(17863, -2619.0002)
 position = Vector2(-3, 152.00024)
 scale = Vector2(9.956444, 10.724854)
 
+shape = SubResource("RectangleShape2D_barrier")
 [node name="Sprite2D" parent="Barrier" index="1" unique_id=1028381399]
 position = Vector2(534, 287.00024)
 scale = Vector2(5.933558, 13.166151)
@@ -78,6 +93,7 @@ scale = Vector2(1.44, 1.9584005)
 position = Vector2(913.8897, -238.45999)
 scale = Vector2(9.127542, 9.737272)
 
+shape = SubResource("RectangleShape2D_barrier2")
 [node name="Sprite2D" parent="Barrier2" index="1" unique_id=1028381399]
 position = Vector2(1360.4154, -121.01722)
 scale = Vector2(5.0033875, 8.287081)
@@ -101,6 +117,8 @@ property = 1
 position = Vector2(179193, -32405)
 scale = Vector2(1, 2.1599998)
 
+[node name="CollisionShape2D" parent="Barrier3" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier3")
 [node name="AbilityPoint8" parent="." unique_id=94453556 instance=ExtResource("8_nxili")]
 position = Vector2(166930.02, -37775.004)
 scale = Vector2(1.920039, 1.920039)
@@ -115,6 +133,8 @@ property = 2
 position = Vector2(193805, -40292.004)
 scale = Vector2(1, 2.9175165)
 
+[node name="CollisionShape2D" parent="Barrier4" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier4")
 [node name="AbilityPoint10" parent="." unique_id=1308191157 instance=ExtResource("8_nxili")]
 position = Vector2(200631, -40675)
 scale = Vector2(3.9200194, 3.9200194)
@@ -142,6 +162,7 @@ scale = Vector2(1.2400391, 3.8998342)
 [node name="CollisionShape2D" parent="Barrier5" index="0" unique_id=323140085]
 scale = Vector2(9.127542, 4.3355613)
 
+shape = SubResource("RectangleShape2D_barrier5")
 [node name="Sprite2D" parent="Barrier5" index="1" unique_id=1028381399]
 scale = Vector2(5, 4.8461475)
 
@@ -149,6 +170,8 @@ scale = Vector2(5, 4.8461475)
 position = Vector2(153404, -38354)
 scale = Vector2(1.7643259, 4.7588606)
 
+[node name="CollisionShape2D" parent="Barrier6" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier6")
 [node name="Sprite2D" parent="Barrier6" index="1" unique_id=1028381399]
 position = Vector2(443.23022, 65.1415)
 
@@ -156,6 +179,8 @@ position = Vector2(443.23022, 65.1415)
 position = Vector2(254718, -60296)
 scale = Vector2(1, 3.5279999)
 
+[node name="CollisionShape2D" parent="Barrier7" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier7")
 [node name="Sprite2D" parent="Barrier7" index="1" unique_id=1028381399]
 position = Vector2(442.99997, 53.854774)
 

@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" path="res://scene/fish.tscn" id="7_wrto4"]
 [ext_resource type="PackedScene" path="res://scene/barrier.tscn" id="8_tqj52"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
+size = Vector2(108.68205, 104.39134)
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_7wbd4")
 
@@ -42,6 +44,8 @@ property = 1
 [node name="Barrier" parent="." unique_id=1207360845 instance=ExtResource("8_tqj52")]
 position = Vector2(7364, 5745)
 
+[node name="CollisionShape2D" parent="Barrier" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier")
 [node name="AbilityPoint3" parent="." unique_id=874035649 instance=ExtResource("4_8nh1d")]
 position = Vector2(9433, 4719)
 property = 2
