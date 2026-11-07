@@ -153,6 +153,14 @@ func _on_bear_die() -> void:
 	player.die()
 	player.emit_signal("DIE")
 
+## R 键：回到保存的检查点状态（等价于死亡恢复，但不算死亡）
+func rewind_to_checkpoint() -> void:
+	if player == null:
+		return
+	_restore_checkpoint()
+	player.revive(revive_position)
+	player.can_be_controlled = true
+
 ## 玩家死亡：恢复检查点状态并复活
 func _player_die() -> void:
 	_restore_checkpoint()

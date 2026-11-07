@@ -153,6 +153,18 @@ func _on_menu_settings() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		toggle_settings()
+		return
+	# R：回到保存的上个关卡状态（检查点）
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_R:
+		var menu := get_node_or_null("UI/Menu")
+		var menu_open: bool = menu != null and menu.visible
+		if _settings_panel != null and _settings_panel.visible:
+			return
+		if menu_open or current_level_node == null:
+			return
+		if current_level_node.has_method("rewind_to_checkpoint"):
+			current_level_node.rewind_to_checkpoint()
+			get_viewport().set_input_as_handled()
 
 ## Esc / 菜单按钮：打开设置面板并把玩家停下来；再按一次收起
 func toggle_settings() -> void:
