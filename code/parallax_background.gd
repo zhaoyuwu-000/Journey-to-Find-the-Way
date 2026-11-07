@@ -28,6 +28,10 @@ const BASE_SCALE := 0.8318
 		y_offsets = v
 		_refresh()
 
+@export_group("循环滚动")
+## 背景自己缓慢漂移的速度（像素/秒，0 = 不自动滚）
+@export var drift_speed := 0.0
+
 @export_group("缩放")
 ## 所有层 Frame 的缩放倍率（1.0 对应基准 0.8318）
 @export var layer_scale := 1.0:
@@ -85,6 +89,7 @@ var _static_y: Array[float] = []
 var _rises: Array[float] = []
 var _ref_cam_y := NAN     # 平滑后的"狐狸落地点对应的相机高度"
 var _cur_off: Array[float] = []   # 平滑后的实际偏移
+var _loop_w: Array[float] = []    # 每层循环一次的宽度
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
 
 func _ready() -> void:
@@ -119,11 +124,41 @@ func _refresh() -> void:
 		frame.scale = Vector2(BASE_SCALE, BASE_SCALE) * layer_scale
 		frame.position.y = _static_y[-1]
 
+	# 每层按实际内容宽度设置循环宽度（Frame 有缩放，直接用 scene 里的 7521 会错位）
+	_loop_w.clear()
+	for i in _frames.size():
+		var f := _frames[i]
+		var layer := f.get_parent() as ParallaxLayer
+		var b := _frame_bounds_x(f)
+		var w: float = maxf((b.y - b.x) * f.scale.x, 1.0)
+		f.position.x = -b.x * f.scale.x
+		if layer != null:
+			layer.motion_mirroring = Vector2(w, 0.0)
+		_loop_w.append(w)
+
 	# 量出当前 art 底边，再把所有层整体平移到 bottom_y
 	var delta := bottom_y - _art_bottom()
 	for i in _frames.size():
 		_static_y[i] += delta
 		_frames[i].position.y = _static_y[i]
+
+## Frame 内所有 Sprite2D 在 Frame 本地坐标里的横向范围
+func _frame_bounds_x(frame: Node2D) -> Vector2:
+	var lo := INF
+	var hi := -INF
+	for c in frame.get_children():
+		if not (c is Sprite2D):
+			continue
+		var sp := c as Sprite2D
+		var tex := sp.texture
+		if tex == null:
+			continue
+		var half: float = tex.get_size().x * 0.5 * sp.scale.x
+		lo = minf(lo, sp.position.x - half)
+		hi = maxf(hi, sp.position.x + half)
+	if lo == INF:
+		return Vector2(0.0, 1.0)
+	return Vector2(lo, hi)
 
 func _art_bottom() -> float:
 	var lowest := -INF
@@ -202,6 +237,8 @@ func _process(_delta: float) -> void:
 	var cam := get_viewport().get_camera_2d()
 	if cam == null:
 		return
+	if absf(drift_speed) > 0.001:
+		scroll_base_offset.x += drift_speed * _delta
 	var cam_y := cam.global_position.y
 	var fox := _camera_owner()
 	# 目标基准：站地上 = 当前相机高度；空中 = 预测落地点的相机高度
