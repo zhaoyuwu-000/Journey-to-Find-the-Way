@@ -49,12 +49,12 @@ property = 2
 position = Vector2(17863, -2619.0002)
 
 [node name="CollisionShape2D" parent="Barrier" index="0" unique_id=323140085]
-position = Vector2(-218, 145.00024)
-scale = Vector2(21.606573, 10.724854)
+position = Vector2(-3, 152.00024)
+scale = Vector2(9.956444, 10.724854)
 
 [node name="Sprite2D" parent="Barrier" index="1" unique_id=1028381399]
-position = Vector2(756, 274.00024)
-scale = Vector2(11.731683, 13.166151)
+position = Vector2(534, 287.00024)
+scale = Vector2(5.933558, 13.166151)
 
 [node name="Trap" parent="Barrier" unique_id=164423975 instance=ExtResource("10_7nrgl")]
 position = Vector2(28421, 8337)
@@ -73,6 +73,14 @@ property = 0
 [node name="Barrier2" parent="." unique_id=873397385 instance=ExtResource("9_7nrgl")]
 position = Vector2(64923, -1692.9999)
 scale = Vector2(1.44, 1.9584005)
+
+[node name="CollisionShape2D" parent="Barrier2" index="0" unique_id=323140085]
+position = Vector2(913.8897, -238.45999)
+scale = Vector2(9.127542, 9.737272)
+
+[node name="Sprite2D" parent="Barrier2" index="1" unique_id=1028381399]
+position = Vector2(1360.4154, -121.01722)
+scale = Vector2(5.0033875, 8.287081)
 
 [node name="AbilityPoint6" parent="." unique_id=219914959 instance=ExtResource("8_nxili")]
 position = Vector2(157603.02, -43729)
@@ -128,16 +136,28 @@ scale = Vector2(4.3199997, 4.3199997)
 property = 1
 
 [node name="Barrier5" parent="." unique_id=1089748802 instance=ExtResource("9_7nrgl")]
-position = Vector2(128550.99, -29007.002)
+position = Vector2(128609.99, -29105)
 scale = Vector2(1.2400391, 3.8998342)
 
+[node name="CollisionShape2D" parent="Barrier5" index="0" unique_id=323140085]
+scale = Vector2(9.127542, 4.3355613)
+
+[node name="Sprite2D" parent="Barrier5" index="1" unique_id=1028381399]
+scale = Vector2(5, 4.8461475)
+
 [node name="Barrier6" parent="." unique_id=2091866941 instance=ExtResource("9_7nrgl")]
-position = Vector2(153512, -38275)
+position = Vector2(153404, -38354)
 scale = Vector2(1.7643259, 4.7588606)
 
+[node name="Sprite2D" parent="Barrier6" index="1" unique_id=1028381399]
+position = Vector2(443.23022, 65.1415)
+
 [node name="Barrier7" parent="." unique_id=1151119111 instance=ExtResource("9_7nrgl")]
-position = Vector2(255042, -60296)
+position = Vector2(254718, -60296)
 scale = Vector2(1, 3.5279999)
+
+[node name="Sprite2D" parent="Barrier7" index="1" unique_id=1028381399]
+position = Vector2(442.99997, 53.854774)
 
 [node name="AbilityPoint14" parent="." unique_id=2026906946 instance=ExtResource("8_nxili")]
 position = Vector2(249184, -60426)
