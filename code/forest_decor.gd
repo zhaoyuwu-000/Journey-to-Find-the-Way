@@ -38,14 +38,46 @@ const FAR := [
 const LAYER_Z := [40, -20, -60]
 const LAYER_ALPHA := [1.0, 0.82, 0.6]
 const LAYER_TINT := [Color(1, 1, 1), Color(1, 1, 1), Color(1.0, 0.99, 0.9)]
-const LAYER_HEIGHT := [Vector2(300, 680), Vector2(7500, 15000), Vector2(2000, 3600)]
-const LAYER_WIDTH_CAP := [800.0, 7500.0, 1700.0]
+const LAYER_HEIGHT := [Vector2(300, 680), Vector2(1500, 3000), Vector2(2000, 3600)]   # 基准
+const LAYER_WIDTH_CAP := [800.0, 1500.0, 1700.0]
 const LAYER_PERIOD := [1.1, 1.6, 2.6]      # 每层每隔几格长一个（越小越密）
-# 中景：高度范围 7500~15000（相当原来的 5 倍）
-
-const BG_COLOR := Color(0.99, 0.96, 0.82)
 
 var _tm: TileMapLayer
+# ====== 可编辑参数（Inspector 里改，编辑器里实时预览）======
+@export_group("尺寸倍率")
+@export var near_scale := 1.0:
+	set(v):
+		near_scale = v
+		_rebuild()
+@export var mid_scale := 5.0:
+	set(v):
+		mid_scale = v
+		_rebuild()
+@export var far_scale := 1.0:
+	set(v):
+		far_scale = v
+		_rebuild()
+
+@export_group("密度")
+@export var near_density := 1.0:
+	set(v):
+		near_density = maxf(v, 0.05)
+		_rebuild()
+@export var mid_density := 1.0:
+	set(v):
+		mid_density = maxf(v, 0.05)
+		_rebuild()
+@export var far_density := 1.0:
+	set(v):
+		far_density = maxf(v, 0.05)
+		_rebuild()
+
+@export_group("背景")
+@export var background_color := Color(0.99, 0.96, 0.82):
+	set(v):
+		background_color = v
+		_rebuild()
+
 var _rng := RandomNumberGenerator.new()
 var _bbox_cache := {}
 
@@ -75,10 +107,16 @@ func _rebuild() -> void:
 			acc = [_rng.randf(), _rng.randf(), _rng.randf()]
 		prev_x = x
 		for layer in 3:
-			acc[layer] += 1.0 / LAYER_PERIOD[layer]
+			acc[layer] += 1.0 / (LAYER_PERIOD[layer] / _layer_density(layer))
 			if acc[layer] >= 1.0:
 				acc[layer] -= 1.0
 				_spawn(x, layer, surface[x])
+
+func _layer_scale(layer: int) -> float:
+	return [near_scale, mid_scale, far_scale][layer]
+
+func _layer_density(layer: int) -> float:
+	return [near_density, mid_density, far_density][layer]
 
 ## 每列最上面的实心 tile 行（地面）
 func _surface_rows() -> Dictionary:
@@ -92,7 +130,7 @@ func _surface_rows() -> Dictionary:
 
 func _add_background() -> void:
 	var rect := ColorRect.new()
-	rect.color = BG_COLOR
+	rect.color = background_color
 	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rect.z_index = -1000
 	var center := Vector2.ZERO
@@ -112,9 +150,10 @@ func _spawn(cell_x: int, layer: int, surface_row: int) -> void:
 	var pool: Array = [NEAR, MID, FAR][layer]
 	var tex: Texture2D = pool[_rng.randi() % pool.size()]
 	var bbox: Rect2 = _bbox(tex)
-	var h: float = _rng.randf_range(LAYER_HEIGHT[layer].x, LAYER_HEIGHT[layer].y)
+	var mul := _layer_scale(layer)
+	var h: float = _rng.randf_range(LAYER_HEIGHT[layer].x, LAYER_HEIGHT[layer].y) * mul
 	var s: float = h / maxf(bbox.size.y, 1.0)
-	s = minf(s, LAYER_WIDTH_CAP[layer] / maxf(bbox.size.x, 1.0))
+	s = minf(s, LAYER_WIDTH_CAP[layer] * mul / maxf(bbox.size.x, 1.0))
 
 	var sp := Sprite2D.new()
 	sp.texture = tex
