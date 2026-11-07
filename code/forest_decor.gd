@@ -170,25 +170,27 @@ func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary) -> v
 	var jitter := _rng.randf_range(-0.35, 0.35) * TILE
 	var cx: float = float(cell_x) * TILE + TILE * 0.5 + jitter
 	# 悬空检测：按可见宽度看左右两端，落到同一高度的地面才站得住，否则往里收
-	var half_w: float = clampf(bbox.size.x * s * 0.5, 60.0, TILE * 0.35)   # 只看根部宽度，树冠可以挑出去
-	cx = _pull_inside(cell_x, cx, half_w, surface_row, surface)
+	var half_w: float = bbox.size.x * s * 0.5          # 素材完整宽度的一半
+	var margin: float = TILE                            # 边缘留一格空间
+	cx = _pull_inside(cell_x, cx, half_w, margin, surface_row, surface)
+	if cx < -1e8:      # 这段地面放不下（宽度 + 左右各一格留白）→ 这个位置不放
+		return
 
 	sp.position = Vector2(cx, float(surface_row) * TILE + SURFACE)
 	add_child(sp, false, Node.INTERNAL_MODE_FRONT)
 
 ## 悬空检测：只在"和锚点同高的连续地面"上放，太靠边就向内收
-func _pull_inside(cell_x: int, cx: float, half_w: float, surface_row: int, surface: Dictionary) -> float:
+func _pull_inside(cell_x: int, cx: float, half_w: float, margin: float, surface_row: int, surface: Dictionary) -> float:
 	var lo_col := cell_x
 	var hi_col := cell_x
 	while surface.get(lo_col - 1, -99999) == surface_row:
 		lo_col -= 1
 	while surface.get(hi_col + 1, -99999) == surface_row:
 		hi_col += 1
-	var lo := float(lo_col) * TILE + half_w
-	var hi := float(hi_col + 1) * TILE - half_w
+	var lo := float(lo_col) * TILE + half_w + margin
+	var hi := float(hi_col + 1) * TILE - half_w - margin
 	if lo > hi:
-		# 这段地太窄放不下：放到段正中，悬空最少
-		return (float(lo_col) * TILE + float(hi_col + 1) * TILE) * 0.5
+		return -1e9      # 放不下就跳过，宁可少长也不悬空
 	return clampf(cx, lo, hi)
 
 ## 素材的可见区域（去透明边），缓存
