@@ -84,6 +84,8 @@ var _tm: TileMapLayer
 		_rebuild()
 
 var _rng := RandomNumberGenerator.new()
+var _sig := 0
+var _poll := 0.0
 
 var _bbox_cache := {}
 
@@ -92,10 +94,37 @@ func _ready() -> void:
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
 	if Engine.is_editor_hint():
 		if _tm != null:
-			_tm.changed.connect(_rebuild, CONNECT_DEFERRED)
-		call_deferred("_rebuild")   # 编辑器里等 tile 数据就绪再生成，保证场景里能看到
+			_tm.changed.connect(_on_tm_changed, CONNECT_DEFERRED)
+		call_deferred("_rebuild")   # 编辑器里等 tile 数据就绪再生成
+		set_process(true)
 		return
+	set_process(false)
 	_rebuild()
+
+## 编辑器里：tilemap 一改就重建（changed 信号 + 轮询兜底）
+func _on_tm_changed() -> void:
+	_rebuild()
+	_sig = _tm_signature()
+
+func _process(delta: float) -> void:
+	if not Engine.is_editor_hint():
+		return
+	_poll += delta
+	if _poll < 0.25:
+		return
+	_poll = 0.0
+	var sig := _tm_signature()
+	if sig != _sig:
+		_sig = sig
+		_rebuild()
+
+func _tm_signature() -> int:
+	if _tm == null:
+		return 0
+	var h := 17
+	for cell in _tm.get_used_cells():
+		h = (h * 31 + cell.x * 7 + cell.y * 131 + _tm.get_cell_source_id(cell) * 977) & 0x7fffffff
+	return h
 
 func _rebuild() -> void:
 	for c in get_children(true):
@@ -121,6 +150,7 @@ func _rebuild() -> void:
 			if acc[layer] >= 1.0:
 				acc[layer] -= 1.0
 				_spawn(x, layer, surface[x], surface)
+	_sig = _tm_signature()
 
 func _layer_scale(layer: int) -> float:
 	return [near_scale, mid_scale, far_scale][layer]
