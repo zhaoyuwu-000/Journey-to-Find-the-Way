@@ -79,6 +79,7 @@ var _tm: TileMapLayer
 		_rebuild()
 
 var _rng := RandomNumberGenerator.new()
+
 var _bbox_cache := {}
 
 func _ready() -> void:
@@ -97,6 +98,7 @@ func _rebuild() -> void:
 	var surface := _surface_rows()
 	if surface.is_empty():
 		return
+
 	var xs := surface.keys()
 	xs.sort()
 	var acc := [_rng.randf(), _rng.randf(), _rng.randf()]
@@ -110,7 +112,7 @@ func _rebuild() -> void:
 			acc[layer] += 1.0 / (LAYER_PERIOD[layer] / _layer_density(layer))
 			if acc[layer] >= 1.0:
 				acc[layer] -= 1.0
-				_spawn(x, layer, surface[x])
+				_spawn(x, layer, surface[x], surface)
 
 func _layer_scale(layer: int) -> float:
 	return [near_scale, mid_scale, far_scale][layer]
@@ -146,7 +148,7 @@ func _add_background() -> void:
 	rect.size = Vector2(120000, 120000)
 	add_child(rect, false, Node.INTERNAL_MODE_FRONT)
 
-func _spawn(cell_x: int, layer: int, surface_row: int) -> void:
+func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary) -> void:
 	var pool: Array = [NEAR, MID, FAR][layer]
 	var tex: Texture2D = pool[_rng.randi() % pool.size()]
 	var bbox: Rect2 = _bbox(tex)
@@ -166,8 +168,28 @@ func _spawn(cell_x: int, layer: int, surface_row: int) -> void:
 	sp.z_index = LAYER_Z[layer]
 	sp.modulate = Color(LAYER_TINT[layer].r, LAYER_TINT[layer].g, LAYER_TINT[layer].b, LAYER_ALPHA[layer])
 	var jitter := _rng.randf_range(-0.35, 0.35) * TILE
-	sp.position = Vector2(float(cell_x) * TILE + TILE * 0.5 + jitter, float(surface_row) * TILE + SURFACE)
+	var cx: float = float(cell_x) * TILE + TILE * 0.5 + jitter
+	# 悬空检测：按可见宽度看左右两端，落到同一高度的地面才站得住，否则往里收
+	var half_w: float = clampf(bbox.size.x * s * 0.5, 60.0, TILE * 0.35)   # 只看根部宽度，树冠可以挑出去
+	cx = _pull_inside(cell_x, cx, half_w, surface_row, surface)
+
+	sp.position = Vector2(cx, float(surface_row) * TILE + SURFACE)
 	add_child(sp, false, Node.INTERNAL_MODE_FRONT)
+
+## 悬空检测：只在"和锚点同高的连续地面"上放，太靠边就向内收
+func _pull_inside(cell_x: int, cx: float, half_w: float, surface_row: int, surface: Dictionary) -> float:
+	var lo_col := cell_x
+	var hi_col := cell_x
+	while surface.get(lo_col - 1, -99999) == surface_row:
+		lo_col -= 1
+	while surface.get(hi_col + 1, -99999) == surface_row:
+		hi_col += 1
+	var lo := float(lo_col) * TILE + half_w
+	var hi := float(hi_col + 1) * TILE - half_w
+	if lo > hi:
+		# 这段地太窄放不下：放到段正中，悬空最少
+		return (float(lo_col) * TILE + float(hi_col + 1) * TILE) * 0.5
+	return clampf(cx, lo, hi)
 
 ## 素材的可见区域（去透明边），缓存
 func _bbox(tex: Texture2D) -> Rect2:
