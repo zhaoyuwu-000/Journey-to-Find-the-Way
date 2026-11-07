@@ -43,9 +43,13 @@ const MID_Z := [-48, -36, -24, -12]      # 中景在前后四个深度上均匀�
 const FAR_Z := [-104, -92, -80]          # 远景整体更深
 const LAYER_ALPHA := [1.0, 0.82, 0.6]
 const LAYER_TINT := [Color(1, 1, 1), Color(1, 1, 1), Color(1.0, 0.99, 0.9)]
-const LAYER_HEIGHT := [Vector2(300, 680), Vector2(1500, 3000), Vector2(2000, 3600)]   # 基准
-const LAYER_WIDTH_CAP := [800.0, 1500.0, 1700.0]
-const LAYER_PERIOD := [1.1, 1.6, 2.6]      # 每层每隔几格长一个（越小越密）
+const LAYER_HEIGHT := [Vector2(140, 330), Vector2(1500, 3000), Vector2(2000, 3600)]   # 基准
+const LAYER_WIDTH_CAP := [420.0, 1500.0, 1700.0]
+const LAYER_PERIOD := [1.1, 1.6, 2.6]      # 中/远：每隔几格长一个（越小越密）
+const NEAR_CLUSTER_PERIOD := 7.5           # 近景：每隔几格来一簇
+const NEAR_CLUSTER_MIN := 3                # 一簇几株
+const NEAR_CLUSTER_MAX := 7
+const NEAR_CLUSTER_SPREAD := 1.7           # 簇内左右散布（格）
 
 var _tm: TileMapLayer
 # ====== 可编辑参数（Inspector 里改，编辑器里实时预览）======
@@ -145,7 +149,21 @@ func _rebuild() -> void:
 		if x - prev_x > 2:
 			acc = [_rng.randf(), _rng.randf(), _rng.randf()]
 		prev_x = x
-		for layer in 3:
+		# 近景：成簇随机
+		acc[0] += 1.0 / (NEAR_CLUSTER_PERIOD / maxf(near_density, 0.05))
+		if acc[0] >= 1.0:
+			acc[0] -= 1.0
+			var n := _rng.randi_range(NEAR_CLUSTER_MIN, NEAR_CLUSTER_MAX)
+			for i in n:
+				var off := _rng.randf_range(-NEAR_CLUSTER_SPREAD, NEAR_CLUSTER_SPREAD) * TILE
+				var col := int(floor((float(x) * TILE + TILE * 0.5 + off) / TILE))
+				var row = surface.get(col, null)
+				if row == null:
+					row = surface[x]
+					col = x
+				_spawn(col, 0, int(row), surface, off)
+		# 中/远：各自均匀
+		for layer in [1, 2]:
 			acc[layer] += 1.0 / (LAYER_PERIOD[layer] / _layer_density(layer))
 			if acc[layer] >= 1.0:
 				acc[layer] -= 1.0
@@ -186,7 +204,7 @@ func _add_background() -> void:
 	rect.size = Vector2(120000, 120000)
 	add_child(rect, false, Node.INTERNAL_MODE_FRONT)
 
-func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary) -> void:
+func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary, extra_offset := 0.0) -> void:
 	var pool: Array = [NEAR, MID, FAR][layer]
 	var tex: Texture2D = pool[_rng.randi() % pool.size()]
 	var bbox: Rect2 = _bbox(tex)
@@ -218,7 +236,7 @@ func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary) -> v
 		sp.z_index = LAYER_Z[0]
 	sp.modulate = Color(LAYER_TINT[layer].r, LAYER_TINT[layer].g, LAYER_TINT[layer].b, alpha)
 	var jitter := _rng.randf_range(-0.35, 0.35) * TILE
-	var cx: float = float(cell_x) * TILE + TILE * 0.5 + jitter
+	var cx: float = float(cell_x) * TILE + TILE * 0.5 + jitter + extra_offset
 	# 悬空检测：按可见宽度看左右两端，落到同一高度的地面才站得住，否则往里收
 	var half_w: float = bbox.size.x * s * 0.5          # 素材完整宽度的一半
 	var margin: float = TILE                            # 边缘留一格空间
