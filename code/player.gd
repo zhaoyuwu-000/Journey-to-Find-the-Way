@@ -232,6 +232,9 @@ func _update_state() -> void:
 			ability_choose.confirm()   # X = 确认光标选中的能力（不用上键）
 		return
 	if Input.is_action_just_pressed("choose_ability") and is_on_floor():
+		# 不可控时不弹能力选择：操控熊、对话中、菜单/设置、死亡、切关都算
+		if not can_be_controlled:
+			return
 		# 对话中不弹能力选择面板，避免确认键被对话吃掉
 		var dlg := get_node_or_null("/root/Dialogue")
 		if dlg != null and dlg.is_playing():

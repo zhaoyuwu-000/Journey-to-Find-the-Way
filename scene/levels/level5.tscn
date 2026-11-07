@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://rlurc2olkxoi" path="res://scene/ability_point_manager.tscn" id="3_nom2u"]
 [ext_resource type="PackedScene" uid="uid://4mwxh3htco5g" path="res://scene/ability_point.tscn" id="8_nxili"]
 [ext_resource type="PackedScene" uid="uid://ca4i0fmpdqres" path="res://scene/barrier.tscn" id="9_7nrgl"]
+[ext_resource type="PackedScene" uid="uid://b00hr5qhu8pgc" path="res://scene/trap.tscn" id="10_7nrgl"]
 [ext_resource type="Script" uid="uid://bcc1d4fa5k2wv" path="res://code/water_blend.gd" id="90_waterblend"]
 [ext_resource type="Script" uid="uid://d6jnilqup47k" path="res://code/water_flow.gd" id="91_waterflow"]
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
@@ -46,7 +47,18 @@ property = 2
 
 [node name="Barrier" parent="." unique_id=1207360845 instance=ExtResource("9_7nrgl")]
 position = Vector2(17863, -2619.0002)
-scale = Vector2(1.3321104, 3.60829)
+
+[node name="CollisionShape2D" parent="Barrier" index="0" unique_id=323140085]
+position = Vector2(-218, 145.00024)
+scale = Vector2(21.606573, 10.724854)
+
+[node name="Sprite2D" parent="Barrier" index="1" unique_id=1028381399]
+position = Vector2(756, 274.00024)
+scale = Vector2(11.731683, 13.166151)
+
+[node name="Trap" parent="Barrier" unique_id=164423975 instance=ExtResource("10_7nrgl")]
+position = Vector2(28421, 8337)
+scale = Vector2(79.576805, 14.231566)
 
 [node name="AbilityPoint3" parent="." unique_id=1651577266 instance=ExtResource("8_nxili")]
 position = Vector2(58989, -1614)
@@ -143,15 +155,9 @@ scale = Vector2(1.44, 1.44)
 property = 0
 
 [editable path="Barrier"]
-
 [editable path="Barrier2"]
-
 [editable path="Barrier3"]
-
 [editable path="Barrier4"]
-
 [editable path="Barrier5"]
-
 [editable path="Barrier6"]
-
 [editable path="Barrier7"]
