@@ -53,30 +53,6 @@ zoom = Vector2(0.1, 0.1)
 position = Vector2(177408, -12521)
 size_tiles = 5.0
 
-[node name="Barrier" parent="." unique_id=1207360845 instance=ExtResource("9_ei3ob")]
-position = Vector2(17426, -1720)
-scale = Vector2(1, 1.7599995)
-
-[node name="CollisionShape2D" parent="Barrier" index="0" unique_id=323140085]
-scale = Vector2(9.127542, 4.541543)
-
-shape = SubResource("RectangleShape2D_barrier")
-[node name="Sprite2D" parent="Barrier" index="1" unique_id=1028381399]
-position = Vector2(461.99997, 48.295536)
-scale = Vector2(5, 5.3636365)
-
-[node name="Barrier2" parent="." unique_id=1172908171 instance=ExtResource("9_ei3ob")]
-position = Vector2(26742, -1715)
-scale = Vector2(1, 2.0649135)
-
-[node name="CollisionShape2D" parent="Barrier2" index="0" unique_id=323140085]
-shape = SubResource("RectangleShape2D_barrier2")
-[node name="Barrier3" parent="." unique_id=1551827751 instance=ExtResource("9_ei3ob")]
-position = Vector2(32878, -1905.0001)
-scale = Vector2(1, 3.119999)
-
-[node name="CollisionShape2D" parent="Barrier3" index="0" unique_id=323140085]
-shape = SubResource("RectangleShape2D_barrier3")
 [node name="AbilityPoint" parent="." unique_id=881492649 instance=ExtResource("10_rk1us")]
 position = Vector2(43821, -1342)
 scale = Vector2(2.6709726, 2.6709726)
@@ -97,30 +73,10 @@ position = Vector2(67051, 7025)
 scale = Vector2(3.4000292, 3.4000292)
 property = 2
 
-[node name="Barrier4" parent="." unique_id=103098320 instance=ExtResource("9_ei3ob")]
-position = Vector2(86349.99, 6216)
-scale = Vector2(1.080039, 1.4)
-
-[node name="CollisionShape2D" parent="Barrier4" index="0" unique_id=323140085]
-shape = SubResource("RectangleShape2D_barrier4")
-[node name="Sprite2D" parent="Barrier4" index="1" unique_id=1028381399]
-scale = Vector2(5, 5.0427766)
-
 [node name="AbilityPoint5" parent="." unique_id=166857815 instance=ExtResource("10_rk1us")]
 position = Vector2(55521.996, -1603)
 scale = Vector2(3.04, 3.04)
 property = 1
-
-[node name="Barrier5" parent="." unique_id=1082618956 instance=ExtResource("9_ei3ob")]
-position = Vector2(67812, -2019.9999)
-scale = Vector2(-1.2527959, 3.537605)
-
-[node name="CollisionShape2D" parent="Barrier5" index="0" unique_id=323140085]
-scale = Vector2(9.186578, 4.2915435)
-
-shape = SubResource("RectangleShape2D_barrier5")
-[node name="Sprite2D" parent="Barrier5" index="1" unique_id=1028381399]
-scale = Vector2(5, 5.2600627)
 
 [node name="AbilityPoint6" parent="." unique_id=928324853 instance=ExtResource("10_rk1us")]
 position = Vector2(97001, -1387.0001)
@@ -132,29 +88,45 @@ position = Vector2(126728, -4159)
 scale = Vector2(1.72, 1.72)
 property = 0
 
-[node name="Barrier6" parent="." unique_id=1394351754 instance=ExtResource("9_ei3ob")]
-position = Vector2(154906.02, -10401.999)
-scale = Vector2(1.6600015, 3.3200011)
-
-[node name="CollisionShape2D" parent="Barrier6" index="0" unique_id=323140085]
-shape = SubResource("RectangleShape2D_barrier6")
-[node name="Barrier7" parent="." unique_id=1529763619 instance=ExtResource("9_ei3ob")]
-position = Vector2(134940, -5022.0005)
-scale = Vector2(2.755605, 11.022408)
-
-[node name="CollisionShape2D" parent="Barrier7" index="0" unique_id=323140085]
-position = Vector2(231.8893, 37.741302)
-scale = Vector2(4.1340685, 1.6097335)
-
-shape = SubResource("RectangleShape2D_barrier7")
-[node name="Sprite2D" parent="Barrier7" index="1" unique_id=1028381399]
-position = Vector2(430.03207, 63.869873)
-scale = Vector2(2.1385972, 1.9985045)
-
 [node name="AbilityPoint8" parent="." unique_id=556629276 instance=ExtResource("10_rk1us")]
 position = Vector2(111960.01, -10127.001)
 scale = Vector2(4.31999, 4.31999)
 property = 1
+
+[node name="Barrier" parent="." unique_id=1207360845 instance=ExtResource("9_ei3ob")]
+position = Vector2(17794, -1499)
+
+[node name="CollisionShape2D" parent="Barrier" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier")
+[node name="Barrier2" parent="." unique_id=1380454386 instance=ExtResource("9_ei3ob")]
+position = Vector2(27250, -1540)
+
+[node name="CollisionShape2D" parent="Barrier2" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier2")
+[node name="Barrier3" parent="." unique_id=1031474972 instance=ExtResource("9_ei3ob")]
+position = Vector2(33859, -1513)
+
+[node name="CollisionShape2D" parent="Barrier3" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier3")
+[node name="Barrier4" parent="." unique_id=874951929 instance=ExtResource("9_ei3ob")]
+position = Vector2(85851, 6216)
+
+[node name="CollisionShape2D" parent="Barrier4" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier4")
+[node name="Barrier5" parent="." unique_id=235713195 instance=ExtResource("9_ei3ob")]
+position = Vector2(134786, -4003)
+
+[node name="CollisionShape2D" parent="Barrier5" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier5")
+[node name="Barrier6" parent="." unique_id=60399131 instance=ExtResource("9_ei3ob")]
+position = Vector2(68618, -1362)
+
+[node name="CollisionShape2D" parent="Barrier6" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier6")
+[node name="Barrier7" parent="." unique_id=239775730 instance=ExtResource("9_ei3ob")]
+position = Vector2(155209, -9998)
+[node name="CollisionShape2D" parent="Barrier7" index="0" unique_id=323140085]
+shape = SubResource("RectangleShape2D_barrier7")
 
 [editable path="Barrier"]
 [editable path="Barrier2"]

@@ -13,6 +13,7 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier"]
 size = Vector2(108.68205, 104.39134)
+
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_us4mx")
 
@@ -77,8 +78,8 @@ position = Vector2(117683, -8156)
 [node name="CollisionShape2D" parent="Barrier" index="0" unique_id=323140085]
 position = Vector2(35.999996, -509.99997)
 scale = Vector2(9.127542, 15.449547)
-
 shape = SubResource("RectangleShape2D_barrier")
+
 [node name="Sprite2D" parent="Barrier" index="1" unique_id=1028381399]
 position = Vector2(539, -286)
 scale = Vector2(5.4, 19.76835)
