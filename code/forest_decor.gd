@@ -27,8 +27,10 @@ const MID := [
 	preload("res://sprite/场景图，neva/场景图/_0003_中景花.png"),
 	preload("res://sprite/场景图，neva/远中树2.png"),
 ]
-## 这张统一压到中景最后面
+## 这张统一压到中景最后面，出现概率也调低
 const BACK_TEX := preload("res://sprite/场景图，neva/远中树2.png")
+# MID 池对应的权重：中树 / 中树2 / 中景花 / 远中树2
+const MID_WEIGHTS := [1.0, 1.0, 1.0, 0.18]
 
 const FAR := [
 	preload("res://sprite/场景图，neva/场景图/_0010_远景树4.png"),
@@ -205,8 +207,12 @@ func _add_background() -> void:
 	add_child(rect, false, Node.INTERNAL_MODE_FRONT)
 
 func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary, extra_offset := 0.0) -> void:
-	var pool: Array = [NEAR, MID, FAR][layer]
-	var tex: Texture2D = pool[_rng.randi() % pool.size()]
+	var tex: Texture2D
+	if layer == 1:
+		tex = _pick_mid()
+	else:
+		var pool: Array = [NEAR, MID, FAR][layer]
+		tex = pool[_rng.randi() % pool.size()]
 	var bbox: Rect2 = _bbox(tex)
 	var mul := _layer_scale(layer)
 	var h: float = _rng.randf_range(LAYER_HEIGHT[layer].x, LAYER_HEIGHT[layer].y) * mul
@@ -271,6 +277,18 @@ func _is_drop(col: int, surface_row: int, surface: Dictionary) -> bool:
 	if v == null:
 		return true       # 没有地面 = 悬空
 	return int(v) > surface_row    # 行号更大 = 更低
+
+## 中景按权重随机（远中树2 权重低）
+func _pick_mid() -> Texture2D:
+	var total := 0.0
+	for w in MID_WEIGHTS:
+		total += w
+	var r := _rng.randf() * total
+	for i in MID.size():
+		r -= MID_WEIGHTS[i]
+		if r <= 0.0:
+			return MID[i]
+	return MID[MID.size() - 1]
 
 ## 素材的可见区域（去透明边），缓存
 func _bbox(tex: Texture2D) -> Rect2:
