@@ -1,11 +1,12 @@
 @tool
 extends Node2D
-## 装饰分近/中/远三层：
-##   DecorTile/Markers 里画三种 tile（0=近景 1=中景 2=远景），每种 tile 在该格随机长一个对应层的素材。
-##   中景略淡、远景更淡，最后一层背景用淡黄色铺满。
+## 近/中/远三层装饰：按地面自动、独立、均匀地长，全部贴地。
+##   近景：草/前景草，贴地，密
+##   中景：树/花，放大、贴地
+##   远景：高树，更淡，最后铺淡黄背景
 
 const TILE := 600.0
-const SURFACE := 506.0          # 地面 tile 顶面相对格子顶部的偏移
+const SURFACE := 506.0
 
 const NEAR := [
 	preload("res://sprite/场景图，neva/场景图/_0001_近景杂草.png"),
@@ -34,96 +35,115 @@ const FAR := [
 	preload("res://sprite/场景图，neva/树1.png"),
 ]
 
-## 每层的 z / 透明度 / 高度范围(px)
 const LAYER_Z := [40, -20, -60]
 const LAYER_ALPHA := [1.0, 0.82, 0.6]
 const LAYER_TINT := [Color(1, 1, 1), Color(1, 1, 1), Color(1.0, 0.99, 0.9)]
-const LAYER_HEIGHT := [Vector2(260, 540), Vector2(800, 1500), Vector2(1800, 3400)]
-const LAYER_WIDTH_CAP := [700.0, 1200.0, 1500.0]
+const LAYER_HEIGHT := [Vector2(300, 680), Vector2(1500, 3000), Vector2(2000, 3600)]
+const LAYER_WIDTH_CAP := [800.0, 1500.0, 1700.0]
+const LAYER_PERIOD := [1.1, 1.6, 2.6]      # 每层每隔几格长一个（越小越密）
 
-const BG_COLOR := Color(0.99, 0.96, 0.82)   # 最后一层背景：淡黄
+const BG_COLOR := Color(0.99, 0.96, 0.82)
 
-var _markers: TileMapLayer
 var _tm: TileMapLayer
 var _rng := RandomNumberGenerator.new()
+var _bbox_cache := {}
 
 func _ready() -> void:
 	_rng.seed = 20261107
-	_markers = get_node_or_null("Markers") as TileMapLayer
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
-	if Engine.is_editor_hint() and _markers != null:
-		_markers.changed.connect(_rebuild, CONNECT_DEFERRED)
+	if Engine.is_editor_hint() and _tm != null:
+		_tm.changed.connect(_rebuild, CONNECT_DEFERRED)
 	_rebuild()
 
 func _rebuild() -> void:
 	for c in get_children(true):
 		remove_child(c)
-	if _markers == null:
+	if _tm == null or _tm.tile_set == null:
 		return
 	_add_background()
-	for cell in _markers.get_used_cells():
-		var layer := _markers.get_cell_source_id(cell)
-		if layer < 0 or layer > 2:
-			continue
-		_spawn(cell, layer)
+	var surface := _surface_rows()
+	if surface.is_empty():
+		return
+	var xs := surface.keys()
+	xs.sort()
+	var acc := [_rng.randf(), _rng.randf(), _rng.randf()]
+	var prev_x: int = xs[0] - 2
+	for x in xs:
+		# 断开的两段地面，重新起相位
+		if x - prev_x > 2:
+			acc = [_rng.randf(), _rng.randf(), _rng.randf()]
+		prev_x = x
+		for layer in 3:
+			acc[layer] += 1.0 / LAYER_PERIOD[layer]
+			if acc[layer] >= 1.0:
+				acc[layer] -= 1.0
+				_spawn(x, layer, surface[x])
 
-## 淡黄色背景，铺在整个关卡后面
+## 每列最上面的实心 tile 行（地面）
+func _surface_rows() -> Dictionary:
+	var out := {}
+	for cell in _tm.get_used_cells():
+		if not _is_solid(cell):
+			continue
+		if not out.has(cell.x) or cell.y < out[cell.x]:
+			out[cell.x] = cell.y
+	return out
+
 func _add_background() -> void:
 	var rect := ColorRect.new()
 	rect.color = BG_COLOR
 	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rect.z_index = -1000
 	var center := Vector2.ZERO
-	if _tm != null:
-		var used := _tm.get_used_cells()
-		if not used.is_empty():
-			var lo := used[0]
-			var hi := used[0]
-			for c in used:
-				lo.x = mini(lo.x, c.x); lo.y = mini(lo.y, c.y)
-				hi.x = maxi(hi.x, c.x); hi.y = maxi(hi.y, c.y)
-			center = _tm.position + Vector2(float(lo.x + hi.x) * 0.5 * TILE, float(lo.y + hi.y) * 0.5 * TILE)
+	var used := _tm.get_used_cells()
+	if not used.is_empty():
+		var lo := used[0]
+		var hi := used[0]
+		for c in used:
+			lo.x = mini(lo.x, c.x); lo.y = mini(lo.y, c.y)
+			hi.x = maxi(hi.x, c.x); hi.y = maxi(hi.y, c.y)
+		center = _tm.position + Vector2(float(lo.x + hi.x) * 0.5 * TILE, float(lo.y + hi.y) * 0.5 * TILE)
 	rect.position = center - Vector2(60000, 60000)
 	rect.size = Vector2(120000, 120000)
 	add_child(rect, false, Node.INTERNAL_MODE_FRONT)
 
-func _spawn(cell: Vector2i, layer: int) -> void:
+func _spawn(cell_x: int, layer: int, surface_row: int) -> void:
 	var pool: Array = [NEAR, MID, FAR][layer]
 	var tex: Texture2D = pool[_rng.randi() % pool.size()]
-	var content := _content_rect(tex)
+	var bbox: Rect2 = _bbox(tex)
 	var h: float = _rng.randf_range(LAYER_HEIGHT[layer].x, LAYER_HEIGHT[layer].y)
-	var s: float = h / maxf(content.size.y, 1.0)
-	s = minf(s, LAYER_WIDTH_CAP[layer] / maxf(content.size.x, 1.0))
+	var s: float = h / maxf(bbox.size.y, 1.0)
+	s = minf(s, LAYER_WIDTH_CAP[layer] / maxf(bbox.size.x, 1.0))
 
 	var sp := Sprite2D.new()
 	sp.texture = tex
 	sp.centered = true
-	sp.offset = Vector2(0, -content.size.y * 0.5 - content.position.y)
 	sp.scale = Vector2(s, s)
+	# 用可见区域对齐：横向居中、底部刚好压在地面
+	sp.offset = Vector2(tex.get_size().x * 0.5 - bbox.get_center().x,
+		tex.get_size().y * 0.5 - bbox.end.y)
 	sp.flip_h = _rng.randf() < 0.5
 	sp.z_index = LAYER_Z[layer]
 	sp.modulate = Color(LAYER_TINT[layer].r, LAYER_TINT[layer].g, LAYER_TINT[layer].b, LAYER_ALPHA[layer])
-	var ground := _ground_y(cell)
-	var jitter: float = _rng.randf_range(-0.3, 0.3) * TILE
-	sp.position = Vector2(float(cell.x) * TILE + TILE * 0.5 + jitter, ground)
+	var jitter := _rng.randf_range(-0.35, 0.35) * TILE
+	sp.position = Vector2(float(cell_x) * TILE + TILE * 0.5 + jitter, float(surface_row) * TILE + SURFACE)
 	add_child(sp, false, Node.INTERNAL_MODE_FRONT)
 
-## 素材可见区域（去掉透明边），没有就整张
-func _content_rect(tex: Texture2D) -> Rect2:
-	return Rect2(Vector2.ZERO, tex.get_size())
-
-## 这一列的落地高度（该列最上面的实心 tile 顶面）
-func _ground_y(cell: Vector2i) -> float:
-	if _tm == null:
-		return float(cell.y) * TILE + SURFACE
-	for row in range(cell.y - 12, cell.y + 8):
-		if _is_solid(Vector2i(cell.x, row)):
-			return float(row) * TILE + SURFACE
-	return float(cell.y) * TILE + SURFACE
+## 素材的可见区域（去透明边），缓存
+func _bbox(tex: Texture2D) -> Rect2:
+	var key := tex.get_instance_id()
+	if _bbox_cache.has(key):
+		return _bbox_cache[key]
+	var img := tex.get_image()
+	var r := Rect2(Vector2.ZERO, tex.get_size())
+	if img != null:
+		var used := img.get_used_rect()
+		if used.size.x > 0 and used.size.y > 0:
+			r = Rect2(used)
+	_bbox_cache[key] = r
+	return r
 
 func _is_solid(cell: Vector2i) -> bool:
-	if _tm == null or _tm.tile_set == null:
-		return false
 	var sid := _tm.get_cell_source_id(cell)
 	if sid < 0:
 		return false
