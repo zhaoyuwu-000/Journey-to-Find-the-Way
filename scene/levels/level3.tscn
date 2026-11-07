@@ -73,3 +73,5 @@ position = Vector2(117683, -8156)
 
 [node name="AbilityPoint7" parent="." unique_id=1238127482 instance=ExtResource("9_cc7lp")]
 position = Vector2(189503, -5222)
+
+[editable path="Barrier"]

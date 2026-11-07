@@ -70,3 +70,5 @@ property = 1
 position = Vector2(125795, 5518)
 scale = Vector2(4.08, 4.08)
 property = 1
+
+[editable path="Barrier"]
