@@ -56,6 +56,21 @@ const BASE_SCALE := 0.8318
 		_refresh()
 
 @export_group("上下浮动范围")
+## 浮动跟随的平滑时间（秒）：越大越柔
+@export var smooth_time := 0.20:
+	set(v):
+		smooth_time = maxf(v, 0.01)
+
+## 预测落地的最大向下探测距离
+@export var predict_distance := 8000.0:
+	set(v):
+		predict_distance = maxf(v, 100.0)
+
+## 探测不到地面时，按这个距离预测（避免久坑一直浮）
+@export var predict_fallback := 1200.0:
+	set(v):
+		predict_fallback = maxf(v, 0.0)
+
 ## 相对静止位置最多往上浮多少像素（负数，例如 -600 表示最多上移 600）
 @export var float_up_limit := -240.0:
 	set(v):
@@ -68,7 +83,8 @@ const BASE_SCALE := 0.8318
 var _frames: Array[Node2D] = []
 var _static_y: Array[float] = []
 var _rises: Array[float] = []
-var _ref_cam_y := NAN     # 相对"狐狸落地时的相机高度"
+var _ref_cam_y := NAN     # 平滑后的"狐狸落地点对应的相机高度"
+var _cur_off: Array[float] = []   # 平滑后的实际偏移
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
 
 func _ready() -> void:
@@ -82,6 +98,7 @@ func _refresh() -> void:
 	_frames.clear()
 	_static_y.clear()
 	_rises.clear()
+	_cur_off.clear()
 	var layers: Array = []
 	for c in get_children():
 		if c is ParallaxLayer:
@@ -97,6 +114,7 @@ func _refresh() -> void:
 			continue
 		_frames.append(frame)
 		_static_y.append(-raise_spread * (1.0 - t) + float(y_offsets.get(String(layer.name), 0.0)))
+		_cur_off.append(0.0)
 		_rises.append(lerpf(far_rise, near_rise, t))
 		frame.scale = Vector2(BASE_SCALE, BASE_SCALE) * layer_scale
 		frame.position.y = _static_y[-1]
@@ -166,6 +184,18 @@ func _camera_owner() -> Node2D:
 		return owner_node
 	return parent.get_node_or_null("Player") as Node2D
 
+## 预测狐狸的落地高度（向下打一条射线）
+func _predict_land_y(fox: Node2D) -> float:
+	var space := get_viewport().world_2d.direct_space_state
+	var from := fox.global_position + Vector2(0, 24.0)
+	var to := from + Vector2(0, predict_distance)
+	var query := PhysicsRayQueryParameters2D.create(from, to, 1)   # 地面图层
+	query.exclude = [fox]
+	var hit := space.intersect_ray(query)
+	if hit.is_empty():
+		return fox.global_position.y + predict_fallback
+	return float(hit.position.y)
+
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint() or _frames.is_empty():
 		return
@@ -173,19 +203,29 @@ func _process(_delta: float) -> void:
 	if cam == null:
 		return
 	var cam_y := cam.global_position.y
-	# 以"狐狸站着的地方"为基准：落地就重置基准，只有跳跃/下落时才浮动
 	var fox := _camera_owner()
-	var grounded := fox is CharacterBody2D and (fox as CharacterBody2D).is_on_floor()
-	if is_nan(_ref_cam_y) or grounded:
-		_ref_cam_y = cam_y
+	# 目标基准：站地上 = 当前相机高度；空中 = 预测落地点的相机高度
+	var target_ref := cam_y
+	if fox != null:
+		var fox_y := fox.global_position.y
+		var grounded := fox is CharacterBody2D and (fox as CharacterBody2D).is_on_floor()
+		if not grounded:
+			var land_y := _predict_land_y(fox)
+			target_ref = cam_y + (land_y - fox_y)   # 相机会跟着狐狸落下这么多
+	if is_nan(_ref_cam_y):
+		_ref_cam_y = target_ref
+	# 基准本身也平滑，落地点算偏了也不会跳
+	var kref := 1.0 - exp(-_delta / maxf(smooth_time, 0.001))
+	_ref_cam_y = lerpf(_ref_cam_y, target_ref, kref)
 	var dy := cam_y - _ref_cam_y
-	if dy > 0.0:
-		# 从基准往下落：整块背景一起跟随，不分层
-		var follow := clampf(fall_speed * dy, float_up_limit, float_down_limit)
-		for i in _frames.size():
-			_frames[i].position.y = _static_y[i] + follow
-	else:
-		# 往上跳：越远的层浮动越大，但每层都不超过上下限
-		for i in _frames.size():
-			var off := clampf(_rises[i] * dy, float_up_limit, float_down_limit)
-			_frames[i].position.y = _static_y[i] + off
+	# 每层目标偏移（含上下限），再平滑逼近
+	for i in _frames.size():
+		var target: float
+		if dy > 0.0:
+			target = clampf(fall_speed * dy, float_up_limit, float_down_limit)
+		else:
+			target = clampf(_rises[i] * dy, float_up_limit, float_down_limit)
+		if _cur_off.size() <= i:
+			_cur_off.append(0.0)
+		_cur_off[i] = lerpf(_cur_off[i], target, kref)
+		_frames[i].position.y = _static_y[i] + _cur_off[i]
