@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://4mwxh3htco5g"]
+
+[ext_resource type="Script" uid="uid://d13ddgqu885q0" path="res://code/ability_point.gd" id="1_xjvku"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fytpu"]
+radius = 84.29116
+
+[node name="AbilityPoint" type="Node2D" unique_id=881492649 groups=["abilitypoints"]]
+script = ExtResource("1_xjvku")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=341280674]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=285476782]
+shape = SubResource("CircleShape2D_fytpu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1914347367]

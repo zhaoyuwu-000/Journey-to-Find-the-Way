@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ca4i0fmpdqres"]
+
+[ext_resource type="Texture2D" uid="uid://76vcioqoppp2" path="res://sprite/场景图，neva/石块.png" id="1_l6p4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fytpu"]
+size = Vector2(108.68205, 104.39134)
+
+[node name="Barrier" type="RigidBody2D" unique_id=1207360845]
+lock_rotation = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=323140085]
+position = Vector2(-12, 2.0000076)
+scale = Vector2(9.127542, 4.2915435)
+shape = SubResource("RectangleShape2D_fytpu")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028381399]
+position = Vector2(442.99997, 58.999996)
+scale = Vector2(5, 5)
+texture = ExtResource("1_l6p4b")

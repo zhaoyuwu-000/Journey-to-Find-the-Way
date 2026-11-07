@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://dhxskxw6we36b"]
+
+[ext_resource type="Texture2D" uid="uid://b2qgk5kke4kyj" path="res://sprite/场景图，neva/fish/鱼待机_01.png" id="1_cp3gh"]
+[ext_resource type="Texture2D" uid="uid://ccg4govtd83or" path="res://sprite/场景图，neva/fish/鱼游1.png" id="1_ktpa4"]
+[ext_resource type="Texture2D" uid="uid://caqjf1nt52wma" path="res://sprite/场景图，neva/fish/鱼游2.png" id="2_k3fv3"]
+[ext_resource type="Texture2D" uid="uid://qetohxyw62lo" path="res://sprite/场景图，neva/fish/鱼待机_02.png" id="2_mtnys"]
+[ext_resource type="Texture2D" uid="uid://boy2qo21rc40m" path="res://sprite/场景图，neva/fish/鱼待机_03.png" id="3_nlhpg"]
+[ext_resource type="Texture2D" uid="uid://bwl3oaw6cl2j1" path="res://sprite/场景图，neva/fish/鱼游3.png" id="3_umg1r"]
+[ext_resource type="Texture2D" uid="uid://bsmpm7tskajkt" path="res://sprite/场景图，neva/fish/鱼游4.png" id="4_mmtia"]
+[ext_resource type="Texture2D" uid="uid://dqqm4sioo01gs" path="res://sprite/场景图，neva/fish/鱼待机_04.png" id="4_w3v3o"]
+[ext_resource type="Texture2D" uid="uid://butbo3hinmkod" path="res://sprite/场景图，neva/fish/鱼游5.png" id="5_acxye"]
+[ext_resource type="Texture2D" uid="uid://cwolmgehbw8yd" path="res://sprite/场景图，neva/fish/鱼待机_05.png" id="5_gehia"]
+[ext_resource type="Texture2D" uid="uid://5iq70p4m38mq" path="res://sprite/场景图，neva/fish/鱼游6.png" id="6_iulgx"]
+[ext_resource type="Texture2D" uid="uid://dxqmjsgd5dly2" path="res://sprite/场景图，neva/fish/鱼待机_06.png" id="6_vvlwi"]
+[ext_resource type="Texture2D" uid="uid://cdou7a5m1uqdr" path="res://sprite/场景图，neva/fish/鱼游7.png" id="7_epiuy"]
+[ext_resource type="Texture2D" uid="uid://bxl3abyklifl" path="res://sprite/场景图，neva/fish/鱼待机_07.png" id="7_v1wnx"]
+[ext_resource type="Texture2D" uid="uid://d0ltsh8ncbfgb" path="res://sprite/场景图，neva/fish/鱼待机_08.png" id="8_mr81g"]
+[ext_resource type="Texture2D" uid="uid://be6dq2t1c6hlm" path="res://sprite/场景图，neva/fish/鱼游8.png" id="8_q88we"]
+[ext_resource type="Texture2D" uid="uid://ceyot3b1utxsq" path="res://sprite/场景图，neva/fish/鱼游9.png" id="9_cp3gh"]
+[ext_resource type="Texture2D" uid="uid://lpxbkmcrbxa3" path="res://sprite/场景图，neva/fish/鱼游10.png" id="10_mtnys"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fytpu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cp3gh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mtnys")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nlhpg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_w3v3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_gehia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vvlwi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_v1wnx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_mr81g")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ktpa4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_k3fv3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_umg1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mmtia")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_acxye")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_iulgx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_epiuy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_q88we")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_cp3gh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_mtnys")
+}],
+"loop": 1,
+"name": &"swim",
+"speed": 10.0
+}]
+
+[node name="Fish" type="Node2D" unique_id=1600844555]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1850932137]
+sprite_frames = SubResource("SpriteFrames_fytpu")
+animation = &"swim"

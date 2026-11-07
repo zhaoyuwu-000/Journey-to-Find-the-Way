@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://drr3d3jhkbit1"]
+
+[ext_resource type="Script" uid="uid://c3ea8r0ciypq5" path="res://code/portal.gd" id="1_portal"]
+[ext_resource type="Texture2D" uid="uid://jdra0a0ba5mi" path="res://sprite/场景图，neva/可碰撞/传送门.png" id="2_pno75"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
+size = Vector2(360, 732)
+
+[node name="Portal" type="Area2D" unique_id=1129786981]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_portal")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1873016728]
+position = Vector2(151, -1329.0001)
+scale = Vector2(5, 5)
+texture = ExtResource("2_pno75")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=342983687]
+position = Vector2(9, -431)
+shape = SubResource("RectangleShape2D_portal")

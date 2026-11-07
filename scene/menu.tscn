@@ -1,0 +1,132 @@
+[gd_scene load_steps=11 format=3 uid="uid://e6y2mfob2qla"]
+
+[ext_resource type="Script" path="res://code/menu.gd" id="1_menu"]
+[ext_resource type="Texture2D" path="res://sprite/ui/字体（寻路之旅）.png" id="2_title"]
+[ext_resource type="Texture2D" path="res://sprite/ui/字体（开始游戏）.png" id="3_start"]
+[ext_resource type="Texture2D" path="res://sprite/ui/字体（设置游戏）.png" id="4_settings"]
+[ext_resource type="Texture2D" path="res://sprite/ui/字体（退出游戏）.png" id="5_quit"]
+[ext_resource type="Texture2D" path="res://sprite/场景图，neva/场景图/_0016_远天延申.png" id="6_sky"]
+
+[sub_resource type="AtlasTexture" id="at_title"]
+atlas = ExtResource("2_title")
+region = Rect2(20, 215, 1650, 830)
+
+[sub_resource type="AtlasTexture" id="at_start"]
+atlas = ExtResource("3_start")
+region = Rect2(310, 970, 1150, 295)
+
+[sub_resource type="AtlasTexture" id="at_settings"]
+atlas = ExtResource("4_settings")
+region = Rect2(265, 975, 1160, 295)
+
+[sub_resource type="AtlasTexture" id="at_quit"]
+atlas = ExtResource("5_quit")
+region = Rect2(250, 945, 1160, 295)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Sky" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.22)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_sky")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Left" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+anchor_right = 0.5
+offset_left = 56.0
+offset_top = 28.0
+offset_right = -24.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="TitleWrap" type="MarginContainer" parent="Left/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Title" type="TextureRect" parent="Left/VBox/TitleWrap"]
+layout_mode = 2
+texture = SubResource("at_title")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StartWrap" type="MarginContainer" parent="Left/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 72)
+size_flags_vertical = 0
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="BtnStart" type="TextureButton" parent="Left/VBox/StartWrap"]
+layout_mode = 2
+texture_normal = SubResource("at_start")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="ContinueWrap" type="MarginContainer" parent="Left/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 72)
+size_flags_vertical = 0
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="BtnContinue" type="Button" parent="Left/VBox/ContinueWrap"]
+layout_mode = 2
+text = "继续游戏"
+flat = true
+alignment = 1
+
+[node name="SettingsWrap" type="MarginContainer" parent="Left/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 72)
+size_flags_vertical = 0
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="BtnSettings" type="TextureButton" parent="Left/VBox/SettingsWrap"]
+layout_mode = 2
+texture_normal = SubResource("at_settings")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="QuitWrap" type="MarginContainer" parent="Left/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(0, 72)
+size_flags_vertical = 0
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_bottom = 18
+
+[node name="BtnQuit" type="TextureButton" parent="Left/VBox/QuitWrap"]
+layout_mode = 2
+texture_normal = SubResource("at_quit")
+ignore_texture_size = true
+stretch_mode = 5

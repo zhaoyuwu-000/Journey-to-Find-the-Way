@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b00hr5qhu8pgc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fytpu"]
+
+[node name="Trap" type="Node2D" unique_id=164423975]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=500738892]
+collision_layer = 16
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=735717744]
+scale = Vector2(5, 5)
+shape = SubResource("RectangleShape2D_fytpu")

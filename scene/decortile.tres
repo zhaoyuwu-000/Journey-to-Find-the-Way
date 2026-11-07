@@ -1,0 +1,12 @@
+[gd_resource type="TileSet" format=3 uid="uid://ceoj8lxnigats"]
+
+[ext_resource type="Texture2D" uid="uid://cclh8d8oyfvwv" path="res://sprite/decor_marker.png" id="1_ootyi"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4ede"]
+texture = ExtResource("1_ootyi")
+texture_region_size = Vector2i(600, 600)
+0:0/0 = 0
+
+[resource]
+tile_size = Vector2i(600, 600)
+sources/0 = SubResource("TileSetAtlasSource_b4ede")

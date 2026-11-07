@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bq1l8ppnw3c2g"]
+
+[ext_resource type="Script" uid="uid://c0a5toas0saga" path="res://code/game_root.gd" id="1_root"]
+[ext_resource type="PackedScene" uid="uid://e6y2mfob2qla" path="res://scene/menu.tscn" id="2_v2ctd"]
+
+[node name="GameRoot" type="Node2D" unique_id=217110606]
+script = ExtResource("1_root")
+
+[node name="LevelContainer" type="Node2D" parent="." unique_id=1660884013]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=17837251]
+
+[node name="Menu" parent="UI" unique_id=1995387236 instance=ExtResource("2_v2ctd")]
