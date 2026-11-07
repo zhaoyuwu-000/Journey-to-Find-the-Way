@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ba12awg4k5diq"]
 
 [ext_resource type="Script" uid="uid://dkv4uygv0ejjp" path="res://code/level.gd" id="1_uq4q8"]
+[ext_resource type="Script" path="res://code/terrain_dark.gd" id="92_terraindark"]
 [ext_resource type="PackedScene" uid="uid://dt3qv23hq0dn7" path="res://scene/tile_map_layer.tscn" id="2_p3y32"]
 [ext_resource type="PackedScene" uid="uid://rlurc2olkxoi" path="res://scene/ability_point_manager.tscn" id="3_wqpoj"]
 
@@ -9,6 +10,9 @@ script = ExtResource("1_uq4q8")
 
 [node name="TileMapLayer" parent="." unique_id=969810672 instance=ExtResource("2_p3y32")]
 
+
+[node name="TerrainDark" type="Node2D" parent="."]
+script = ExtResource("92_terraindark")
 [node name="StartPoint" type="Node2D" parent="." unique_id=808597786]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=903732662]
