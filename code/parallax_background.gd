@@ -38,7 +38,7 @@ const BASE_SCALE := 0.8318
 
 @export_group("循环滚动")
 ## 循环接缝额外压紧的像素（让两段内容稍微重叠，避免漏缝）
-@export var loop_overlap := 60.0
+@export var loop_overlap := 0.0
 
 @export_group("缩放")
 ## 所有层 Frame 的缩放倍率（1.0 对应基准 0.8318）
@@ -99,6 +99,7 @@ var _ref_cam_y := NAN     # 平滑后的"狐狸落地点对应的相机高度"
 var _cur_off: Array[float] = []   # 平滑后的实际偏移
 var _loop_w: Array[float] = []    # 每层循环一次的宽度
 var _sign: Array[float] = []      # 浮动方向：+1 正常，-1 反向
+var _authored_mirror := {}        # 每层场景里原本的 motion_mirroring.x
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
 var _tex_x := {}        # 贴图 id -> Vector2(可见左边界, 可见右边界)（相对贴图中心）
 
@@ -138,15 +139,21 @@ func _refresh() -> void:
 		frame.scale = Vector2(BASE_SCALE, BASE_SCALE) * layer_scale
 		frame.position.y = _static_y[-1]
 
-	# 每层按实际内容宽度设置循环宽度（Frame 有缩放，直接用 scene 里的 7521 会错位）
+	# 循环宽度：用作者在场景里设定的 motion_mirroring，按 Frame 缩放换算
 	_loop_w.clear()
 	for i in _frames.size():
 		var f := _frames[i]
 		var layer := f.get_parent() as ParallaxLayer
-		var b := _frame_bounds_x(f)
-		var w: float = maxf((b.y - b.x) * f.scale.x - loop_overlap, 1.0)
-		f.position.x = -b.x * f.scale.x
+		var key := layer.get_instance_id() if layer != null else 0
+		var w: float = 0.0
 		if layer != null:
+			if not _authored_mirror.has(key) and layer.motion_mirroring.x > 1.0:
+				_authored_mirror[key] = layer.motion_mirroring.x
+			if _authored_mirror.has(key):
+				w = float(_authored_mirror[key]) * f.scale.x
+			if w <= 1.0:
+				w = maxf(_frame_bounds_x(f).y - _frame_bounds_x(f).x, 1.0) * f.scale.x
+			w += loop_overlap
 			layer.motion_mirroring = Vector2(w, 0.0)
 		_loop_w.append(w)
 
@@ -162,6 +169,8 @@ func _frame_bounds_x(frame: Node2D) -> Vector2:
 	var hi := -INF
 	for c in frame.get_children():
 		if not (c is Sprite2D):
+			continue
+		if String(c.name).begins_with("_loopdup_"):
 			continue
 		var sp := c as Sprite2D
 		var tex := sp.texture
