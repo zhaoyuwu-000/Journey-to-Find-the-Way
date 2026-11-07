@@ -27,6 +27,9 @@ const MID := [
 	preload("res://sprite/场景图，neva/场景图/_0003_中景花.png"),
 	preload("res://sprite/场景图，neva/远中树2.png"),
 ]
+## 这张统一压到中景最后面
+const BACK_TEX := preload("res://sprite/场景图，neva/远中树2.png")
+
 const FAR := [
 	preload("res://sprite/场景图，neva/场景图/_0010_远景树4.png"),
 	preload("res://sprite/场景图，neva/场景图/_0011_远景树3.png"),
@@ -65,7 +68,7 @@ var _tm: TileMapLayer
 	set(v):
 		near_density = maxf(v, 0.05)
 		_rebuild()
-@export var mid_density := 1.0:
+@export var mid_density := 0.55:
 	set(v):
 		mid_density = maxf(v, 0.05)
 		_rebuild()
@@ -172,9 +175,13 @@ func _spawn(cell_x: int, layer: int, surface_row: int, surface: Dictionary) -> v
 	sp.flip_h = _rng.randf() < 0.5
 	var alpha: float = LAYER_ALPHA[layer]
 	if layer == 1:
-		var k := _rng.randi() % MID_Z.size()
-		sp.z_index = MID_Z[k]
-		alpha = 0.9 - 0.06 * float(k)      # 越靠后越淡一点
+		if tex == BACK_TEX:
+			sp.z_index = MID_Z[0]          # 远中树2 永远在最里面
+			alpha = 0.9 - 0.06
+		else:
+			var k := _rng.randi() % MID_Z.size()
+			sp.z_index = MID_Z[k]
+			alpha = 0.9 - 0.06 * float(k)      # 越靠后越淡一点
 	elif layer == 2:
 		sp.z_index = FAR_Z[_rng.randi() % FAR_Z.size()]
 	else:
