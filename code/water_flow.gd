@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 ## 水流：按"每一列里连续的这段水"铺一条满格宽的水流带，UV 自上而下滚动。
 ## 带子按格重复，所以上下相邻的水 tile 会自然接上；整段水的两端稍微淡出。
@@ -26,8 +25,7 @@ var _tm: TileMapLayer
 func _ready() -> void:
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
 	if _tm != null and Engine.is_editor_hint():
-		_tm.changed.connect(_rebuild, CONNECT_DEFERRED)
-	_rebuild()
+		_rebuild()
 
 ## 清掉旧带子，按水格重铺
 func _rebuild() -> void:

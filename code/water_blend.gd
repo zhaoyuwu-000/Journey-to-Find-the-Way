@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 ## 不同颜色的水 tile 之间自动加一条渐变过渡（水平/竖直接缝都会处理）。
 ## 放在 TileMapLayer 的兄弟节点上，运行时和编辑器里都会重建。
@@ -14,8 +13,7 @@ var _valid_ids: Dictionary = {}   # tileset 里真实存在的 source_id
 func _ready() -> void:
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
 	if _tm != null and Engine.is_editor_hint():
-		_tm.changed.connect(_rebuild, CONNECT_DEFERRED)
-	_rebuild()
+		_rebuild()
 
 func _rebuild() -> void:
 	for c in get_children():

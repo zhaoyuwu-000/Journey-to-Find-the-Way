@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 ## 地面 tile 向内逐渐变黑：按"离空气有多远"算深度，生成一张低分辨率黑色遮罩再放大，
 ## 线性过滤后就是平滑的由外向内变黑。
@@ -6,14 +5,13 @@ extends Node2D
 const TILE := 600.0
 const GROUND_LAYER := 0        # TileSet physics_layer_0 = 地面（collision_layer 1）
 const DARK_TILES := 7.0        # 大约多深时到达最深
-const MAX_ALPHA := 0.82        # 最深处黑到什么程度
+const RIM_TILES := 2.5        # 表层这么深的范围保持原亮度（避免压到 tile 透明边）
+const MAX_ALPHA := 0.62        # 最深处黑到什么程度
 
 var _tm: TileMapLayer
 
 func _ready() -> void:
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
-	if _tm != null and Engine.is_editor_hint():
-		_tm.changed.connect(_rebuild, CONNECT_DEFERRED)
 	_rebuild()
 
 func _rebuild() -> void:
@@ -65,7 +63,7 @@ func _rebuild() -> void:
 	img.fill(Color(0, 0, 0, 0))
 	for cell in solid:
 		var dd: float = float(depth.get(cell, 1))
-		var a: float = clampf((dd - 1.0) / DARK_TILES, 0.0, 1.0) * MAX_ALPHA
+		var a: float = clampf((dd - RIM_TILES) / DARK_TILES, 0.0, 1.0) * MAX_ALPHA
 		if a <= 0.0:
 			continue
 		img.set_pixel(cell.x - lo.x, cell.y - lo.y, Color(0, 0, 0, a))
