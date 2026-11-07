@@ -110,13 +110,17 @@ func _update_swim() -> void:
 	velocity.y = dir.y * SWIM_SPEED - BUOYANCY   # 往下游会被浮力抵掉一点，往上/悬停会加速上浮
 	move_and_slide()
 
-## 非鱼形态在水里：不死了，缓慢下沉，可以左右移动（不能跳）
-func _update_water_sink(delta: float) -> void:
-	var dir := _input_axis()
+## 按输入方向转身（0 保持当前朝向）
+func _face(dir: float) -> void:
 	if dir > 0.0:
 		animated_sprite_2d.flip_h = false
 	elif dir < 0.0:
 		animated_sprite_2d.flip_h = true
+
+## 非鱼形态在水里：不死了，缓慢下沉，可以左右移动（不能跳）
+func _update_water_sink(delta: float) -> void:
+	var dir := _input_axis()
+	_face(dir)
 	velocity.x = move_toward(velocity.x, dir * WATER_MOVE_SPEED, WATER_ACCEL * delta)
 	velocity.y = move_toward(velocity.y, WATER_SINK_SPEED, GRAVITY * delta)
 	move_and_slide()
@@ -183,10 +187,7 @@ func _update_move(delta: float) -> void:
 	_handle_jump()
 
 	var dir := _input_axis()
-	if dir > 0.0:
-		animated_sprite_2d.flip_h = false
-	if dir < 0.0:
-		animated_sprite_2d.flip_h = true
+	_face(dir)
 	var rate := DECELERATION if dir == 0.0 else ACCELERATION
 	velocity.x = move_toward(velocity.x, dir * SPEED, rate * delta)
 
@@ -199,6 +200,7 @@ func _update_jump(delta: float) -> void:
 		animated_sprite_2d.play("down")
 
 	var dir := _input_axis()
+	_face(dir)   # 空中按左右也转身
 	var rate := DECELERATION if dir == 0.0 else ACCELERATION
 	velocity.x = move_toward(velocity.x, dir * SPEED, rate * delta)
 
