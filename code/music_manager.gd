@@ -22,7 +22,6 @@ var _players: Array[AudioStreamPlayer] = []
 var _active: AudioStreamPlayer = null
 var _current := ""             # character / bird / bear / fish
 var _started := 0.0
-var _pending := ""
 var _busy_fade := false
 
 func _ready() -> void:
@@ -60,7 +59,6 @@ func play_character() -> void:
 
 ## 强制立刻切到 character（进新关卡/新游戏时用）
 func restart_character() -> void:
-	_pending = ""
 	_switch_now("character")
 
 ## 拿到能力点后调用：prop 是 AbilityPoint.Property（bird=0/bear=1/fish=2）
@@ -69,21 +67,12 @@ func play_ability(prop: int) -> void:
 		return
 	_request(NAMES[prop])
 
+## 触发点：吃到能力点（或进入游戏）时立刻判断——当前曲没播满 MIN_SECONDS 就不切
 func _request(name: String) -> void:
 	if name == _current and _active != null and _active.playing:
 		return
-	_pending = name
-	if _current == "":
-		_switch_now(_pending)
-		_pending = ""
-
-func _process(_delta: float) -> void:
-	if _pending == "" or _current == "":
-		return
-	if _now() - _started >= MIN_SECONDS and not _busy_fade:
-		var target := _pending
-		_pending = ""
-		_switch_now(target)
+	if _current == "" or _now() - _started >= MIN_SECONDS:
+		_switch_now(name)
 
 func _switch_now(name: String) -> void:
 	var stream: AudioStream
@@ -131,5 +120,4 @@ func _on_finished(p: AudioStreamPlayer) -> void:
 	if _now() - _started < MIN_SECONDS:
 		p.play()
 		return
-	_pending = ""
 	_switch_now("character")
