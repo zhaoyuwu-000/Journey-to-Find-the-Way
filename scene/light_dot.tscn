@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://code/light_dot.gd" id="1_dot"]
+
+[sub_resource type="Gradient" id="Gradient_glow"]
+offsets = PackedFloat32Array(0, 0.22, 0.55, 1)
+colors = PackedColorArray(1, 0.98, 0.88, 1, 1, 0.93, 0.62, 0.85, 1, 0.8, 0.28, 0.3, 1, 0.68, 0.15, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture_glow"]
+gradient = SubResource("Gradient_glow")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
+blend_mode = 1
+
+[sub_resource type="Curve2D" id="Curve2D_path"]
+
+[node name="LightDot" type="Node2D"]
+script = ExtResource("1_dot")
+
+[node name="Path" type="Path2D" parent="."]
+curve = SubResource("Curve2D_path")
+
+[node name="Glow" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_add")
+texture = SubResource("GradientTexture_glow")
+
+[node name="Core" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0.92, 1)
+material = SubResource("CanvasItemMaterial_add")
+texture = SubResource("GradientTexture_glow")
