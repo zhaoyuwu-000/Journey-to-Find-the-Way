@@ -40,7 +40,14 @@ func _ready() -> void:
 
 func _set_loop(stream: AudioStream, loop: bool) -> void:
 	if stream is AudioStreamWAV:
-		(stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_FORWARD if loop else AudioStreamWAV.LOOP_DISABLED
+		var w := stream as AudioStreamWAV
+		if loop:
+			w.loop_mode = AudioStreamWAV.LOOP_FORWARD
+			w.loop_begin = 0
+			# loop_end 必须显式给帧数，默认 0 会导致播放卡在起点（没声音）
+			w.loop_end = maxi(int(round(w.get_length() * float(w.mix_rate))), 1)
+		else:
+			w.loop_mode = AudioStreamWAV.LOOP_DISABLED
 	elif stream is AudioStreamMP3:
 		(stream as AudioStreamMP3).loop = loop
 

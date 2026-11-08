@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bw7dyw54t3wgi" path="res://sprite/场景图，neva/坚石，死亡石2.png" id="11_5iigp"]
 [ext_resource type="PackedScene" uid="uid://b00hr5qhu8pgc" path="res://scene/trap.tscn" id="12_y8yp1"]
 [ext_resource type="Texture2D" uid="uid://c10r54ng523ac" path="res://sprite/场景图，neva/坚石，死亡石.png" id="13_tjnna"]
+[ext_resource type="PackedScene" uid="uid://cbob002nq0l2n" path="res://scene/rebirth_point.tscn" id="14_y8yp1"]
 [ext_resource type="Script" uid="uid://bcc1d4fa5k2wv" path="res://code/water_blend.gd" id="90_waterblend"]
 [ext_resource type="Script" uid="uid://d6jnilqup47k" path="res://code/water_flow.gd" id="91_waterflow"]
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
@@ -153,6 +154,14 @@ texture = ExtResource("13_tjnna")
 [node name="Trap2" parent="坚石，死亡石2/坚石，死亡石2/坚石，死亡石2/坚石，死亡石2" unique_id=161535564 instance=ExtResource("12_y8yp1")]
 position = Vector2(79917, 4715)
 scale = Vector2(11.123228, 3.247994)
+
+[node name="RebirthPoint" parent="." unique_id=1311555965 instance=ExtResource("14_y8yp1")]
+position = Vector2(48989.004, -500)
+scale = Vector2(5, 38.840008)
+
+[node name="RebirthPoint2" parent="." unique_id=1084768485 instance=ExtResource("14_y8yp1")]
+position = Vector2(107459, 339)
+scale = Vector2(5, 34.880005)
 
 [editable path="Barrier3"]
 [editable path="Barrier2"]

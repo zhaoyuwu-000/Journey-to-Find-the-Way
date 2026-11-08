@@ -4,7 +4,7 @@ extends Node
 const SETTINGS_PANEL := preload("res://code/settings_panel.gd")
 
 const LEVELS := [
-	"res://scene/levels/level4.tscn",
+	"res://scene/levels/level1.tscn",
 	"res://scene/levels/level2.tscn",
 	"res://scene/levels/level3.tscn",
 	"res://scene/levels/level4.tscn",
