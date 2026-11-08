@@ -15,12 +15,16 @@ enum State { HIDDEN, DRIFT, WAIT, FOLLOW, DONE }
 
 var _state := State.HIDDEN
 var _player: Node2D
+var _path: Path2D
+var _dist := 0.0
+var _origin := Vector2.ZERO
 
 func _ready() -> void:
 	visible = false
 	_set_dot_visible(false)
 	await get_tree().process_frame
 	_player = _find_player()
+	_path = get_node_or_null("Path") as Path2D
 
 func _find_player() -> Node2D:
 	var level := get_parent()
@@ -39,15 +43,31 @@ func _process(delta: float) -> void:
 		State.HIDDEN:
 			if px >= trigger_x:
 				# 高度按玩家当前 y 来定（关卡地形高低差很大，不能靠固定地面高度）
-				global_position = Vector2(trigger_x, _player.global_position.y - hover_height)
+				_origin = Vector2(trigger_x, _player.global_position.y - hover_height)
+				_dist = 0.0
+				global_position = _origin
+				if _path != null and _path.curve != null:
+					global_position = _origin + _path.curve.sample_baked(0.0)
 				visible = true
 				_set_dot_visible(true)
 				_state = State.DRIFT
 		State.DRIFT:
-			global_position.x += drift_speed * delta
-			if global_position.x >= phase1_end_x:
-				global_position.x = phase1_end_x
-				_state = State.WAIT
+			var curve := _path.curve if _path != null else null
+			var total := curve.get_baked_length() if curve != null else 0.0
+			if total > 1.0:
+				# 沿 path 走
+				_dist += drift_speed * delta
+				if _dist >= total:
+					_dist = total
+					global_position = _origin + curve.sample_baked(total)
+					_state = State.WAIT
+				else:
+					global_position = _origin + curve.sample_baked(_dist)
+			else:
+				global_position.x += drift_speed * delta
+				if global_position.x >= phase1_end_x:
+					global_position.x = phase1_end_x
+					_state = State.WAIT
 		State.WAIT:
 			if absf(px - global_position.x) <= follow_gap:
 				_state = State.FOLLOW
