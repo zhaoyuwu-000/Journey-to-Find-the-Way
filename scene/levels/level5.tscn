@@ -360,8 +360,8 @@ position = Vector2(0, -300)
 scale = Vector2(1, 1)
 
 [node name="LightDot" parent="." unique_id=899930101 instance=ExtResource("14_rbf32")]
-position = Vector2(254902, -61497)
-speed = 4000.0
+position = Vector2(254902, -62999)
+speed = 40000.0
 curve_override = SubResource("Curve2D_level5_custom")
 loop = false
 

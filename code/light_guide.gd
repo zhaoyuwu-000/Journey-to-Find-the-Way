@@ -7,7 +7,7 @@ extends Node2D
 @export var trigger_x := 257500.0
 @export var phase1_end_x := 300000.0
 @export var end_x := 320000.0
-@export var drift_speed := 900.0        # 第一阶段自动前进速度
+@export var drift_speed := 2250.0        # 第一阶段自动前进速度
 @export var follow_gap := 320.0         # 玩家离光点多近算"到达下方"
 @export var hover_height := 900.0       # 光点比玩家高多少
 
