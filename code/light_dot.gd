@@ -16,6 +16,7 @@ const PLAYER_HEIGHT := 364.0   # 狐狸精灵高度
 		core_ratio = clampf(v, 0.05, 1.0)
 		_apply_size()
 @export var speed := 4000.0           # 路径速度 px/s
+@export var curve_override: Curve2D = null   # 每关单独画的路线（非空则用它，不再共用场景里的曲线）
 @export var manual := false           # 由外部（光点引导）控制位置，不自己沿路径走
 @export var loop := false            # 到头后回到起点
 @export var bob_height := 8.0        # 上下轻微浮动
@@ -29,6 +30,8 @@ var _time := 0.0
 
 func _ready() -> void:
 	_path = get_node_or_null("Path") as Path2D
+	if _path != null and curve_override != null:
+		_path.curve = curve_override
 	_glow = get_node_or_null("Glow") as Sprite2D
 	_core = get_node_or_null("Core") as Sprite2D
 	_ensure_curve()

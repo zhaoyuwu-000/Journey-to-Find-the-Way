@@ -12,6 +12,12 @@
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
 [ext_resource type="PackedScene" uid="uid://cxyxcw0ia7e8q" path="res://scene/视差背景.tscn" id="95_bg"]
 
+[sub_resource type="Curve2D" id="Curve2D_level1_route"]
+_data = {
+"points": PackedVector2Array(-1800, 0, 1800, 0, 0, 0, -1800, 0, 1800, 0, 6000, -900, -1800, 0, 1800, 0, 12000, -500, -1800, 0, 1800, 0, 18000, -1500, -1800, 0, 1800, 0, 24000, -800, -1800, 0, 1800, 0, 30000, -1900, -1800, 0, 1800, 0, 36000, -1200, -1800, 0, 1800, 0, 42000, -2200, -1800, 0, 1800, 0, 48000, -1500, -1800, 0, 1800, 0, 54000, -2600, -1800, 0, 1800, 0, 60000, -1900, -1800, 0, 1800, 0, 66000, 2400)
+}
+point_count = 12
+
 [node name="Level1" type="Node2D" unique_id=303358899]
 script = ExtResource("1_44pi0")
 
@@ -55,14 +61,13 @@ size_tiles = 8.985
 position = Vector2(33300, 1706)
 
 [node name="LightDot" parent="." unique_id=346795082 instance=ExtResource("11_abxrp")]
+curve_override = SubResource("Curve2D_level1_route")
 position = Vector2(-773, -79)
 diameter = 728.0
 speed = 6000.0
 loop = false
 
 [node name="Path" parent="LightDot" index="0" unique_id=1052711893]
-position = Vector2(-2396.9316, 18.426147)
-scale = Vector2(3.0628724, 2.7744813)
 
 [node name="Glow" parent="LightDot" index="1" unique_id=2111012696]
 position = Vector2(-8302, -2691)
