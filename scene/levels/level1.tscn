@@ -56,9 +56,6 @@ position = Vector2(33300, 1706)
 
 [node name="LightDot" parent="." unique_id=346795082 instance=ExtResource("11_abxrp")]
 position = Vector2(-773, -79)
-diameter = 364.0
-core_ratio = 0.32
-speed = 16000.0
 
 [node name="Path" parent="LightDot" index="0" unique_id=1052711893]
 position = Vector2(-2396.9316, 18.426147)
@@ -66,9 +63,10 @@ scale = Vector2(3.0628724, 2.7744813)
 
 [node name="Glow" parent="LightDot" index="1" unique_id=2111012696]
 position = Vector2(-240, 113)
-scale = Vector2(1.4, 1.4)
+scale = Vector2(1.421875, 1.421875)
 
 [node name="Core" parent="LightDot" index="2" unique_id=335733229]
 position = Vector2(-235.99998, 115.99999)
+scale = Vector2(0.455, 0.455)
 
 [editable path="LightDot"]

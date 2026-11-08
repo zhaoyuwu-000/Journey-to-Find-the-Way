@@ -15,7 +15,7 @@ const PLAYER_HEIGHT := 364.0   # 狐狸精灵高度
 	set(v):
 		core_ratio = clampf(v, 0.05, 1.0)
 		_apply_size()
-@export var speed := 16000.0           # 路径速度 px/s
+@export var speed := 4000.0           # 路径速度 px/s
 @export var loop := false            # 到头后回到起点
 @export var bob_height := 8.0        # 上下轻微浮动
 @export var pulse := true            # 呼吸闪烁
@@ -61,7 +61,17 @@ func _physics_process(delta: float) -> void:
 		return
 	_move(delta)
 
+## 主菜单还开着（未点开始游戏 / 已回菜单）就不动
+func _menu_open() -> bool:
+	var game := get_tree().get_first_node_in_group("game_root")
+	if game == null:
+		return false
+	var menu := game.get_node_or_null("UI/Menu")
+	return menu != null and menu.visible
+
 func _move(delta: float) -> void:
+	if _menu_open():
+		return
 	if _path == null or _path.curve == null:
 		return
 	var curve := _path.curve
