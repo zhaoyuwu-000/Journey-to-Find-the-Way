@@ -119,14 +119,21 @@ func _on_settings_closed() -> void:
 		if player != null and not menu_open:
 			player.can_be_controlled = true
 
-## 回到主菜单（清存档，重新加载第一关，菜单重新显示）
+## 回到主菜单：先淡出黑屏 → 清存档、重载第一关、显示菜单 → 淡入
 func return_to_menu() -> void:
+	await _return_to_menu_faded()
+
+func _return_to_menu_faded() -> void:
+	if _transitioning:
+		return
+	_transitioning = true
 	var sv := get_node_or_null("/root/Save")
 	if sv != null:
 		sv.clear()
 	var dlg := get_node_or_null("/root/Dialogue")
 	if dlg != null:
 		dlg.restore({})
+	await _fade_to(1.0, 0.6)          # 淡出到黑
 	_play_character_music()
 	goto_level(0)
 	var player := _get_player()
@@ -137,6 +144,9 @@ func return_to_menu() -> void:
 		menu.show()
 		if menu.has_method("set_continue_available"):
 			menu.set_continue_available(false)
+	await get_tree().create_timer(0.35).timeout
+	await _fade_to(0.0, 0.6)          # 淡入菜单
+	_transitioning = false
 
 func _on_menu_start() -> void:
 	_new_game()
