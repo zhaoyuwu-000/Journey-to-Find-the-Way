@@ -353,9 +353,18 @@ visible = false
 position = Vector2(0, -300)
 scale = Vector2(1, 1)
 
-[node name="LightDot" parent="." instance=ExtResource("14_rbf32")]
+[node name="LightDot" parent="." unique_id=1695161299 instance=ExtResource("14_rbf32")]
 position = Vector2(254902, -63342)
-[node name="LightGuide" parent="." instance=ExtResource("96_lightguide")]
+loop = false
+
+[node name="Glow" parent="LightDot" index="1" unique_id=2111012696]
+scale = Vector2(1.421875, 1.421875)
+
+[node name="Core" parent="LightDot" index="2" unique_id=335733229]
+scale = Vector2(0.455, 0.455)
+
+[node name="LightGuide" parent="." unique_id=158275621 instance=ExtResource("96_lightguide")]
+
 [node name="AbilityPoint" parent="." unique_id=2044594597 instance=ExtResource("8_nxili")]
 position = Vector2(119336.01, -25339.002)
 scale = Vector2(2.04, 2.04)
@@ -382,3 +391,4 @@ scale = Vector2(-89.74439, 3.6647964)
 [editable path="Barrier6"]
 [editable path="Barrier7"]
 [editable path="Portal"]
+[editable path="LightDot"]

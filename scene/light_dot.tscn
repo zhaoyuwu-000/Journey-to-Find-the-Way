@@ -4,9 +4,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_path"]
 _data = {
-"points": PackedVector2Array(126.56001, -98.609314, -126.56001, 98.609314, -1265.5011, 36.249607, -572.9399, -169.65862, 572.9399, 169.65862, 541.136, -16.701115, -148.60205, -20.083328, 148.60205, 20.083328, 3259.6628, -240.5589)
+"points": PackedVector2Array(126.56001, -98.609314, -126.56001, 98.609314, -1265.5011, 36.249607, -5585.126, 1426.2614, 5585.126, -1426.2614, 4050, -3183, 0, 0, 0, 0, 9112, -9691, -148.60205, -20.083328, 148.60205, 20.083328, 22254, -17197)
 }
-point_count = 3
+point_count = 4
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
 blend_mode = 1
@@ -25,8 +25,6 @@ fill_to = Vector2(1, 0.5)
 
 [node name="LightDot" type="Node2D" unique_id=346795082]
 script = ExtResource("1_dot")
-diameter = 364.0
-core_ratio = 0.32
 speed = 8000.0
 loop = true
 
