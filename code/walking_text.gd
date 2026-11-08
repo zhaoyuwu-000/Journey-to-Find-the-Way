@@ -4,7 +4,7 @@ extends Node2D
 ## 内容默认取 data/dialogues.json 的 ending.goldball.first；可用 custom_lines 覆盖（每行一句）。
 
 @export_multiline var custom_lines := ""
-@export var sec_per_line := 1.6       # 每句停留秒数（只在向前移动时计时）
+@export var sec_per_line := 0.8       # 每句停留秒数（只在向前移动时计时）
 @export var require_right_move := true
 @export var first_delay := 0.6        # 进关后第一句延迟
 
