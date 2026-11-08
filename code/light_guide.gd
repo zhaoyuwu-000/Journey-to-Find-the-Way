@@ -9,36 +9,22 @@ extends Node2D
 @export var end_x := 320000.0
 @export var drift_speed := 900.0        # 第一阶段自动前进速度
 @export var follow_gap := 320.0         # 玩家离光点多近算"到达下方"
-@export var hover_height := 900.0       # 光点离地面高度
-@export var ray_margin := 2000.0        # 从这高度往下打射线找地面
+@export var hover_height := 900.0       # 光点比玩家高多少
 
 enum State { HIDDEN, DRIFT, WAIT, FOLLOW, DONE }
 
 var _state := State.HIDDEN
 var _player: Node2D
-var _ground_y := 0.0
 
 func _ready() -> void:
 	visible = false
 	_set_dot_visible(false)
 	await get_tree().process_frame
 	_player = _find_player()
-	_ground_y = _find_ground(trigger_x)
 
 func _find_player() -> Node2D:
 	var level := get_parent()
 	return level.get_node_or_null("Player") as Node2D if level != null else null
-
-## 从高处往下打射线找地面（物理层 1 = ground）
-func _find_ground(x: float) -> float:
-	var space := get_world_2d().direct_space_state
-	var from := Vector2(x, -ray_margin)
-	var to := Vector2(x, ray_margin + 20000.0)
-	var q := PhysicsRayQueryParameters2D.create(from, to, 1)
-	var hit := space.intersect_ray(q)
-	if hit.is_empty():
-		return 900.0
-	return float(hit["position"].y)
 
 func _set_dot_visible(on: bool) -> void:
 	var dot := get_node_or_null("LightDot")
@@ -52,7 +38,8 @@ func _process(delta: float) -> void:
 	match _state:
 		State.HIDDEN:
 			if px >= trigger_x:
-				global_position = Vector2(trigger_x, _ground_y - hover_height)
+				# 高度按玩家当前 y 来定（关卡地形高低差很大，不能靠固定地面高度）
+				global_position = Vector2(trigger_x, _player.global_position.y - hover_height)
 				visible = true
 				_set_dot_visible(true)
 				_state = State.DRIFT
