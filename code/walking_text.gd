@@ -55,11 +55,19 @@ func _show_next() -> void:
 	_i += 1
 	if _i >= _lines.size():
 		_done = true
-		if _dlg != null and _dlg.has_method("fade_out_manual"):
-			_dlg.fade_out_manual()
+		_on_all_done()
 		return
 	if _dlg != null and _dlg.has_method("show_line_manual"):
 		_dlg.show_line_manual(_lines[_i])
+
+## 全部播完：淡出对话框，停一会儿回主菜单（同时清存档）
+func _on_all_done() -> void:
+	if _dlg != null and _dlg.has_method("fade_out_manual"):
+		_dlg.fade_out_manual()
+	await get_tree().create_timer(2.5).timeout
+	var game := get_tree().get_first_node_in_group("game_root")
+	if game != null and game.has_method("return_to_menu"):
+		game.return_to_menu()
 
 func _process(delta: float) -> void:
 	if _done or _player == null:

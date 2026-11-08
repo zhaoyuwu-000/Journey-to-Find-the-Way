@@ -25,6 +25,7 @@ var current_level := -1
 var current_level_node: Node2D
 
 func _ready() -> void:
+	add_to_group("game_root")
 	_setup_fade()
 	_play_character_music()
 	goto_level(0)      # 进来先进第一关，读档由菜单的"继续游戏"负责
@@ -117,6 +118,25 @@ func _on_settings_closed() -> void:
 		var player := _get_player()
 		if player != null and not menu_open:
 			player.can_be_controlled = true
+
+## 回到主菜单（清存档，重新加载第一关，菜单重新显示）
+func return_to_menu() -> void:
+	var sv := get_node_or_null("/root/Save")
+	if sv != null:
+		sv.clear()
+	var dlg := get_node_or_null("/root/Dialogue")
+	if dlg != null:
+		dlg.restore({})
+	_play_character_music()
+	goto_level(0)
+	var player := _get_player()
+	if player != null:
+		player.can_be_controlled = false
+	var menu := get_node_or_null("UI/Menu")
+	if menu != null:
+		menu.show()
+		if menu.has_method("set_continue_available"):
+			menu.set_continue_available(false)
 
 func _on_menu_start() -> void:
 	_new_game()
