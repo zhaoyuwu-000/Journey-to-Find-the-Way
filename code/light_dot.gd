@@ -16,6 +16,7 @@ const PLAYER_HEIGHT := 364.0   # 狐狸精灵高度
 		core_ratio = clampf(v, 0.05, 1.0)
 		_apply_size()
 @export var speed := 4000.0           # 路径速度 px/s
+@export var manual := false           # 由外部（光点引导）控制位置，不自己沿路径走
 @export var loop := false            # 到头后回到起点
 @export var bob_height := 8.0        # 上下轻微浮动
 @export var pulse := true            # 呼吸闪烁
@@ -79,6 +80,11 @@ func _move(delta: float) -> void:
 	if length <= 0.1:
 		return
 	_time += delta
+	if manual:
+		# 位置交给外面的控制器，这里只保留呼吸闪烁
+		if pulse and _glow != null:
+			_glow.modulate.a = 0.85 + 0.15 * sin(_time * 3.1)
+		return
 	_dist += speed * delta
 	_dist = fmod(_dist, length) if loop else minf(_dist, length)
 	var local := curve.sample_baked(_dist, true)
