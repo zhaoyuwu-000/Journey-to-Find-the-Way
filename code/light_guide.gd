@@ -4,9 +4,9 @@ extends Node2D
 ##  玩家走到光点下方（x 接近）→ 光点以玩家速度继续向前，直到 end_x 停住。
 ##  位置由本脚本控制，子节点 LightDot 只负责发光外观（manual=true）。
 
-@export var trigger_x := 25750.0
-@export var phase1_end_x := 30000.0
-@export var end_x := 32000.0
+@export var trigger_x := 257500.0
+@export var phase1_end_x := 300000.0
+@export var end_x := 320000.0
 @export var drift_speed := 900.0        # 第一阶段自动前进速度
 @export var follow_gap := 320.0         # 玩家离光点多近算"到达下方"
 @export var hover_height := 900.0       # 光点离地面高度
