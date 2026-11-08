@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dt3qv23hq0dn7" path="res://scene/tile_map_layer.tscn" id="2_p3y32"]
 [ext_resource type="PackedScene" uid="uid://rlurc2olkxoi" path="res://scene/ability_point_manager.tscn" id="3_wqpoj"]
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
+[ext_resource type="PackedScene" path="res://scene/walking_text.tscn" id="94_walktext"]
 
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_uq4q8")
@@ -20,3 +21,5 @@ script = ExtResource("92_terraindark")
 zoom = Vector2(0.405, 0.405)
 
 [node name="AbilityPointManager" parent="." unique_id=36883032 instance=ExtResource("3_wqpoj")]
+
+[node name="WalkingText" parent="." instance=ExtResource("94_walktext")]
