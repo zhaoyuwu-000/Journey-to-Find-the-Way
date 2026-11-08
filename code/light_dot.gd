@@ -7,15 +7,15 @@ extends Node2D
 
 const PLAYER_HEIGHT := 364.0   # 狐狸精灵高度
 
-@export var diameter := PLAYER_HEIGHT * 0.5:
+@export var diameter := PLAYER_HEIGHT:
 	set(v):
-		diameter = maxf(v, 4.0)
+		diameter = maxf(v, 40.0)
 		_apply_size()
 @export var core_ratio := 0.32:      # 中心亮核占直径比例
 	set(v):
 		core_ratio = clampf(v, 0.05, 1.0)
 		_apply_size()
-@export var speed := 160.0           # 路径速度 px/s
+@export var speed := 16000.0           # 路径速度 px/s
 @export var loop := false            # 到头后回到起点
 @export var bob_height := 8.0        # 上下轻微浮动
 @export var pulse := true            # 呼吸闪烁

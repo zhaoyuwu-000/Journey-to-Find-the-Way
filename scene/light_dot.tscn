@@ -4,7 +4,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_path"]
 _data = {
-"points": PackedVector2Array(160, 0, -160, 0, 0, 0, 200, 0, -200, 0, 520, -180, 200, 0, -160, 0, 1040, 0)
+"points": PackedVector2Array(126.56001, -98.609314, -126.56001, 98.609314, -1265.5011, 36.249607, -572.9399, -169.65862, 572.9399, 169.65862, 541.136, -16.701115, -148.60205, -20.083328, 148.60205, 20.083328, 3259.6628, -240.5589)
 }
 point_count = 3
 
@@ -25,6 +25,9 @@ fill_to = Vector2(1, 0.5)
 
 [node name="LightDot" type="Node2D" unique_id=346795082]
 script = ExtResource("1_dot")
+diameter = 364.0
+core_ratio = 0.32
+speed = 16000.0
 loop = true
 
 [node name="Path" type="Path2D" parent="." unique_id=1052711893]
