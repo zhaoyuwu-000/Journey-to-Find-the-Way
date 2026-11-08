@@ -23,12 +23,6 @@
 layer = -1
 scroll_ignore_camera_zoom = true
 script = ExtResource("1_borvk")
-invert_except_front = null
-loop_overlap = null
-layer_scale = 0.7
-smooth_time = 0.1
-float_up_limit = -100.0
-float_down_limit = 100.0
 
 [node name="Backdrop" type="ColorRect" parent="." unique_id=1594128435]
 offset_right = 1280.0
@@ -37,18 +31,34 @@ color = Color(0.859, 0.918, 0.635, 1)
 
 [node name="L01_远天" type="ParallaxLayer" parent="." unique_id=1946583546]
 motion_scale = Vector2(0.006, 0)
-motion_mirroring = Vector2(7001.762, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L01_远天" unique_id=450798986]
-position = Vector2(871.5254, 67.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, -96.222244)
+scale = Vector2(0.8318, 0.8318)
 
 [node name="00_00_0015远天5" type="Sprite2D" parent="L01_远天/Frame" unique_id=623921991]
 position = Vector2(2462, -263.00006)
 texture = ExtResource("2_pjyrt")
 
+[node name="01_01_0015远天4" type="Sprite2D" parent="L01_远天/Frame" unique_id=535442630]
+position = Vector2(3017, -236.00003)
+texture = ExtResource("2_pjyrt")
+
+[node name="02_02_0015远天" type="Sprite2D" parent="L01_远天/Frame" unique_id=1565686657]
+position = Vector2(1771, -127.00006)
+texture = ExtResource("2_pjyrt")
+
+[node name="03_03_0015远天3" type="Sprite2D" parent="L01_远天/Frame" unique_id=2050483055]
+position = Vector2(4218, -96.00006)
+texture = ExtResource("2_pjyrt")
+
 [node name="04_04_0015远天2" type="Sprite2D" parent="L01_远天/Frame" unique_id=1647506975]
 position = Vector2(3734, -247.99998)
+texture = ExtResource("2_pjyrt")
+
+[node name="05_25_0015远天5" type="Sprite2D" parent="L01_远天/Frame" unique_id=1145653374]
+position = Vector2(-531.7978, -262.90985)
 texture = ExtResource("2_pjyrt")
 
 [node name="06_26_0015远天4" type="Sprite2D" parent="L01_远天/Frame" unique_id=152982903]
@@ -63,93 +73,73 @@ texture = ExtResource("2_pjyrt")
 position = Vector2(1224.2023, -95.90988)
 texture = ExtResource("2_pjyrt")
 
-[node name="00_00_0015远天6" type="Sprite2D" parent="L01_远天/Frame" unique_id=1883822070]
-position = Vector2(8519.431, -261.83792)
-texture = ExtResource("2_pjyrt")
-
-[node name="04_04_0015远天3" type="Sprite2D" parent="L01_远天/Frame" unique_id=2089428583]
-position = Vector2(9770.351, -246.8379)
-texture = ExtResource("2_pjyrt")
-
-[node name="06_26_0015远天5" type="Sprite2D" parent="L01_远天/Frame" unique_id=836149149]
-position = Vector2(6059.5527, -234.74777)
-texture = ExtResource("2_pjyrt")
-
-[node name="07_27_0015远天2" type="Sprite2D" parent="L01_远天/Frame" unique_id=1024975611]
-position = Vector2(4813.5527, -125.74781)
-texture = ExtResource("2_pjyrt")
-
-[node name="08_28_0015远天4" type="Sprite2D" parent="L01_远天/Frame" unique_id=148399409]
-position = Vector2(7260.5527, -94.74781)
+[node name="09_29_0015远天2" type="Sprite2D" parent="L01_远天/Frame" unique_id=1831695221]
+position = Vector2(740.2022, -247.9098)
 texture = ExtResource("2_pjyrt")
 
 [node name="L02_中树" type="ParallaxLayer" parent="." unique_id=1495078192]
 motion_scale = Vector2(0.01, 0)
-motion_mirroring = Vector2(7018.5967, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L02_中树" unique_id=1810870333]
-position = Vector2(882.00604, 92.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, -71.222244)
+scale = Vector2(0.8318, 0.8318)
 
 [node name="00_05_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=1193598380]
 position = Vector2(1779, 36)
 texture = ExtResource("3_7fv6c")
 
+[node name="01_06_中树" type="Sprite2D" parent="L02_中树/Frame" unique_id=194829123]
+position = Vector2(2270, 43.99994)
+texture = ExtResource("4_w0dh2")
+
 [node name="02_07_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=517400158]
 position = Vector2(2774, 48)
 texture = ExtResource("3_7fv6c")
+
+[node name="03_08_中树" type="Sprite2D" parent="L02_中树/Frame" unique_id=914185858]
+position = Vector2(3240, 50)
+texture = ExtResource("4_w0dh2")
 
 [node name="04_09_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=1158593015]
 position = Vector2(3719, 57)
 texture = ExtResource("3_7fv6c")
 
+[node name="05_10_中树" type="Sprite2D" parent="L02_中树/Frame" unique_id=1078928442]
+position = Vector2(4233, 62)
+texture = ExtResource("4_w0dh2")
+
 [node name="06_30_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=1400882586]
 position = Vector2(-1214.7977, 36.09015)
 texture = ExtResource("3_7fv6c")
+
+[node name="07_31_中树" type="Sprite2D" parent="L02_中树/Frame" unique_id=1059650421]
+position = Vector2(-723.7977, 44.09015)
+texture = ExtResource("4_w0dh2")
 
 [node name="08_32_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=614479849]
 position = Vector2(-219.79774, 48.09015)
 texture = ExtResource("3_7fv6c")
 
+[node name="09_33_中树" type="Sprite2D" parent="L02_中树/Frame" unique_id=1797213590]
+position = Vector2(246.20227, 50.09015)
+texture = ExtResource("4_w0dh2")
+
 [node name="10_34_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=651432794]
 position = Vector2(725.2022, 57.09015)
 texture = ExtResource("3_7fv6c")
 
-[node name="00_05_中树3" type="Sprite2D" parent="L02_中树/Frame" unique_id=124221711]
-position = Vector2(7785.262, 91.784584)
-texture = ExtResource("3_7fv6c")
-
-[node name="02_07_中树3" type="Sprite2D" parent="L02_中树/Frame" unique_id=1029845989]
-position = Vector2(8780.262, 103.784584)
-texture = ExtResource("3_7fv6c")
-
-[node name="04_09_中树3" type="Sprite2D" parent="L02_中树/Frame" unique_id=1702538237]
-position = Vector2(9725.262, 112.784584)
-texture = ExtResource("3_7fv6c")
-
-[node name="06_30_中树3" type="Sprite2D" parent="L02_中树/Frame" unique_id=1903876004]
-position = Vector2(4791.4644, 91.87473)
-texture = ExtResource("3_7fv6c")
-
-[node name="08_32_中树3" type="Sprite2D" parent="L02_中树/Frame" unique_id=624331516]
-position = Vector2(5786.4644, 103.87473)
-texture = ExtResource("3_7fv6c")
-
-[node name="10_34_中树3" type="Sprite2D" parent="L02_中树/Frame" unique_id=1266413716]
-position = Vector2(6731.4644, 112.87473)
-texture = ExtResource("3_7fv6c")
-
-[node name="11_35_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=458907618]
-position = Vector2(7245.4644, 117.87473)
+[node name="11_35_中树" type="Sprite2D" parent="L02_中树/Frame" unique_id=1843345427]
+position = Vector2(1239.2023, 62.09015)
 texture = ExtResource("4_w0dh2")
 
 [node name="L03_中天" type="ParallaxLayer" parent="." unique_id=642660316]
 motion_scale = Vector2(0.014, 0)
-motion_mirroring = Vector2(6972.015, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L03_中天" unique_id=2029554165]
-position = Vector2(870.36084, 117.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, -46.22224)
+scale = Vector2(0.8318, 0.8318)
 
 [node name="00_11_0014中天3" type="Sprite2D" parent="L03_中天/Frame" unique_id=1906188074]
 position = Vector2(2397, 179)
@@ -157,6 +147,27 @@ texture = ExtResource("5_1nqqo")
 
 [node name="01_12_0014中天2" type="Sprite2D" parent="L03_中天/Frame" unique_id=1677926503]
 position = Vector2(3596, 180)
+texture = ExtResource("5_1nqqo")
+
+[node name="02_13_0014中天4" type="Sprite2D" parent="L03_中天/Frame" unique_id=684024445]
+position = Vector2(4192.5, 182.00006)
+scale = Vector2(1.0016667, 1)
+texture = ExtResource("5_1nqqo")
+
+[node name="03_14_0014中天5" type="Sprite2D" parent="L03_中天/Frame" unique_id=792667178]
+position = Vector2(1799, 182.99994)
+texture = ExtResource("5_1nqqo")
+
+[node name="04_24_0014中天" type="Sprite2D" parent="L03_中天/Frame" unique_id=251229101]
+position = Vector2(2997, 178)
+texture = ExtResource("5_1nqqo")
+
+[node name="05_36_0014中天3" type="Sprite2D" parent="L03_中天/Frame" unique_id=2025735283]
+position = Vector2(-596.7978, 179.09021)
+texture = ExtResource("5_1nqqo")
+
+[node name="06_37_0014中天2" type="Sprite2D" parent="L03_中天/Frame" unique_id=1921372651]
+position = Vector2(602.2022, 180.09009)
 texture = ExtResource("5_1nqqo")
 
 [node name="07_38_0014中天4" type="Sprite2D" parent="L03_中天/Frame" unique_id=162656527]
@@ -172,38 +183,34 @@ texture = ExtResource("5_1nqqo")
 position = Vector2(3.202212, 178.09015)
 texture = ExtResource("5_1nqqo")
 
-[node name="00_11_0014中天4" type="Sprite2D" parent="L03_中天/Frame" unique_id=1903913581]
-position = Vector2(8383.262, 183.17172)
-texture = ExtResource("5_1nqqo")
-
-[node name="01_12_0014中天3" type="Sprite2D" parent="L03_中天/Frame" unique_id=1357422048]
-position = Vector2(9582.262, 184.17172)
-texture = ExtResource("5_1nqqo")
-
-[node name="07_38_0014中天5" type="Sprite2D" parent="L03_中天/Frame" unique_id=5382631]
-position = Vector2(7184.9644, 186.26193)
-scale = Vector2(1.0016667, 1)
-texture = ExtResource("5_1nqqo")
-
-[node name="08_39_0014中天6" type="Sprite2D" parent="L03_中天/Frame" unique_id=1096229381]
-position = Vector2(4791.4644, 187.26187)
-texture = ExtResource("5_1nqqo")
-
-[node name="09_49_0014中天2" type="Sprite2D" parent="L03_中天/Frame" unique_id=2121484270]
-position = Vector2(5989.4644, 182.26187)
-texture = ExtResource("5_1nqqo")
-
 [node name="L04_远景树" type="ParallaxLayer" parent="." unique_id=1335388834]
 motion_scale = Vector2(0.018, 0)
-motion_mirroring = Vector2(6655.234, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L04_远景树" unique_id=1513247752]
-position = Vector2(785.05975, 142.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, -21.222242)
+scale = Vector2(0.8318, 0.8318)
+
+[node name="00_15_0010远景树6" type="Sprite2D" parent="L04_远景树/Frame" unique_id=246291057]
+position = Vector2(2195.5, -27.25003)
+scale = Vector2(1.2573528, 1.1958332)
+texture = ExtResource("6_3roy1")
+flip_h = true
 
 [node name="01_16_0010远景树5" type="Sprite2D" parent="L04_远景树/Frame" unique_id=588479719]
 position = Vector2(3938, -22)
 texture = ExtResource("6_3roy1")
+flip_h = true
+
+[node name="02_17_0013远景树2" type="Sprite2D" parent="L04_远景树/Frame" unique_id=119670106]
+position = Vector2(3135, -75.99997)
+scale = Vector2(1.0733472, 1.4733334)
+texture = ExtResource("7_k8mwb")
+flip_v = true
+
+[node name="03_18_0011远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=89932441]
+position = Vector2(2522, 24)
+texture = ExtResource("8_wkau0")
 flip_h = true
 
 [node name="04_19_0011远景树3" type="Sprite2D" parent="L04_远景树/Frame" unique_id=2051249635]
@@ -211,6 +218,10 @@ position = Vector2(3209, 62)
 texture = ExtResource("8_wkau0")
 flip_h = true
 flip_v = true
+
+[node name="05_20_0012远景树2" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1392206351]
+position = Vector2(3553, 62)
+texture = ExtResource("9_myh5v")
 
 [node name="06_21_0012远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=556326082]
 position = Vector2(1714, 7.0000305)
@@ -223,9 +234,32 @@ position = Vector2(2594, -27.00003)
 texture = ExtResource("9_myh5v")
 flip_h = true
 
+[node name="08_23_0013远景树1" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1560958876]
+position = Vector2(4080, 24.000061)
+rotation = 0.32824323
+texture = ExtResource("7_k8mwb")
+flip_h = true
+
+[node name="09_40_0010远景树6" type="Sprite2D" parent="L04_远景树/Frame" unique_id=2010811415]
+position = Vector2(-798.2978, -27.159851)
+scale = Vector2(1.2573528, 1.1958332)
+texture = ExtResource("6_3roy1")
+flip_h = true
+
 [node name="10_41_0010远景树5" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1448848550]
 position = Vector2(944.2022, -21.90982)
 texture = ExtResource("6_3roy1")
+flip_h = true
+
+[node name="11_42_0013远景树2" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1563742745]
+position = Vector2(141.20221, -75.90979)
+scale = Vector2(1.0733472, 1.4733334)
+texture = ExtResource("7_k8mwb")
+flip_v = true
+
+[node name="12_43_0011远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1684849449]
+position = Vector2(-471.7978, 24.090149)
+texture = ExtResource("8_wkau0")
 flip_h = true
 
 [node name="13_44_0011远景树3" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1192068439]
@@ -233,6 +267,10 @@ position = Vector2(215.20222, 62.09015)
 texture = ExtResource("8_wkau0")
 flip_h = true
 flip_v = true
+
+[node name="14_45_0012远景树2" type="Sprite2D" parent="L04_远景树/Frame" unique_id=634913980]
+position = Vector2(559.2022, 62.09015)
+texture = ExtResource("9_myh5v")
 
 [node name="15_46_0012远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=321072820]
 position = Vector2(-1279.7977, 7.09021)
@@ -245,6 +283,12 @@ position = Vector2(-399.7978, -26.909851)
 texture = ExtResource("9_myh5v")
 flip_h = true
 
+[node name="17_48_0013远景树1" type="Sprite2D" parent="L04_远景树/Frame" unique_id=2135283018]
+position = Vector2(1086.2023, 24.09021)
+rotation = 0.32824323
+texture = ExtResource("7_k8mwb")
+flip_h = true
+
 [node name="18_00_高度基准树" type="Sprite2D" parent="L04_远景树/Frame" unique_id=493557685]
 position = Vector2(2332, 77.00006)
 texture = ExtResource("6_3roy1")
@@ -253,72 +297,36 @@ texture = ExtResource("6_3roy1")
 position = Vector2(-661.7978, 77.09021)
 texture = ExtResource("6_3roy1")
 
-[node name="01_16_0010远景树6" type="Sprite2D" parent="L04_远景树/Frame" unique_id=863972041]
-position = Vector2(9879.208, 25.702374)
-texture = ExtResource("6_3roy1")
-flip_h = true
-
-[node name="04_19_0011远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1278741470]
-position = Vector2(9150.208, 109.70238)
-texture = ExtResource("8_wkau0")
-flip_h = true
-flip_v = true
-
-[node name="06_21_0012远景树5" type="Sprite2D" parent="L04_远景树/Frame" unique_id=998347899]
-position = Vector2(7655.2075, 54.702404)
-rotation = -0.43762264
-texture = ExtResource("9_myh5v")
-flip_h = true
-
-[node name="07_22_0012远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1944618362]
-position = Vector2(8535.208, 20.702343)
-texture = ExtResource("9_myh5v")
-flip_h = true
-
-[node name="10_41_0010远景树6" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1175129134]
-position = Vector2(6885.4097, 25.792553)
-texture = ExtResource("6_3roy1")
-flip_h = true
-
-[node name="13_44_0011远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1735871726]
-position = Vector2(6156.4097, 109.79253)
-texture = ExtResource("8_wkau0")
-flip_h = true
-flip_v = true
-
-[node name="15_46_0012远景树5" type="Sprite2D" parent="L04_远景树/Frame" unique_id=656926499]
-position = Vector2(4661.4097, 54.792583)
-rotation = -0.43762264
-texture = ExtResource("9_myh5v")
-flip_h = true
-
-[node name="16_47_0012远景树4" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1821802815]
-position = Vector2(5541.4097, 20.792522)
-texture = ExtResource("9_myh5v")
-flip_h = true
-
-[node name="18_00_高度基准树2" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1864004344]
-position = Vector2(8273.208, 124.70244)
-texture = ExtResource("6_3roy1")
-
-[node name="19_27_高度基准树2" type="Sprite2D" parent="L04_远景树/Frame" unique_id=1261219922]
-position = Vector2(5279.4097, 124.79259)
-texture = ExtResource("6_3roy1")
-
 [node name="L05_近天" type="ParallaxLayer" parent="." unique_id=397371522]
 motion_scale = Vector2(0.022, 0)
-motion_mirroring = Vector2(6972.016, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L05_近天" unique_id=71221106]
-position = Vector2(870.3609, 167.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, 3.7777586)
+scale = Vector2(0.8318, 0.8318)
 
 [node name="00_01_0009近天" type="Sprite2D" parent="L05_近天/Frame" unique_id=1134148103]
 position = Vector2(2398, 239.99994)
 texture = ExtResource("10_ucsjs")
 
+[node name="01_02_0009近天2" type="Sprite2D" parent="L05_近天/Frame" unique_id=942517295]
+position = Vector2(2994, 239.99994)
+texture = ExtResource("10_ucsjs")
+
+[node name="02_03_0009近天3" type="Sprite2D" parent="L05_近天/Frame" unique_id=1516148899]
+position = Vector2(1799, 242.00006)
+texture = ExtResource("10_ucsjs")
+
 [node name="03_04_0009近天4" type="Sprite2D" parent="L05_近天/Frame" unique_id=399735189]
 position = Vector2(3594.0002, 241)
+texture = ExtResource("10_ucsjs")
+
+[node name="04_05_0009近天5" type="Sprite2D" parent="L05_近天/Frame" unique_id=1234710400]
+position = Vector2(4193, 241)
+texture = ExtResource("10_ucsjs")
+
+[node name="05_28_0009近天" type="Sprite2D" parent="L05_近天/Frame" unique_id=795436170]
+position = Vector2(-595.7978, 240.09003)
 texture = ExtResource("10_ucsjs")
 
 [node name="06_29_0009近天2" type="Sprite2D" parent="L05_近天/Frame" unique_id=655910352]
@@ -329,37 +337,26 @@ texture = ExtResource("10_ucsjs")
 position = Vector2(-1194.7979, 242.09015)
 texture = ExtResource("10_ucsjs")
 
+[node name="08_31_0009近天4" type="Sprite2D" parent="L05_近天/Frame" unique_id=1266385356]
+position = Vector2(600.20245, 241.09003)
+texture = ExtResource("10_ucsjs")
+
 [node name="09_32_0009近天5" type="Sprite2D" parent="L05_近天/Frame" unique_id=1244541736]
 position = Vector2(1199.2021, 241.09003)
 texture = ExtResource("10_ucsjs")
 
-[node name="00_01_0009近天2" type="Sprite2D" parent="L05_近天/Frame" unique_id=1206806264]
-position = Vector2(8384.263, 233.44426)
-texture = ExtResource("10_ucsjs")
-
-[node name="03_04_0009近天5" type="Sprite2D" parent="L05_近天/Frame" unique_id=933210725]
-position = Vector2(9580.263, 234.44432)
-texture = ExtResource("10_ucsjs")
-
-[node name="06_29_0009近天3" type="Sprite2D" parent="L05_近天/Frame" unique_id=1180027498]
-position = Vector2(5986.4644, 233.53435)
-texture = ExtResource("10_ucsjs")
-
-[node name="07_30_0009近天4" type="Sprite2D" parent="L05_近天/Frame" unique_id=61783016]
-position = Vector2(4791.4644, 235.53447)
-texture = ExtResource("10_ucsjs")
-
-[node name="09_32_0009近天6" type="Sprite2D" parent="L05_近天/Frame" unique_id=181848506]
-position = Vector2(7185.4644, 234.53435)
-texture = ExtResource("10_ucsjs")
-
 [node name="L06_近景树" type="ParallaxLayer" parent="." unique_id=226101444]
 motion_scale = Vector2(0.026, 0)
-motion_mirroring = Vector2(5738.622, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L06_近景树" unique_id=432987527]
-position = Vector2(-125.62662, 192.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, 28.777758)
+scale = Vector2(0.8318, 0.8318)
+
+[node name="02_08_0008近景树1" type="Sprite2D" parent="L06_近景树/Frame" unique_id=1517359681]
+position = Vector2(4342.39, -154.01674)
+scale = Vector2(1.8728781, 1.8728784)
+texture = ExtResource("11_h332m")
 
 [node name="03_09_0008近景树1" type="Sprite2D" parent="L06_近景树/Frame" unique_id=184922959]
 position = Vector2(3276.028, -66.25525)
@@ -367,31 +364,24 @@ scale = Vector2(1.1994108, 1.6059539)
 texture = ExtResource("11_h332m")
 flip_h = true
 
+[node name="06_35_0008近景树1" type="Sprite2D" parent="L06_近景树/Frame" unique_id=1569554743]
+position = Vector2(1374.2019, -100.90985)
+scale = Vector2(1.7821634, 1.7821637)
+texture = ExtResource("11_h332m")
+
 [node name="07_36_0008近景树1" type="Sprite2D" parent="L06_近景树/Frame" unique_id=2041002428]
 position = Vector2(426.7853, -104.72604)
 scale = Vector2(1.6358789, 1.6358794)
 texture = ExtResource("11_h332m")
 flip_h = true
 
-[node name="03_09_0008近景树2" type="Sprite2D" parent="L06_近景树/Frame" unique_id=1203888062]
-position = Vector2(8763.565, -39.018513)
-scale = Vector2(1.1994108, 1.6059539)
-texture = ExtResource("11_h332m")
-flip_h = true
-
-[node name="07_36_0008近景树2" type="Sprite2D" parent="L06_近景树/Frame" unique_id=323592768]
-position = Vector2(5914.3223, -77.4893)
-scale = Vector2(1.6358789, 1.6358794)
-texture = ExtResource("11_h332m")
-flip_h = true
-
 [node name="L07_中景树" type="ParallaxLayer" parent="." unique_id=640522015]
 motion_scale = Vector2(0.03, 0)
-motion_mirroring = Vector2(6116.1475, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L07_中景树" unique_id=875398499]
-position = Vector2(664.93744, 217.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, 53.77776)
+scale = Vector2(0.8318, 0.8318)
 
 [node name="00_10_中景树1" type="Sprite2D" parent="L07_中景树/Frame" unique_id=559382873]
 position = Vector2(2738.9998, -28.000092)
@@ -408,6 +398,16 @@ texture = ExtResource("14_gjf5o")
 position = Vector2(-8483.823, -63.85475)
 scale = Vector2(1.0609924, 1.177585)
 texture = ExtResource("14_gjf5o")
+
+[node name="02_12_攀爬1" type="Sprite2D" parent="L07_中景树/Frame" unique_id=42771086]
+position = Vector2(2975.0002, 15.000061)
+scale = Vector2(1, 1.0783334)
+texture = ExtResource("15_u81dq")
+
+[node name="03_13_中景树3" type="Sprite2D" parent="L07_中景树/Frame" unique_id=2061244042]
+position = Vector2(3727.9998, -41)
+scale = Vector2(0.43563986, 0.48222667)
+texture = ExtResource("16_1gw0q")
 
 [node name="04_37_中景树1" type="Sprite2D" parent="L07_中景树/Frame" unique_id=1516479123]
 position = Vector2(-974.9941, -89.36447)
@@ -431,89 +431,61 @@ position = Vector2(-18.797735, 15.09021)
 scale = Vector2(1, 1.0783334)
 texture = ExtResource("15_u81dq")
 
-[node name="07_40_中景树3" type="Sprite2D" parent="L07_中景树/Frame/07_40_中景树3" unique_id=1716419624]
-position = Vector2(4054.7236, -95.494934)
-scale = Vector2(1.0729884, 1.1877325)
+[node name="07_40_中景树3" type="Sprite2D" parent="L07_中景树/Frame" unique_id=602114338]
+position = Vector2(734.20197, -40.90982)
+scale = Vector2(0.43563986, 0.48222667)
 texture = ExtResource("16_1gw0q")
 
-[node name="00_10_中景树2" type="Sprite2D" parent="L07_中景树/Frame" unique_id=1452443780]
-position = Vector2(8226.783, -48.95468)
-rotation = 0.15351541
-scale = Vector2(0.49702385, 0.4859695)
-texture = ExtResource("13_8xhd8")
-
-[node name="01_11_中景树3" type="Sprite2D" parent="L07_中景树/Frame" unique_id=1889147493]
-position = Vector2(8927.783, -44.954628)
-scale = Vector2(0.4642857, 0.5153061)
-texture = ExtResource("14_gjf5o")
-
-[node name="01_11_中景树2" type="Sprite2D" parent="L07_中景树/Frame/01_11_中景树3" unique_id=557106592]
-position = Vector2(-8483.823, -63.85475)
-scale = Vector2(1.0609924, 1.177585)
-texture = ExtResource("14_gjf5o")
-
-[node name="04_37_中景树2" type="Sprite2D" parent="L07_中景树/Frame" unique_id=1396901181]
-position = Vector2(4512.789, -110.31906)
-rotation = 0.15351541
-scale = Vector2(0.49702385, 0.4859695)
-texture = ExtResource("13_8xhd8")
-
-[node name="04_37_中景树1" type="Sprite2D" parent="L07_中景树/Frame/04_37_中景树2" unique_id=618662349]
-position = Vector2(5393.509, -750.902)
-rotation = 0.15351541
-scale = Vector2(1.417288, 1.3857659)
-texture = ExtResource("13_8xhd8")
-
-[node name="05_38_中景树3" type="Sprite2D" parent="L07_中景树/Frame" unique_id=1276154498]
-position = Vector2(5707.788, -20.153208)
-scale = Vector2(0.4642857, 0.5153061)
-texture = ExtResource("14_gjf5o")
-
-[node name="07_40_中景树3" type="Sprite2D" parent="L07_中景树/Frame/07_40_中景树4" unique_id=150220499]
+[node name="07_40_中景树3" type="Sprite2D" parent="L07_中景树/Frame/07_40_中景树3" unique_id=1716419624]
 position = Vector2(4054.7236, -95.494934)
 scale = Vector2(1.0729884, 1.1877325)
 texture = ExtResource("16_1gw0q")
 
 [node name="L08_中景花" type="ParallaxLayer" parent="." unique_id=1449690147]
 motion_scale = Vector2(0.032, 0)
-motion_mirroring = Vector2(6874.3506, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L08_中景花" unique_id=284740601]
-position = Vector2(868.6142, 242.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(0, 78.777756)
+scale = Vector2(0.8318, 0.8318)
+
+[node name="00_14_0003中景花" type="Sprite2D" parent="L08_中景花/Frame" unique_id=479655829]
+position = Vector2(1802, 201.98889)
+texture = ExtResource("17_016qb")
 
 [node name="01_15_0003中景花" type="Sprite2D" parent="L08_中景花/Frame" unique_id=690213847]
 position = Vector2(2783, 204.56244)
+texture = ExtResource("17_016qb")
+
+[node name="02_16_0003中景花" type="Sprite2D" parent="L08_中景花/Frame" unique_id=789825601]
+position = Vector2(3887, 194.9447)
 texture = ExtResource("17_016qb")
 
 [node name="03_41_0003中景花" type="Sprite2D" parent="L08_中景花/Frame" unique_id=1568834964]
 position = Vector2(-1191.798, 186.45044)
 texture = ExtResource("17_016qb")
 
+[node name="04_42_0003中景花" type="Sprite2D" parent="L08_中景花/Frame" unique_id=1774716549]
+position = Vector2(-210.7978, 191.42828)
+texture = ExtResource("17_016qb")
+
 [node name="05_43_0003中景花" type="Sprite2D" parent="L08_中景花/Frame" unique_id=453236446]
 position = Vector2(893.2023, 196.23712)
-texture = ExtResource("17_016qb")
-
-[node name="01_15_0003中景花2" type="Sprite2D" parent="L08_中景花/Frame" unique_id=890656027]
-position = Vector2(8910.527, 208.68503)
-texture = ExtResource("17_016qb")
-
-[node name="03_41_0003中景花2" type="Sprite2D" parent="L08_中景花/Frame" unique_id=1384455279]
-position = Vector2(4935.73, 190.57303)
-texture = ExtResource("17_016qb")
-
-[node name="05_43_0003中景花2" type="Sprite2D" parent="L08_中景花/Frame" unique_id=539425778]
-position = Vector2(7020.73, 200.35971)
 texture = ExtResource("17_016qb")
 
 [node name="L09_近天背景" type="ParallaxLayer" parent="." unique_id=2051083388]
 position = Vector2(0, -136)
 motion_scale = Vector2(0.034, 0)
-motion_mirroring = Vector2(7077.482, 0)
+motion_mirroring = Vector2(7521, 0)
 
 [node name="Frame" type="Node2D" parent="L09_近天背景" unique_id=288907546]
-position = Vector2(928.89996, 267.22662)
-scale = Vector2(0.58225995, 0.58225995)
+position = Vector2(-5, -286)
+scale = Vector2(0.8318, 1.7918005)
+
+[node name="近天" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=422212309]
+position = Vector2(-1253.9072, 466.72546)
+scale = Vector2(1.2022121, 1.3645108)
+texture = ExtResource("17_borvk")
 
 [node name="近天" type="Sprite2D" parent="L09_近天背景/Frame/近天" unique_id=975725954]
 position = Vector2(400, 0)
@@ -560,6 +532,11 @@ position = Vector2(489.9999, 0)
 scale = Vector2(1.4499995, 1)
 texture = ExtResource("17_borvk")
 
+[node name="00_17_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1650458434]
+position = Vector2(1795.4181, 682.69995)
+scale = Vector2(1.0302014, 1)
+texture = ExtResource("18_eotip")
+
 [node name="01_18_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1922872366]
 position = Vector2(2408.388, 682.69995)
 scale = Vector2(1.0302014, 1)
@@ -583,6 +560,26 @@ texture = ExtResource("18_eotip")
 [node name="05_44_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1393871231]
 position = Vector2(-1288.5662, 682.7897)
 scale = Vector2(1.029427, 1)
+texture = ExtResource("18_eotip")
+
+[node name="06_45_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=333323172]
+position = Vector2(-675.82733, 682.7897)
+scale = Vector2(1.0302014, 1)
+texture = ExtResource("18_eotip")
+
+[node name="07_46_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=374941833]
+position = Vector2(-61.826653, 682.7897)
+scale = Vector2(1.0302014, 1)
+texture = ExtResource("18_eotip")
+
+[node name="08_47_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1350598235]
+position = Vector2(549.0824, 682.7897)
+scale = Vector2(1.0302014, 1)
+texture = ExtResource("18_eotip")
+
+[node name="09_48_0002近天背景6" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1093560690]
+position = Vector2(1172.3541, 682.7897)
+scale = Vector2(1.0613151, 1)
 texture = ExtResource("18_eotip")
 
 [node name="00_17_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景6" unique_id=692158291]
@@ -804,6 +801,23 @@ texture = ExtResource("18_eotip")
 position = Vector2(1797.0001, 582.1374)
 texture = ExtResource("18_eotip")
 
+[node name="01_18_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1867853685]
+position = Vector2(2392, 582.1374)
+texture = ExtResource("18_eotip")
+
+[node name="02_19_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=450097633]
+position = Vector2(2988.0005, 582.1374)
+texture = ExtResource("18_eotip")
+
+[node name="03_20_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=2091219112]
+position = Vector2(3581, 582.1374)
+texture = ExtResource("18_eotip")
+
+[node name="04_21_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1292326979]
+position = Vector2(4186, 582.1374)
+scale = Vector2(1.0302014, 1)
+texture = ExtResource("18_eotip")
+
 [node name="05_44_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=527745033]
 position = Vector2(-1196.5737, 582.2272)
 scale = Vector2(0.9992483, 1)
@@ -823,317 +837,5 @@ texture = ExtResource("18_eotip")
 
 [node name="09_48_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1574275250]
 position = Vector2(1192.2021, 582.2272)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="近天2" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1882272661]
-position = Vector2(4733.1084, 469.8322)
-scale = Vector2(1.2022121, 1.3645108)
-texture = ExtResource("17_borvk")
-
-[node name="近天" type="Sprite2D" parent="L09_近天背景/Frame/近天2" unique_id=1875352189]
-position = Vector2(400, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天2" type="Sprite2D" parent="L09_近天背景/Frame/近天2" unique_id=622785130]
-position = Vector2(800, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天2" unique_id=413102760]
-position = Vector2(400, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天3" type="Sprite2D" parent="L09_近天背景/Frame/近天2" unique_id=1509988842]
-position = Vector2(1600, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天3" unique_id=106595269]
-position = Vector2(400, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天2" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天3" unique_id=1728242949]
-position = Vector2(800, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天3/近天2" unique_id=1637563536]
-position = Vector2(400, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天3" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天3" unique_id=1091666997]
-position = Vector2(1600, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天3/近天3" unique_id=326709418]
-position = Vector2(400, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天2" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天3/近天3" unique_id=541014184]
-position = Vector2(800, 0)
-texture = ExtResource("17_borvk")
-
-[node name="近天" type="Sprite2D" parent="L09_近天背景/Frame/近天2/近天3/近天3/近天2" unique_id=1220603294]
-position = Vector2(489.9999, 0)
-scale = Vector2(1.4499995, 1)
-texture = ExtResource("17_borvk")
-
-[node name="00_17_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=936730862]
-position = Vector2(7782.4336, 685.80664)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="05_44_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=992552803]
-position = Vector2(4698.4497, 685.89636)
-scale = Vector2(1.029427, 1)
-texture = ExtResource("18_eotip")
-
-[node name="06_45_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1519537499]
-position = Vector2(5311.1885, 685.89636)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="07_46_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=2073522134]
-position = Vector2(5925.189, 685.89636)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="08_47_0002近天背景6" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=2031378146]
-position = Vector2(6536.098, 685.89636)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="09_48_0002近天背景7" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=821301546]
-position = Vector2(7159.3696, 685.89636)
-scale = Vector2(1.0613151, 1)
-texture = ExtResource("18_eotip")
-
-[node name="00_17_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=1403589288]
-position = Vector2(557.82117, 113.76224)
-texture = ExtResource("18_eotip")
-
-[node name="01_18_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=137580937]
-position = Vector2(1152.821, 113.76224)
-texture = ExtResource("18_eotip")
-
-[node name="02_19_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=2050242754]
-position = Vector2(1748.8215, 113.76224)
-texture = ExtResource("18_eotip")
-
-[node name="03_20_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=2059718840]
-position = Vector2(2341.821, 113.76224)
-texture = ExtResource("18_eotip")
-
-[node name="04_21_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=308491164]
-position = Vector2(2946.821, 113.76224)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="05_44_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=1813621653]
-position = Vector2(-2435.7527, 113.85196)
-scale = Vector2(0.9992483, 1)
-texture = ExtResource("18_eotip")
-
-[node name="06_45_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=144007399]
-position = Vector2(-1840.9769, 113.85202)
-texture = ExtResource("18_eotip")
-
-[node name="07_46_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=632084731]
-position = Vector2(-1244.9764, 113.85202)
-texture = ExtResource("18_eotip")
-
-[node name="08_47_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=599567107]
-position = Vector2(-651.97675, 113.85202)
-texture = ExtResource("18_eotip")
-
-[node name="09_48_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7" unique_id=1748771174]
-position = Vector2(-46.976807, 113.85202)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="00_17_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=867721549]
-position = Vector2(599.99133, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="01_18_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=431371451]
-position = Vector2(1194.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="02_19_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=406562693]
-position = Vector2(1790.9917, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="03_20_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=727171124]
-position = Vector2(2383.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="04_21_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=1874454013]
-position = Vector2(2988.9912, 107.62308)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="05_44_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=664176251]
-position = Vector2(-2393.5825, 107.71286)
-scale = Vector2(0.9992483, 1)
-texture = ExtResource("18_eotip")
-
-[node name="06_45_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=816448071]
-position = Vector2(-1798.8068, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="07_46_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=993091032]
-position = Vector2(-1202.8063, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="08_47_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=1649355790]
-position = Vector2(-609.8066, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="09_48_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5" unique_id=1607905031]
-position = Vector2(-4.8066406, 107.71286)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="00_17_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=167051309]
-position = Vector2(599.99133, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="01_18_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=855505939]
-position = Vector2(1194.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="02_19_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1743773936]
-position = Vector2(1790.9917, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="03_20_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1029032477]
-position = Vector2(2383.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="04_21_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1844943970]
-position = Vector2(2988.9912, 107.62308)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="05_44_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1885717455]
-position = Vector2(-2393.5825, 107.71286)
-scale = Vector2(0.9992483, 1)
-texture = ExtResource("18_eotip")
-
-[node name="06_45_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1696047964]
-position = Vector2(-1798.8068, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="07_46_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1222651033]
-position = Vector2(-1202.8063, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="08_47_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=556557758]
-position = Vector2(-609.8066, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="09_48_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1686648504]
-position = Vector2(-4.8066406, 107.71286)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="00_17_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1841172096]
-position = Vector2(599.99133, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="01_18_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1887402661]
-position = Vector2(1194.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="02_19_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=586504677]
-position = Vector2(1790.9917, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="03_20_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1074151909]
-position = Vector2(2383.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="04_21_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1751899707]
-position = Vector2(2988.9912, 107.62308)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="05_44_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=215122898]
-position = Vector2(-2393.5825, 107.71286)
-scale = Vector2(0.9992483, 1)
-texture = ExtResource("18_eotip")
-
-[node name="06_45_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=631251907]
-position = Vector2(-1798.8068, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="07_46_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=653022385]
-position = Vector2(-1202.8063, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="08_47_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=2073332104]
-position = Vector2(-609.8066, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="09_48_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=784530762]
-position = Vector2(-4.8066406, 107.71286)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="00_17_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1516877078]
-position = Vector2(599.99133, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="01_18_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1251038508]
-position = Vector2(1194.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="02_19_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1059906340]
-position = Vector2(1790.9917, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="03_20_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=192706804]
-position = Vector2(2383.9912, 107.62308)
-texture = ExtResource("18_eotip")
-
-[node name="04_21_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1502008248]
-position = Vector2(2988.9912, 107.62308)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="05_44_0002近天背景" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=1427828284]
-position = Vector2(-2393.5825, 107.71286)
-scale = Vector2(0.9992483, 1)
-texture = ExtResource("18_eotip")
-
-[node name="06_45_0002近天背景2" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=158418687]
-position = Vector2(-1798.8068, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="07_46_0002近天背景3" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=69476187]
-position = Vector2(-1202.8063, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="08_47_0002近天背景4" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=205533221]
-position = Vector2(-609.8066, 107.71286)
-texture = ExtResource("18_eotip")
-
-[node name="09_48_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame/09_48_0002近天背景7/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5/09_48_0002近天背景5" unique_id=850113730]
-position = Vector2(-4.8066406, 107.71286)
-scale = Vector2(1.0302014, 1)
-texture = ExtResource("18_eotip")
-
-[node name="01_18_0002近天背景5" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1762206393]
-position = Vector2(8379.017, 585.2441)
-texture = ExtResource("18_eotip")
-
-[node name="02_19_0002近天背景6" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1177938714]
-position = Vector2(8975.017, 585.2441)
-texture = ExtResource("18_eotip")
-
-[node name="03_20_0002近天背景7" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1090753374]
-position = Vector2(9568.017, 585.2441)
-texture = ExtResource("18_eotip")
-
-[node name="04_21_0002近天背景8" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=1236015636]
-position = Vector2(10173.017, 585.2441)
 scale = Vector2(1.0302014, 1)
 texture = ExtResource("18_eotip")
