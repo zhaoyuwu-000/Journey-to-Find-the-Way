@@ -38,6 +38,12 @@ size = Vector2(108.68205, 104.39134)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier7"]
 size = Vector2(108.68205, 334.3786)
 
+[sub_resource type="Curve2D" id="Curve2D_level5_custom"]
+_data = {
+"points": PackedVector2Array(126.56001, -98.609314, -126.56001, 98.609314, -1265.5011, 36.249607, -572.9399, -169.65862, 572.9399, 169.65862, 541.136, -16.701115, -148.60205, -20.083328, 148.60205, 20.083328, 3259.6628, -240.5589)
+}
+point_count = 3
+
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_pdhpm")
 
@@ -353,6 +359,7 @@ position = Vector2(0, -300)
 scale = Vector2(1, 1)
 
 [node name="LightDot" parent="." instance=ExtResource("14_rbf32")]
+curve_override = SubResource("Curve2D_level5_custom")
 position = Vector2(254902, -63342)
 [node name="Path" parent="LightDot" index="0"]
 position = Vector2(0, 299)
