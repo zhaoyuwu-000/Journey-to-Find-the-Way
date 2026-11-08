@@ -1,35 +1,30 @@
-extends CanvasLayer
-## 第六关结尾：玩家向前走时匀速显示文字。
-## 内容默认取 data/dialogues.json 的 ending.goldball.first；也可以在 Inspector 里用 custom_lines 覆盖（每行一句）。
-## 只有向右前进才推进（speed = 每秒显示几个字），停下来文字就停。
+extends Node2D
+## 第六关结尾：玩家向前走时，用原来的对话框匀速播放文字。
+## 向前移动时匀速换句（每 sec_per_line 秒一句），停下文字就停。
+## 内容默认取 data/dialogues.json 的 ending.goldball.first；可用 custom_lines 覆盖（每行一句）。
 
-@export_multiline var custom_lines := ""      # 非空则用它，按换行拆行
-@export var chars_per_sec := 9.0              # 匀速：每秒显示字数
-@export var hold_sec := 1.4                   # 一句显示完后的停顿
-@export var require_right_move := true        # 只在前右移动时推进
+@export_multiline var custom_lines := ""
+@export var sec_per_line := 1.6       # 每句停留秒数（只在向前移动时计时）
+@export var require_right_move := true
+@export var first_delay := 0.6        # 进关后第一句延迟
 
 var _lines: Array[String] = []
-var _i := 0
-var _shown := 0.0
-var _hold := 0.0
+var _i := -1
+var _t := 0.0
 var _done := false
-var _label: Label
 var _player: Node2D
 var _last_x := 0.0
+var _dlg: Node
 
 func _ready() -> void:
-	_label = get_node_or_null("Root/Label") as Label
-	if _label == null:
-		return
-	_label.text = ""
-	_label.modulate.a = 0.0
+	_dlg = get_node_or_null("/root/Dialogue")
 	_lines = _read_lines()
 	await get_tree().process_frame
 	_player = _find_player()
 	if _player != null:
 		_last_x = _player.global_position.x
-	var tw := create_tween()
-	tw.tween_property(_label, "modulate:a", 1.0, 0.8)
+	await get_tree().create_timer(first_delay).timeout
+	_show_next()
 
 func _read_lines() -> Array[String]:
 	var out: Array[String] = []
@@ -54,30 +49,27 @@ func _find_player() -> Node2D:
 	var parent := get_parent()
 	if parent == null:
 		return null
-	var p := parent.get_node_or_null("Player")
-	return p as Node2D
+	return parent.get_node_or_null("Player") as Node2D
+
+func _show_next() -> void:
+	_i += 1
+	if _i >= _lines.size():
+		_done = true
+		if _dlg != null and _dlg.has_method("fade_out_manual"):
+			_dlg.fade_out_manual()
+		return
+	if _dlg != null and _dlg.has_method("show_line_manual"):
+		_dlg.show_line_manual(_lines[_i])
 
 func _process(delta: float) -> void:
-	if _done or _label == null or _player == null or _lines.is_empty():
+	if _done or _player == null:
 		return
 	var x := _player.global_position.x
 	var dx := x - _last_x
 	_last_x = x
 	if require_right_move and dx <= 0.2:
 		return
-	if _hold > 0.0:
-		_hold = maxf(_hold - delta, 0.0)
-		return
-	var line := _lines[_i]
-	_shown += chars_per_sec * delta
-	var n := mini(int(_shown), line.length())
-	_label.text = line.substr(0, n)
-	if n >= line.length():
-		_i += 1
-		_shown = 0.0
-		_hold = hold_sec
-		if _i >= _lines.size():
-			_done = true
-			var tw := create_tween()
-			tw.tween_interval(2.0)
-			tw.tween_property(_label, "modulate:a", 0.0, 1.5)
+	_t += delta
+	while _t >= sec_per_line and not _done:
+		_t -= sec_per_line
+		_show_next()

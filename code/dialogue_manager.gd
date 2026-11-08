@@ -28,6 +28,15 @@ func _ready() -> void:
 	_box.visible = false
 	_box.finished.connect(_on_finished)
 
+## 手动单句（走路播字用）：不锁玩家、不响应按键，由外部决定何时换句/淡出
+func show_line_manual(text: String) -> void:
+	if _box != null and _box.has_method("show_line_manual"):
+		_box.show_line_manual(text)
+
+func fade_out_manual() -> void:
+	if _box != null and _box.has_method("fade_out_manual"):
+		_box.fade_out_manual()
+
 func is_playing() -> bool:
 	return _playing
 

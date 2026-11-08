@@ -19,6 +19,7 @@ var _lines: Array = []
 var _index := 0
 var _fading := false
 var _target_alpha := 0.0
+var _manual := false      # 手动模式：由外部控制显示/淡出，不响应按键、不自动计时
 var _auto := false        # 自动播放（对话池随机一句）：自己淡入淡出，不需要按键
 var _auto_timer := 0.0
 
@@ -107,7 +108,7 @@ func _auto_duration(text: String) -> float:
 	return clampf(1.5 + float(text.length()) * 0.12, 1.8, 4.5)
 
 func _input(event: InputEvent) -> void:
-	if not visible or _auto:
+	if not visible or _auto or _manual:
 		return
 	var advance := false
 	if event is InputEventKey:
@@ -133,6 +134,26 @@ func _next() -> void:
 
 ## 淡出（由 _process 推，淡到 0 才隐藏并通知结束）
 func _fade_out() -> void:
+	_target_alpha = 0.0
+
+## 手动模式：只显示一句，不自动淡出、不响应按键（走路播字用）
+func show_line_manual(text: String) -> void:
+	_lines = [text]
+	_index = 0
+	_manual = true
+	_auto = false
+	_fading = false
+	_text_label.text = text
+	visible = true
+	modulate.a = 0.0
+	_target_alpha = 1.0
+
+## 手动模式：淡出并结束
+func fade_out_manual() -> void:
+	if not _manual:
+		return
+	_manual = false
+	_fading = true
 	_target_alpha = 0.0
 
 func _process(delta: float) -> void:
