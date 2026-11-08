@@ -377,6 +377,9 @@ scale = Vector2(1.421875, 1.421875)
 scale = Vector2(0.455, 0.455)
 
 [node name="LightGuide" parent="." unique_id=1213052119 instance=ExtResource("96_lightguide")]
+position = Vector2(258513.02, -69681.99)
+rotation = -0.49639088
+scale = Vector2(0.52703565, 0.4499169)
 
 [node name="AbilityPoint" parent="." unique_id=2044594597 instance=ExtResource("8_nxili")]
 position = Vector2(119336.01, -25339.002)
@@ -405,3 +408,4 @@ scale = Vector2(-89.74439, 3.6647964)
 [editable path="Barrier7"]
 [editable path="Portal"]
 [editable path="LightDot"]
+[editable path="LightGuide"]

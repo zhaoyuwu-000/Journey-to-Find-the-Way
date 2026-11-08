@@ -30,6 +30,17 @@ func _find_player() -> Node2D:
 	var level := get_parent()
 	return level.get_node_or_null("Player") as Node2D if level != null else null
 
+## 当前 path 曲线（没有就返回 null）
+func _curve() -> Curve2D:
+	if _path == null or _path.curve == null:
+		return null
+	return _path.curve if _path.curve.get_baked_length() > 1.0 else null
+
+## 把位置放到曲线 _dist 处
+func _place_on_path(curve: Curve2D) -> void:
+	_dist = clampf(_dist, 0.0, curve.get_baked_length())
+	global_position = _origin + curve.sample_baked(_dist)
+
 func _set_dot_visible(on: bool) -> void:
 	var dot := get_node_or_null("LightDot")
 	if dot != null:
@@ -52,17 +63,12 @@ func _process(delta: float) -> void:
 				_set_dot_visible(true)
 				_state = State.DRIFT
 		State.DRIFT:
-			var curve := _path.curve if _path != null else null
-			var total := curve.get_baked_length() if curve != null else 0.0
-			if total > 1.0:
-				# 沿 path 走
+			var curve := _curve()
+			if curve != null:
 				_dist += drift_speed * delta
-				if _dist >= total:
-					_dist = total
-					global_position = _origin + curve.sample_baked(total)
+				_place_on_path(curve)
+				if global_position.x >= phase1_end_x:
 					_state = State.WAIT
-				else:
-					global_position = _origin + curve.sample_baked(_dist)
 			else:
 				global_position.x += drift_speed * delta
 				if global_position.x >= phase1_end_x:
@@ -75,7 +81,15 @@ func _process(delta: float) -> void:
 			var vx := 0.0
 			if _player is CharacterBody2D:
 				vx = (_player as CharacterBody2D).velocity.x
-			global_position.x += maxf(vx, 0.0) * delta
-			if global_position.x >= end_x:
-				global_position.x = end_x
-				_state = State.DONE
+			var curve_f := _curve()
+			if curve_f != null:
+				# 严格沿 path：按玩家速度推进曲线距离
+				_dist += maxf(vx, 0.0) * delta
+				_place_on_path(curve_f)
+				if global_position.x >= end_x or _dist >= curve_f.get_baked_length():
+					_state = State.DONE
+			else:
+				global_position.x += maxf(vx, 0.0) * delta
+				if global_position.x >= end_x:
+					global_position.x = end_x
+					_state = State.DONE
