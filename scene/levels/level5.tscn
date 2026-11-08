@@ -38,12 +38,6 @@ size = Vector2(108.68205, 104.39134)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_barrier7"]
 size = Vector2(108.68205, 334.3786)
 
-[sub_resource type="Curve2D" id="Curve2D_level5_custom"]
-_data = {
-"points": PackedVector2Array(2792.4243, -677.927, -2792.4243, 677.927, 2595.6875, -4155.617, -493.49133, 457.1847, 493.49133, -457.1847, 5816.6563, -5479.836, 0, 0, 0, 0, 7425, -7237, 0, 0, 0, 0, 10389, -8702, 0, 0, 0, 0, 13744, -13215, 0, 0, 0, 0, 16637.563, -14917.539, -3843.6353, -4109.5117, 3843.6353, 4109.5117, 20930.781, -17093.594)
-}
-point_count = 7
-
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_pdhpm")
 
@@ -359,28 +353,9 @@ visible = false
 position = Vector2(0, -300)
 scale = Vector2(1, 1)
 
-[node name="LightDot" parent="." unique_id=899930101 instance=ExtResource("14_rbf32")]
-position = Vector2(254902, -62999)
-speed = 40000.0
-curve_override = SubResource("Curve2D_level5_custom")
-loop = false
-
-[node name="Path" parent="LightDot" index="0" unique_id=1052711893]
-position = Vector2(2632.7412, -1485.627)
-scale = Vector2(0.9447449, 0.9039277)
-curve = SubResource("Curve2D_level5_custom")
-
-[node name="Glow" parent="LightDot" index="1" unique_id=2111012696]
-scale = Vector2(1.421875, 1.421875)
-
-[node name="Core" parent="LightDot" index="2" unique_id=335733229]
-scale = Vector2(0.455, 0.455)
-
-[node name="LightGuide" parent="." unique_id=1213052119 instance=ExtResource("96_lightguide")]
-position = Vector2(258513.02, -69681.99)
-rotation = -0.49639088
-scale = Vector2(0.52703565, 0.4499169)
-
+[node name="LightDot" parent="." instance=ExtResource("14_rbf32")]
+position = Vector2(254902, -63342)
+[node name="LightGuide" parent="." instance=ExtResource("96_lightguide")]
 [node name="AbilityPoint" parent="." unique_id=2044594597 instance=ExtResource("8_nxili")]
 position = Vector2(119336.01, -25339.002)
 scale = Vector2(2.04, 2.04)
@@ -407,5 +382,3 @@ scale = Vector2(-89.74439, 3.6647964)
 [editable path="Barrier6"]
 [editable path="Barrier7"]
 [editable path="Portal"]
-[editable path="LightDot"]
-[editable path="LightGuide"]
