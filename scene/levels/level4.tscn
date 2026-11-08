@@ -113,12 +113,12 @@ scale = Vector2(5.4772334, 13.353132)
 position = Vector2(86192, 6293)
 
 [node name="CollisionShape2D" parent="Barrier3" index="0" unique_id=323140085]
-position = Vector2(-12, -192.99998)
-scale = Vector2(9.127542, 7.724779)
+position = Vector2(-26.999878, -496)
+scale = Vector2(9.127542, 13.084778)
 
 [node name="Sprite2D" parent="Barrier3" index="1" unique_id=1028381399]
-position = Vector2(435.99997, -78.000015)
-scale = Vector2(5, 9.6)
+position = Vector2(493.99997, -302)
+scale = Vector2(5.547938, 15.8127575)
 
 [node name="Barrier4" parent="." unique_id=755454818 instance=ExtResource("9_ei3ob")]
 position = Vector2(34456, -1940)

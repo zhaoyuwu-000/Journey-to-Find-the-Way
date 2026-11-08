@@ -14,7 +14,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_level1_route"]
 _data = {
-"points": PackedVector2Array(-1800, 0, 1800, 0, 0, 0, -1800, 0, 1800, 0, 6000, -900, -1800, 0, 1800, 0, 12000, -500, -1800, 0, 1800, 0, 18000, -1500, -1800, 0, 1800, 0, 24000, -800, -1800, 0, 1800, 0, 30000, -1900, -1800, 0, 1800, 0, 36000, -1200, -1800, 0, 1800, 0, 42000, -2200, -1800, 0, 1800, 0, 48000, -1500, -1800, 0, 1800, 0, 54000, -2600, -1800, 0, 1800, 0, 60000, -1900, -1800, 0, 1800, 0, 66000, 2400)
+"points": PackedVector2Array(-1800, 0, 1800, 0, -8394, -823, -1800, 0, 1800, 0, 6000, -900, -1800, 0, 1800, 0, 12000, -500, -1800, 0, 1800, 0, 18000, -1500, -1800, 0, 1800, 0, 24000, -800, -1800, 0, 1800, 0, 30000, -1900, -1800, 0, 1800, 0, 36000, -1200, -1800, 0, 1800, 0, 42000, -2200, -1800, 0, 1800, 0, 48000, -1500, -1800, 0, 1800, 0, 54000, -2600, -1800, 0, 1800, 0, 60000, -1900, -1800, 0, 1800, 0, 66000, 2400)
 }
 point_count = 12
 
@@ -61,13 +61,14 @@ size_tiles = 8.985
 position = Vector2(33300, 1706)
 
 [node name="LightDot" parent="." unique_id=346795082 instance=ExtResource("11_abxrp")]
-curve_override = SubResource("Curve2D_level1_route")
 position = Vector2(-773, -79)
 diameter = 728.0
-speed = 6000.0
+speed = 7000.0
+curve_override = SubResource("Curve2D_level1_route")
 loop = false
 
 [node name="Path" parent="LightDot" index="0" unique_id=1052711893]
+curve = SubResource("Curve2D_level1_route")
 
 [node name="Glow" parent="LightDot" index="1" unique_id=2111012696]
 position = Vector2(-8302, -2691)
