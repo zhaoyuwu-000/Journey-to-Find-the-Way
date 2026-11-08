@@ -4,7 +4,7 @@ extends Node
 const SETTINGS_PANEL := preload("res://code/settings_panel.gd")
 
 const LEVELS := [
-	"res://scene/levels/level2.tscn",
+	"res://scene/levels/level4.tscn",
 	"res://scene/levels/level2.tscn",
 	"res://scene/levels/level3.tscn",
 	"res://scene/levels/level4.tscn",
@@ -26,8 +26,15 @@ var current_level_node: Node2D
 
 func _ready() -> void:
 	_setup_fade()
+	_play_character_music()
 	goto_level(0)      # 进来先进第一关，读档由菜单的"继续游戏"负责
 	init_menu()
+
+## 进入游戏/关卡：循环播放角色曲（音乐系统可能还没加载时静默跳过）
+func _play_character_music() -> void:
+	var music := get_node_or_null("/root/Music")
+	if music != null and music.has_method("restart_character"):
+		music.restart_character()
 
 ## 全屏黑幕：切关时淡出/淡入
 func _setup_fade() -> void:
@@ -208,6 +215,7 @@ func _get_player() -> CharacterBody2D:
 ## 切到第 index 关：清掉旧关卡，实例化新关卡放进 LevelContainer。
 func goto_level(index: int) -> void:
 	index = clampi(index, 0, LEVELS.size() - 1)
+	_play_character_music()
 	_clear_level()
 	current_level = index
 	current_level_node = load(LEVELS[index]).instantiate()
