@@ -67,6 +67,10 @@ const BASE_SCALE := 0.8318
 		fall_speed = maxf(v, 0.0)
 		_refresh()
 
+@export_group("玩家基准")
+## 背景"地面线"相对玩家脚底的屏幕偏移（0 = 正好踩在同一水平线）
+@export var player_anchor_offset := 0.0
+
 @export_group("上下浮动范围")
 ## 浮动跟随的平滑时间（秒）：越大越柔
 @export var smooth_time := 0.20:
@@ -99,6 +103,8 @@ var _ref_cam_y := NAN     # 平滑后的"狐狸落地点对应的相机高度"
 var _cur_off: Array[float] = []   # 平滑后的实际偏移
 var _loop_w: Array[float] = []    # 每层循环一次的宽度
 var _sign: Array[float] = []      # 浮动方向：+1 正常，-1 反向
+var _art_bottom_static := 0.0     # 各层在 _static_y 时的 art 底边（屏幕坐标）
+var _art_delta := 0.0             # 平滑后的整体竖直偏移
 var _authored_mirror := {}        # 每层场景里原本的 motion_mirroring.x
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
 var _tex_x := {}        # 贴图 id -> Vector2(可见左边界, 可见右边界)（相对贴图中心）
@@ -157,11 +163,11 @@ func _refresh() -> void:
 			layer.motion_mirroring = Vector2(w, 0.0)
 		_loop_w.append(w)
 
-	# 量出当前 art 底边，再把所有层整体平移到 bottom_y
-	var delta := bottom_y - _art_bottom()
+	# 记录"各层在静态位置时的 art 底边"，运行时再把它对齐到玩家脚底
 	for i in _frames.size():
-		_static_y[i] += delta
 		_frames[i].position.y = _static_y[i]
+	_art_bottom_static = _art_bottom()
+	_art_delta = bottom_y - _art_bottom_static
 
 ## Frame 内所有 Sprite2D 的可见横向范围（按贴图 alpha 去掉透明边）
 func _frame_bounds_x(frame: Node2D) -> Vector2:
@@ -281,6 +287,14 @@ func _camera_owner() -> Node2D:
 	return parent.get_node_or_null("Player") as Node2D
 
 ## 预测狐狸的落地高度（向下打一条射线）
+## 玩家脚底的世界 y（有碰撞盒就取碰撞盒底边）
+func _fox_foot_y(fox: Node2D) -> float:
+	var cs := fox.get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if cs != null and cs.shape is RectangleShape2D:
+		var rect := cs.shape as RectangleShape2D
+		return cs.global_position.y + rect.size.y * 0.5 * cs.global_scale.y
+	return fox.global_position.y
+
 func _predict_land_y(fox: Node2D) -> float:
 	var space := get_viewport().world_2d.direct_space_state
 	var from := fox.global_position + Vector2(0, 24.0)
@@ -315,6 +329,18 @@ func _process(_delta: float) -> void:
 	# 基准本身也平滑，落地点算偏了也不会跳
 	var kref := 1.0 - exp(-_delta / maxf(smooth_time, 0.001))
 	_ref_cam_y = lerpf(_ref_cam_y, target_ref, kref)
+	# 背景地面线 = 玩家脚底在屏幕上的 y（相机跟随/被夹住时都跟着走）
+	var target_bottom := bottom_y
+	if fox != null:
+		var screen_center := cam.get_screen_center_position()
+		var vp := get_viewport().get_visible_rect().size
+		var foot_y := _fox_foot_y(fox)
+		var fox_screen_y: float = (foot_y - screen_center.y) * cam.zoom.y + vp.y * 0.5
+		target_bottom = fox_screen_y + player_anchor_offset
+	var target_delta := target_bottom - _art_bottom_static
+	var kd := 1.0 - exp(-_delta / maxf(smooth_time, 0.001))
+	_art_delta = lerpf(_art_delta, target_delta, kd)
+
 	var dy := cam_y - _ref_cam_y
 	# 每层目标偏移（含上下限），再平滑逼近
 	for i in _frames.size():
@@ -327,4 +353,4 @@ func _process(_delta: float) -> void:
 		if _cur_off.size() <= i:
 			_cur_off.append(0.0)
 		_cur_off[i] = lerpf(_cur_off[i], target, kref)
-		_frames[i].position.y = _static_y[i] + _cur_off[i]
+		_frames[i].position.y = _static_y[i] + _art_delta + _cur_off[i]
