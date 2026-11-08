@@ -108,6 +108,8 @@ var _loop_w: Array[float] = []    # 每层循环一次的宽度
 var _sign: Array[float] = []      # 浮动方向：+1 正常，-1 反向
 var _art_bottom_static := 0.0     # 各层在 _static_y 时的 art 底边（屏幕坐标）
 var _art_delta := 0.0             # 平滑后的整体竖直偏移
+
+
 var _authored_mirror := {}        # 每层场景里原本的 motion_mirroring.x
 var _tex_bottom := {}   # 贴图 id -> 可见底边相对贴图中心的偏移（贴图像素）
 var _tex_x := {}        # 贴图 id -> Vector2(可见左边界, 可见右边界)（相对贴图中心）
@@ -401,7 +403,6 @@ func _process(_delta: float) -> void:
 	var target_delta := target_bottom - _art_bottom_static
 	var kd := 1.0 - exp(-_delta / maxf(smooth_time, 0.001))
 	_art_delta = lerpf(_art_delta, target_delta, kd)
-
 	var dy := cam_y - _ref_cam_y
 	# 每层目标偏移（含上下限），再平滑逼近
 	for i in _frames.size():

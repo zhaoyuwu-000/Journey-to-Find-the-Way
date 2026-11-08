@@ -24,6 +24,8 @@ layer = -1
 scroll_ignore_camera_zoom = true
 script = ExtResource("1_borvk")
 layer_scale = 0.7
+player_anchor_offset = 0.0
+horizon_layer = null
 
 [node name="Backdrop" type="ColorRect" parent="." unique_id=1594128435]
 offset_right = 1280.0
