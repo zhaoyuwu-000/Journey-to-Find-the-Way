@@ -15,7 +15,8 @@ const TRACKS := {
 const NAMES := ["bird", "bear", "fish"]
 
 const MIN_SECONDS := 60.0      # 一首至少播这么久才允许切
-const FADE := 1.2              # 交叉淡入淡出时长
+const FADE := 2.2              # 交叉淡入淡出时长
+const MIN_LIN := 0.0001        # 线性音量下限（转 dB 时避免 -inf）
 const SILENT_DB := -60.0
 
 var _players: Array[AudioStreamPlayer] = []
@@ -100,11 +101,16 @@ func _switch_now(name: String) -> void:
 	_started = _now()
 
 	_busy_fade = true
+	# 用"线性音量"做曲线：听起来是均匀的淡入淡出，正弦缓入缓出，不会前急后顿
 	var tw := create_tween()
 	tw.set_parallel(true)
 	if from != null and from.playing:
-		tw.tween_property(from, "volume_db", SILENT_DB, FADE)
-	tw.tween_property(to, "volume_db", 0.0, FADE)
+		tw.tween_method(func(v: float) -> void:
+			from.volume_db = linear_to_db(maxf(v, MIN_LIN)), 1.0, 0.0, FADE) \
+			.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_method(func(v: float) -> void:
+		to.volume_db = linear_to_db(maxf(v, MIN_LIN)), 0.0, 1.0, FADE) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.chain().tween_callback(func() -> void:
 		_busy_fade = false
 		if from != null and from != to and not from.playing:
