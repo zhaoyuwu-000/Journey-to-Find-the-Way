@@ -1,6 +1,6 @@
 extends Node2D
 ## 第五关引导光点：
-##  玩家到达 x=trigger_x → 光点出现，沿它自己的 Path 曲线走；
+##  玩家到达 x=trigger_x → 关卡里的 LightDot 出现，沿它自己的 Path 曲线走；
 ##  走完整条曲线后停住等玩家；
 ##  玩家到达光点下方 → 以同样的速度直线走到 end_x 停住。
 
@@ -21,10 +21,11 @@ var _origin := Vector2.ZERO
 var _curve_len := 0.0
 
 func _ready() -> void:
-	visible = false
-	_dot = get_node_or_null("LightDot") as Node2D
+	_dot = get_parent().get_node_or_null("LightDot") as Node2D
 	if _dot != null:
 		_dot.visible = false
+		_dot.set("manual", true)          # 关掉它自己的沿曲线运动，交给本脚本控制
+		_dot.set_physics_process(false)
 		var p := _dot.get_node_or_null("Path") as Path2D
 		if p != null and p.curve != null:
 			_path = p.curve
@@ -34,7 +35,9 @@ func _ready() -> void:
 
 func _find_player() -> Node2D:
 	var level := get_parent()
-	return level.get_node_or_null("Player") as Node2D if level != null else null
+	if level == null:
+		return null
+	return level.get_node_or_null("Player") as Node2D
 
 func _process(delta: float) -> void:
 	if _player == null:
@@ -44,31 +47,28 @@ func _process(delta: float) -> void:
 		State.HIDDEN:
 			if px >= trigger_x:
 				_origin = Vector2(trigger_x, _player.global_position.y - hover_height)
-				global_position = _origin
 				_dist = 0.0
-				visible = true
 				if _dot != null:
 					_dot.visible = true
-					_set_dot_offset(Vector2.ZERO)
+					_dot.global_position = _origin
 				_state = State.DRIFT
 		State.DRIFT:
 			_dist += drift_speed * delta
 			if _curve_len <= 1.0 or _dist >= _curve_len:
 				_dist = _curve_len
-				_set_dot_offset(_sample(_dist))
+				_place_on_path()
 				_state = State.WAIT
 			else:
-				_set_dot_offset(_sample(_dist))
+				_place_on_path()
 		State.WAIT:
-			if absf(px - _dot_x()) <= follow_gap:
+			if _dot != null and absf(px - _dot.global_position.x) <= follow_gap:
 				_state = State.FOLLOW
 		State.FOLLOW:
 			if _dot != null:
 				_dot.global_position.x += drift_speed * delta
-			if _dot_x() >= end_x:
-				if _dot != null:
+				if _dot.global_position.x >= end_x:
 					_dot.global_position.x = end_x
-				_state = State.DONE
+					_state = State.DONE
 
 ## path 采样（没曲线就原地）
 func _sample(d: float) -> Vector2:
@@ -76,9 +76,7 @@ func _sample(d: float) -> Vector2:
 		return Vector2.ZERO
 	return _path.sample_baked(clampf(d, 0.0, _curve_len))
 
-func _set_dot_offset(offset: Vector2) -> void:
+## 光点世界位置 = 出现点 + 曲线采样
+func _place_on_path() -> void:
 	if _dot != null:
-		_dot.position = offset
-
-func _dot_x() -> float:
-	return _dot.global_position.x if _dot != null else global_position.x
+		_dot.global_position = _origin + _sample(_dist)

@@ -1,10 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://code/light_guide.gd" id="1_guide"]
-[ext_resource type="PackedScene" path="res://scene/light_dot.tscn" id="2_dot"]
 
 [node name="LightGuide" type="Node2D"]
 script = ExtResource("1_guide")
 
-[node name="LightDot" parent="." instance=ExtResource("2_dot")]
-manual = true
