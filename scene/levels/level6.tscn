@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
 [ext_resource type="PackedScene" path="res://scene/walking_text.tscn" id="94_walktext"]
 [ext_resource type="PackedScene" uid="uid://cxyxcw0ia7e8q" path="res://scene/视差背景.tscn" id="95_bg"]
-[ext_resource type="PackedScene" uid="uid://884ufeyapyf0" path="res://scene/light_dot.tscn" id="96_dot"]
 
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_uq4q8")
@@ -27,8 +26,3 @@ zoom = Vector2(0.1, 0.1)
 [node name="AbilityPointManager" parent="." unique_id=36883032 instance=ExtResource("3_wqpoj")]
 
 [node name="WalkingText" parent="." unique_id=1197484992 instance=ExtResource("94_walktext")]
-
-[node name="LightDot" parent="." instance=ExtResource("96_dot")]
-position = Vector2(600, 0)
-snap_ground = true
-route = "circle"
