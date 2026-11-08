@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://d6jnilqup47k" path="res://code/water_flow.gd" id="91_waterflow"]
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
 [ext_resource type="PackedScene" uid="uid://cxyxcw0ia7e8q" path="res://scene/视差背景.tscn" id="95_bg"]
+[ext_resource type="PackedScene" uid="uid://884ufeyapyf0" path="res://scene/light_dot.tscn" id="96_dot"]
 
 [node name="Level" type="Node2D" unique_id=303358899]
 script = ExtResource("1_sijhj")
@@ -167,3 +168,8 @@ scale = Vector2(5, 34.880005)
 [editable path="Barrier2"]
 [editable path="Barrier"]
 [editable path="Barrier4"]
+
+[node name="LightDot" parent="." instance=ExtResource("96_dot")]
+position = Vector2(600, 0)
+snap_ground = true
+route = "zigzag"

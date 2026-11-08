@@ -4,9 +4,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_path"]
 _data = {
-"points": PackedVector2Array(126.56001, -98.609314, -126.56001, 98.609314, -1265.5011, 36.249607, -572.9399, -169.65862, 572.9399, 169.65862, 541.136, -16.701115, -148.60205, -20.083328, 148.60205, 20.083328, 3259.6628, -240.5589)
+"points": PackedVector2Array(-41.129272, 3067.899, 41.129272, -3067.899, -1265.5011, 36.249607, -2896.2502, -269.22906, 2896.2502, 269.22906, 4429, -5815, 0, 0, 0, 0, 7549, -11391, 0, 0, 0, 0, 11432, -13614, 0, 0, 0, 0, 24379, -17793, -148.60205, -20.083328, 148.60205, 20.083328, 37468, -19205)
 }
-point_count = 3
+point_count = 6
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_add"]
 blend_mode = 1
@@ -25,9 +25,8 @@ fill_to = Vector2(1, 0.5)
 
 [node name="LightDot" type="Node2D" unique_id=346795082]
 script = ExtResource("1_dot")
-diameter = 364.0
-core_ratio = 0.32
 speed = 8000.0
+manual = null
 loop = true
 
 [node name="Path" type="Path2D" parent="." unique_id=1052711893]
@@ -35,11 +34,11 @@ curve = SubResource("Curve2D_path")
 
 [node name="Glow" type="Sprite2D" parent="." unique_id=2111012696]
 material = SubResource("CanvasItemMaterial_add")
-scale = Vector2(0.7109375, 0.7109375)
+scale = Vector2(1.421875, 1.421875)
 texture = SubResource("GradientTexture_glow")
 
 [node name="Core" type="Sprite2D" parent="." unique_id=335733229]
 modulate = Color(1, 1, 0.92, 1)
 material = SubResource("CanvasItemMaterial_add")
-scale = Vector2(0.2275, 0.2275)
+scale = Vector2(0.455, 0.455)
 texture = SubResource("GradientTexture_glow")
