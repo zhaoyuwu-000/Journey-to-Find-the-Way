@@ -25,6 +25,10 @@ Music="*res://code/music_manager.gd"
 Sfx="*res://code/sfx.gd"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
+[audio]
+
+driver/output_latency=5
+
 [display]
 
 window/size/viewport_width=1280

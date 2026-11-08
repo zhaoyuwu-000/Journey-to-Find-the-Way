@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://4mwxh3htco5g" path="res://scene/ability_point.tscn" id="4_ugavc"]
 [ext_resource type="PackedScene" uid="uid://drr3d3jhkbit1" path="res://scene/portal.tscn" id="7_c7kpg"]
 [ext_resource type="PackedScene" uid="uid://cbob002nq0l2n" path="res://scene/rebirth_point.tscn" id="8_3ukkn"]
-[ext_resource type="PackedScene" uid="uid://884ufeyapyf0" path="res://scene/light_dot.tscn" id="11_abxrp"]
 [ext_resource type="Script" uid="uid://bcc1d4fa5k2wv" path="res://code/water_blend.gd" id="90_waterblend"]
 [ext_resource type="Script" uid="uid://d6jnilqup47k" path="res://code/water_flow.gd" id="91_waterflow"]
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
@@ -53,6 +52,3 @@ size_tiles = 8.985
 
 [node name="RebirthPoint" parent="." unique_id=279055186 instance=ExtResource("8_3ukkn")]
 position = Vector2(33300, 1706)
-
-[node name="LightDot" parent="." unique_id=346795082 instance=ExtResource("11_abxrp")]
-position = Vector2(2253, -916)
