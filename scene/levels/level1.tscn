@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://d6jnilqup47k" path="res://code/water_flow.gd" id="91_waterflow"]
 [ext_resource type="Script" uid="uid://beewd63b08h4u" path="res://code/terrain_dark.gd" id="92_terraindark"]
 [ext_resource type="PackedScene" uid="uid://cxyxcw0ia7e8q" path="res://scene/视差背景.tscn" id="95_bg"]
+[ext_resource type="Script" path="res://code/pit_hint.gd" id="97_pithint"]
 
 [sub_resource type="Curve2D" id="Curve2D_level1_route"]
 _data = {
@@ -77,5 +78,27 @@ scale = Vector2(2.84375, 2.84375)
 [node name="Core" parent="LightDot" index="2" unique_id=335733229]
 position = Vector2(-8297.999, -2687.9998)
 scale = Vector2(0.91, 0.91)
+
+[node name="PitHint" type="CanvasLayer" parent="."]
+layer = 6
+script = ExtResource("97_pithint")
+
+[node name="Label" type="Label" parent="PitHint"]
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.62
+anchor_right = 1.0
+anchor_bottom = 0.86
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.98, 0.9, 1)
+theme_override_colors/font_outline_color = Color(0.1, 0.08, 0.04, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+text = "← →  移动　　空格  跳跃
+E  使用能力　　X  选择能力"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [editable path="LightDot"]
