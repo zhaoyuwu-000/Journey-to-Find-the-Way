@@ -60,12 +60,12 @@ zoom = Vector2(0.1, 0.1)
 
 [node name="AbilityPointManager" parent="." unique_id=36883032 instance=ExtResource("3_nom2u")]
 
-[node name="AbilityPoint" parent="." unique_id=881492649 instance=ExtResource("8_nxili")]
+[node name="bird" parent="." unique_id=881492649 instance=ExtResource("8_nxili")]
 position = Vector2(8818, 784)
 scale = Vector2(2.8812904, 3.123083)
 property = 1
 
-[node name="AbilityPoint2" parent="." unique_id=1422219339 instance=ExtResource("8_nxili")]
+[node name="fish" parent="." unique_id=1422219339 instance=ExtResource("8_nxili")]
 position = Vector2(24123, -8570)
 scale = Vector2(3, 3)
 property = 2
@@ -171,7 +171,7 @@ position = Vector2(94613.01, -12209)
 scale = Vector2(3.56, 3.56)
 property = 2
 
-[node name="AbilityPoint13" parent="." unique_id=2049436390 instance=ExtResource("8_nxili")]
+[node name="bear2" parent="." unique_id=2049436390 instance=ExtResource("8_nxili")]
 position = Vector2(131645.02, -28676)
 scale = Vector2(4.3199997, 4.3199997)
 property = 1
@@ -215,12 +215,12 @@ position = Vector2(249184, -60426)
 scale = Vector2(3.44, 3.44)
 property = 1
 
-[node name="AbilityPoint15" parent="." unique_id=786046254 instance=ExtResource("8_nxili")]
+[node name="fish2" parent="." unique_id=786046254 instance=ExtResource("8_nxili")]
 position = Vector2(277256, -76364)
 scale = Vector2(2.7199218, 2.7199218)
 property = 2
 
-[node name="AbilityPoint16" parent="." unique_id=1077682744 instance=ExtResource("8_nxili")]
+[node name="bird2" parent="." unique_id=1077682744 instance=ExtResource("8_nxili")]
 position = Vector2(234239, -60469.996)
 scale = Vector2(1.44, 1.44)
 property = 0

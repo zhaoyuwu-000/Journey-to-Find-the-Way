@@ -51,13 +51,13 @@ position = Vector2(43821, -1342)
 scale = Vector2(2.6709726, 2.6709726)
 property = 2
 
-[node name="AbilityPoint2" parent="." unique_id=1433170897 instance=ExtResource("10_rk1us")]
-position = Vector2(10931, -1535)
+[node name="bear" parent="." unique_id=1433170897 instance=ExtResource("10_rk1us")]
+position = Vector2(9651, -1547)
 scale = Vector2(2.719995, 2.719995)
 property = 1
 
-[node name="AbilityPoint3" parent="." unique_id=1739488726 instance=ExtResource("10_rk1us")]
-position = Vector2(3417, 737)
+[node name="bird" parent="." unique_id=1739488726 instance=ExtResource("10_rk1us")]
+position = Vector2(19922, -5805)
 scale = Vector2(1.2800025, 1.2800025)
 property = 0
 
@@ -76,12 +76,12 @@ position = Vector2(97001, -1387.0001)
 scale = Vector2(3.96, 3.96)
 property = 2
 
-[node name="AbilityPoint7" parent="." unique_id=1637502757 instance=ExtResource("10_rk1us")]
+[node name="bird2" parent="." unique_id=1637502757 instance=ExtResource("10_rk1us")]
 position = Vector2(126728, -4159)
 scale = Vector2(1.72, 1.72)
 property = 0
 
-[node name="AbilityPoint8" parent="." unique_id=556629276 instance=ExtResource("10_rk1us")]
+[node name="bear2" parent="." unique_id=556629276 instance=ExtResource("10_rk1us")]
 position = Vector2(111960.01, -10127.001)
 scale = Vector2(4.31999, 4.31999)
 property = 1

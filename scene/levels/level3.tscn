@@ -54,12 +54,12 @@ position = Vector2(61451.004, -1958.0001)
 scale = Vector2(3.3200197, 3.3200197)
 property = 2
 
-[node name="AbilityPoint3" parent="." unique_id=1839917136 instance=ExtResource("9_cc7lp")]
+[node name="bear" parent="." unique_id=1839917136 instance=ExtResource("9_cc7lp")]
 position = Vector2(95473.01, -2909)
 scale = Vector2(4.5636425, 4.5636425)
 property = 1
 
-[node name="AbilityPoint4" parent="." unique_id=1612979096 instance=ExtResource("9_cc7lp")]
+[node name="fish3" parent="." unique_id=1612979096 instance=ExtResource("9_cc7lp")]
 position = Vector2(200237.98, 5235)
 scale = Vector2(3.24, 3.24)
 property = 2
