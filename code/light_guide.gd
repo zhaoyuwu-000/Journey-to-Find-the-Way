@@ -10,6 +10,7 @@ extends Node2D
 @export var drift_speed := 2250.0        # 第一阶段自动前进速度
 @export var follow_gap := 320.0         # 玩家离光点多近算"到达下方"
 @export var hover_height := 900.0       # 光点比玩家高多少
+@export var ray_margin := 2000.0        # 从这高度往下打射线找地面
 
 enum State { HIDDEN, DRIFT, WAIT, FOLLOW, DONE }
 
@@ -38,7 +39,6 @@ func _process(delta: float) -> void:
 	match _state:
 		State.HIDDEN:
 			if px >= trigger_x:
-				# 高度按玩家当前 y 来定（关卡地形高低差很大，不能靠固定地面高度）
 				global_position = Vector2(trigger_x, _player.global_position.y - hover_height)
 				visible = true
 				_set_dot_visible(true)
