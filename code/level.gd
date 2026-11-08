@@ -106,6 +106,8 @@ func _dialogue_restore(state: Dictionary) -> void:
 
 ## 记录当前关卡状态（到达重生点时调用）
 func _take_checkpoint() -> void:
+	if ability_manager != null and ability_manager.has_method("ensure_bound"):
+		ability_manager.ensure_bound()   # 先绑定，快照里才有能力点状态
 	_checkpoint = {
 		"revive_position": revive_position,
 		"ability_manager": ability_manager.snapshot() if ability_manager != null else {},

@@ -20,7 +20,14 @@ func _ready() -> void:
 	add_to_group("ability_manager")
 	_bind.call_deferred()   # 等 Level._ready 把 Player 生成出来
 
+## 检查点快照之前调用：确保已经绑定玩家/收集了能力点（否则快照会漏掉能力状态）
+func ensure_bound() -> void:
+	if player == null:
+		_bind()
+
 func _bind() -> void:
+	if player != null:
+		return
 	player = get_parent().get_node_or_null("Player") as CharacterBody2D
 	if player == null:
 		push_error("AbilityPointManager: 找不到 Player")
