@@ -49,6 +49,10 @@ var _water_query := PhysicsShapeQueryParameters2D.new()
 var _fish: Node2D = null          # 鱼形态的外观实例（fish.tscn）
 var _fish_anim: AnimatedSprite2D = null
 var _fish_exited_water := false   # 出水后保持鱼形态，直到重新接触陆地
+@export var fish_collision_lift := 24.0   # 变鱼时碰撞盒上移量
+var _body_shape: CollisionShape2D
+var _body_shape_y := 0.0
+
 var _was_floor := false            # 上一帧是否贴地（落地音效用）
 var _foot_t := 0.0                 # 草丛脚步声间隔
 var _push_t := 0.0                 # 推石头音效间隔
@@ -67,6 +71,9 @@ func _ready() -> void:
 	_fish.visible = false
 	add_child(_fish)
 	_fish_anim = _fish.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
+	_body_shape = get_node_or_null("CollisionShape2D") as CollisionShape2D
+	if _body_shape != null:
+		_body_shape_y = _body_shape.position.y
 
 func _physics_process(delta: float) -> void:
 	var was_floor := _was_floor
@@ -96,6 +103,13 @@ func _physics_process(delta: float) -> void:
 	_update_fish_anim()
 
 ## 鱼形态外观：水里和空中都显示鱼；站在陆地上显示玩家精灵
+## 鱼形态：碰撞盒整体上移（视觉鱼更扁，避免踩到贴地下沿）
+func _apply_fish_collision(on_fish: bool) -> void:
+	if _body_shape == null:
+		return
+	var y := _body_shape_y - (fish_collision_lift if on_fish else 0.0)
+	_body_shape.set_deferred("position", Vector2(_body_shape.position.x, y))
+
 func _update_fish_visible() -> void:
 	if _fish == null:
 		return
@@ -394,6 +408,7 @@ func _enter_ability(_prev: Ability) -> void:
 			pass
 		Ability.FISH:
 			_set_fish_visible(in_water or not is_on_floor())   # 水里/空中都是鱼
+			_apply_fish_collision(true)
 
 func _leave_ability() -> void:
 	match ability:
@@ -406,6 +421,7 @@ func _leave_ability() -> void:
 		Ability.FISH:
 			_fish_exited_water = false
 			_set_fish_visible(false)
+			_apply_fish_collision(false)
 
 static func ability_from_property(prop: int) -> Ability:
 	match prop:
