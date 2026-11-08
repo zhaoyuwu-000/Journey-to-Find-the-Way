@@ -27,3 +27,8 @@ mono_crash.*.json
 
 # 导出产物（体积大，不进仓库）
 *.pck
+
+# 导出产物
+build/
+Demo.zip
+
