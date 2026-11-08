@@ -6,6 +6,7 @@
 size = Vector2(108.68205, 104.39134)
 
 [node name="Barrier" type="RigidBody2D" unique_id=1207360845]
+gravity_scale = 24.49   # 和狐狸一样 24000 px/s²（默认重力 980）
 lock_rotation = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=323140085]

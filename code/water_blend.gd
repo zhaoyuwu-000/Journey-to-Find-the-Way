@@ -12,8 +12,7 @@ var _valid_ids: Dictionary = {}   # tileset 里真实存在的 source_id
 
 func _ready() -> void:
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
-	if _tm != null and Engine.is_editor_hint():
-		_rebuild()
+	_rebuild()
 
 func _rebuild() -> void:
 	for c in get_children():

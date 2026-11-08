@@ -24,8 +24,7 @@ var _tm: TileMapLayer
 
 func _ready() -> void:
 	_tm = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
-	if _tm != null and Engine.is_editor_hint():
-		_rebuild()
+	_rebuild()
 
 ## 清掉旧带子，按水格重铺
 func _rebuild() -> void:
