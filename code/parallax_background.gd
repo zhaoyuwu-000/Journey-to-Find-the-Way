@@ -71,6 +71,9 @@ const BASE_SCALE := 0.8318
 ## 背景"地面线"相对玩家脚底的屏幕偏移（0 = 正好踩在同一水平线）
 @export var player_anchor_offset := 0.0
 
+## 哪一层代表地平线（按层名，例如 "L03_中天"）；留空 = 取所有层底边的中位数
+@export var horizon_layer := ""
+
 @export_group("上下浮动范围")
 ## 浮动跟随的平滑时间（秒）：越大越柔
 @export var smooth_time := 0.20:
@@ -163,10 +166,10 @@ func _refresh() -> void:
 			layer.motion_mirroring = Vector2(w, 0.0)
 		_loop_w.append(w)
 
-	# 记录"各层在静态位置时的 art 底边"，运行时再把它对齐到玩家脚底
+	# 记录"各层在静态位置时的底边"，运行时把地平线对齐到玩家脚底
 	for i in _frames.size():
 		_frames[i].position.y = _static_y[i]
-	_art_bottom_static = _art_bottom()
+	_art_bottom_static = _horizon_bottom()
 	_art_delta = bottom_y - _art_bottom_static
 
 ## Frame 内所有 Sprite2D 的可见横向范围（按贴图 alpha 去掉透明边）
@@ -226,6 +229,40 @@ func _texture_x_range(tex: Texture2D) -> Vector2:
 			out = Vector2(float(left) - size.x * 0.5, float(right) + 1.0 - size.x * 0.5)
 	_tex_x[key] = out
 	return out
+
+## 第 i 层在屏幕上的 art 底边
+func _layer_bottom(i: int) -> float:
+	if i < 0 or i >= _frames.size():
+		return 0.0
+	var f: Node2D = _frames[i]
+	var local_bottom := -INF
+	for c in f.get_children():
+		if not (c is Sprite2D):
+			continue
+		var sp := c as Sprite2D
+		if sp.texture == null:
+			continue
+		var b: float = sp.position.y + _texture_bottom(sp) * sp.scale.y
+		if b > local_bottom:
+			local_bottom = b
+	if local_bottom == -INF:
+		return 0.0
+	return f.position.y + local_bottom * f.scale.y
+
+## 地平线：指定层，或者各层底边的中位数（忽略极端的一整块底板）
+func _horizon_bottom() -> float:
+	if horizon_layer != "":
+		for i in _frames.size():
+			var layer := _frames[i].get_parent() as ParallaxLayer
+			if layer != null and String(layer.name) == horizon_layer:
+				return _layer_bottom(i)
+	var vals: Array[float] = []
+	for i in _frames.size():
+		vals.append(_layer_bottom(i))
+	if vals.is_empty():
+		return 0.0
+	vals.sort()
+	return vals[vals.size() / 2]
 
 func _art_bottom() -> float:
 	var lowest := -INF

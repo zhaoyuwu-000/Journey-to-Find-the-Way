@@ -32,10 +32,10 @@ color = Color(0.859, 0.918, 0.635, 1)
 
 [node name="L01_远天" type="ParallaxLayer" parent="." unique_id=1946583546]
 motion_scale = Vector2(0.006, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L01_远天" unique_id=450798986]
-position = Vector2(0, 69.03552)
+position = Vector2(0, -200)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="00_00_0015远天5" type="Sprite2D" parent="L01_远天/Frame" unique_id=623921991]
@@ -80,10 +80,10 @@ texture = ExtResource("2_pjyrt")
 
 [node name="L02_中树" type="ParallaxLayer" parent="." unique_id=1495078192]
 motion_scale = Vector2(0.01, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L02_中树" unique_id=1810870333]
-position = Vector2(0, 94.03552)
+position = Vector2(0, -175)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="00_05_中树2" type="Sprite2D" parent="L02_中树/Frame" unique_id=1193598380]
@@ -136,10 +136,10 @@ texture = ExtResource("4_w0dh2")
 
 [node name="L03_中天" type="ParallaxLayer" parent="." unique_id=642660316]
 motion_scale = Vector2(0.014, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L03_中天" unique_id=2029554165]
-position = Vector2(0, 119.03552)
+position = Vector2(0, -150)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="00_11_0014中天3" type="Sprite2D" parent="L03_中天/Frame" unique_id=1906188074]
@@ -186,10 +186,10 @@ texture = ExtResource("5_1nqqo")
 
 [node name="L04_远景树" type="ParallaxLayer" parent="." unique_id=1335388834]
 motion_scale = Vector2(0.018, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L04_远景树" unique_id=1513247752]
-position = Vector2(0, 144.03552)
+position = Vector2(0, -125)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="00_15_0010远景树6" type="Sprite2D" parent="L04_远景树/Frame" unique_id=246291057]
@@ -300,10 +300,10 @@ texture = ExtResource("6_3roy1")
 
 [node name="L05_近天" type="ParallaxLayer" parent="." unique_id=397371522]
 motion_scale = Vector2(0.022, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L05_近天" unique_id=71221106]
-position = Vector2(0, 169.03552)
+position = Vector2(0, -100)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="00_01_0009近天" type="Sprite2D" parent="L05_近天/Frame" unique_id=1134148103]
@@ -348,10 +348,10 @@ texture = ExtResource("10_ucsjs")
 
 [node name="L06_近景树" type="ParallaxLayer" parent="." unique_id=226101444]
 motion_scale = Vector2(0.026, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L06_近景树" unique_id=432987527]
-position = Vector2(0, 194.03552)
+position = Vector2(0, -75)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="02_08_0008近景树1" type="Sprite2D" parent="L06_近景树/Frame" unique_id=1517359681]
@@ -378,10 +378,10 @@ flip_h = true
 
 [node name="L07_中景树" type="ParallaxLayer" parent="." unique_id=640522015]
 motion_scale = Vector2(0.03, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L07_中景树" unique_id=875398499]
-position = Vector2(0, 219.03552)
+position = Vector2(0, -50)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="00_10_中景树1" type="Sprite2D" parent="L07_中景树/Frame" unique_id=559382873]
@@ -444,10 +444,10 @@ texture = ExtResource("16_1gw0q")
 
 [node name="L08_中景花" type="ParallaxLayer" parent="." unique_id=1449690147]
 motion_scale = Vector2(0.032, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L08_中景花" unique_id=284740601]
-position = Vector2(0, 244.03552)
+position = Vector2(0, -25)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="00_14_0003中景花" type="Sprite2D" parent="L08_中景花/Frame" unique_id=479655829]
@@ -477,10 +477,10 @@ texture = ExtResource("17_016qb")
 [node name="L09_近天背景" type="ParallaxLayer" parent="." unique_id=2051083388]
 position = Vector2(0, -136)
 motion_scale = Vector2(0.034, 0)
-motion_mirroring = Vector2(4379.1772, 0)
+motion_mirroring = Vector2(2549.8196, 0)
 
 [node name="Frame" type="Node2D" parent="L09_近天背景" unique_id=288907546]
-position = Vector2(-5, 269.03552)
+position = Vector2(-5, 0)
 scale = Vector2(0.58225995, 0.58225995)
 
 [node name="近天" type="Sprite2D" parent="L09_近天背景/Frame" unique_id=422212309]
