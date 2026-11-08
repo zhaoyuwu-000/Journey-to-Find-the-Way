@@ -156,12 +156,16 @@ func _refresh() -> void:
 		var key := layer.get_instance_id() if layer != null else 0
 		var w: float = 0.0
 		if layer != null:
-			if not _authored_mirror.has(key) and layer.motion_mirroring.x > 1.0:
-				_authored_mirror[key] = layer.motion_mirroring.x
-			if _authored_mirror.has(key):
-				w = float(_authored_mirror[key]) * f.scale.x
-			if w <= 1.0:
-				w = maxf(_frame_bounds_x(f).y - _frame_bounds_x(f).x, 1.0) * f.scale.x
+			var period := _detect_period(f)
+			if period > 1.0:
+				w = period * f.scale.x          # 左右两组之间的间距 = 一个循环
+			else:
+				if not _authored_mirror.has(key) and layer.motion_mirroring.x > 1.0:
+					_authored_mirror[key] = layer.motion_mirroring.x
+				if _authored_mirror.has(key):
+					w = float(_authored_mirror[key]) * f.scale.x
+				if w <= 1.0:
+					w = maxf(_frame_bounds_x(f).y - _frame_bounds_x(f).x, 1.0) * f.scale.x
 			w += loop_overlap
 			layer.motion_mirroring = Vector2(w, 0.0)
 		_loop_w.append(w)
@@ -229,6 +233,26 @@ func _texture_x_range(tex: Texture2D) -> Vector2:
 			out = Vector2(float(left) - size.x * 0.5, float(right) + 1.0 - size.x * 0.5)
 	_tex_x[key] = out
 	return out
+
+## 自动识别循环周期：每层是"两份相同内容"左右并排，排序后前半和后半同序号相减
+## 就是一份内容的宽度（周期），中位数抗个别手改偏差。
+func _detect_period(frame: Node2D) -> float:
+	var xs: Array[float] = []
+	for c in frame.get_children():
+		if c is Sprite2D:
+			xs.append((c as Sprite2D).position.x)
+	var n := xs.size()
+	if n < 4 or n % 2 != 0:
+		return 0.0
+	xs.sort()
+	var diffs: Array[float] = []
+	for i in n / 2:
+		diffs.append(xs[n / 2 + i] - xs[i])
+	diffs.sort()
+	var period: float = diffs[diffs.size() / 2]
+	if period > 100.0:
+		return period
+	return 0.0
 
 ## 第 i 层在屏幕上的 art 底边
 func _layer_bottom(i: int) -> float:
