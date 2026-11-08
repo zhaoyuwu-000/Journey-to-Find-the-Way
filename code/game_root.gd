@@ -121,7 +121,7 @@ func _on_settings_closed() -> void:
 func _on_menu_start() -> void:
 	_new_game()
 
-## 新开一局：清存档、清对话记录、从第一关重新开始
+## 新开一局：关卡在进入游戏时已经加载好，这里只清存档/对话并退回起点，不重新加载关卡
 func _new_game() -> void:
 	var sv := get_node_or_null("/root/Save")
 	if sv != null:
@@ -129,13 +129,14 @@ func _new_game() -> void:
 	var dlg := get_node_or_null("/root/Dialogue")
 	if dlg != null:
 		dlg.restore({})
+	_play_character_music()
 	_hide_menu_and_play()
-	goto_level(0)      # 开始游戏不淡入淡出
+	if current_level_node != null and current_level_node.has_method("rewind_to_checkpoint"):
+		current_level_node.rewind_to_checkpoint()
 	var p := _get_player()
 	if p != null:
 		p.can_be_controlled = true
 
-## 继续游戏：读档回到上次复活点；没有存档就当新开
 func _on_menu_continue() -> void:
 	var sv := get_node_or_null("/root/Save")
 	var data: Dictionary = sv.read() if sv != null else {}
