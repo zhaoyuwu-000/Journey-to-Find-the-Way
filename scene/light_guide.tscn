@@ -3,17 +3,8 @@
 [ext_resource type="Script" path="res://code/light_guide.gd" id="1_guide"]
 [ext_resource type="PackedScene" path="res://scene/light_dot.tscn" id="2_dot"]
 
-[sub_resource type="Curve2D" id="Curve2D_guide"]
-_data = {
-"points": PackedVector2Array(-3000, 0, 3000, 0, 0, 0, -3000, 0, 3000, 0, 21000, -3600, -3000, 0, 3000, 0, 42000, -4600, -3000, 0, 3000, 0, 62500, 0)
-}
-point_count = 4
-
 [node name="LightGuide" type="Node2D"]
 script = ExtResource("1_guide")
 
 [node name="LightDot" parent="." instance=ExtResource("2_dot")]
 manual = true
-
-[node name="Path" type="Path2D" parent="."]
-curve = SubResource("Curve2D_guide")
