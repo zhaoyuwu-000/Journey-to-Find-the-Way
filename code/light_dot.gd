@@ -16,7 +16,7 @@ const PLAYER_HEIGHT := 364.0   # 狐狸精灵高度
 		core_ratio = clampf(v, 0.05, 1.0)
 		_apply_size()
 @export var speed := 160.0           # 路径速度 px/s
-@export var loop := true             # 到头后回到起点
+@export var loop := false            # 到头后回到起点
 @export var bob_height := 8.0        # 上下轻微浮动
 @export var pulse := true            # 呼吸闪烁
 

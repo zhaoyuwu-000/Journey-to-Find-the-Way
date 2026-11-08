@@ -49,6 +49,9 @@ func _process(_delta: float) -> void:
 
 func _revive_position_set(pos: Vector2) -> void:
 	revive_position = pos
+	var sfx := get_node_or_null("/root/Sfx")
+	if sfx != null:
+		sfx.play("复活", -2.0, 0.05)
 	_take_checkpoint()   # 到达重生点：把当前关卡状态记成检查点
 	_save_progress()     # 存档：下次进游戏直接回到这里
 

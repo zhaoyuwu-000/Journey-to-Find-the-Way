@@ -49,6 +49,14 @@ var _water_query := PhysicsShapeQueryParameters2D.new()
 var _fish: Node2D = null          # 鱼形态的外观实例（fish.tscn）
 var _fish_anim: AnimatedSprite2D = null
 var _fish_exited_water := false   # 出水后保持鱼形态，直到重新接触陆地
+var _was_floor := false            # 上一帧是否贴地（落地音效用）
+var _foot_t := 0.0                 # 草丛脚步声间隔
+var _push_t := 0.0                 # 推石头音效间隔
+
+func _sfx(cat: String, db := 0.0, pitch := 0.05) -> void:
+	var sfx := get_node_or_null("/root/Sfx")
+	if sfx != null:
+		sfx.play(cat, db, pitch)
 
 func _ready() -> void:
 	_water_query.shape = collision_shape_2d.shape
@@ -61,6 +69,12 @@ func _ready() -> void:
 	_fish_anim = _fish.get_node_or_null("AnimatedSprite2D") as AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
+	var was_floor := _was_floor
+	_was_floor = is_on_floor()
+	if _was_floor and not was_floor and velocity.y > 1500.0:
+		_sfx("落地", -3.0, 0.08)
+	_footstep(delta)
+	_push_stone(delta)
 	_update_water()   # 先看水：决定鱼外观 / 出水失能
 
 	if ability == Ability.FISH and in_water:
@@ -152,6 +166,8 @@ func _update_water() -> void:
 	var now := not hits.is_empty()
 	if now != in_water:
 		in_water = now
+		if now:
+			_sfx("泡泡", -3.0, 0.1)
 		water_changed.emit(now)
 		if ability == Ability.FISH:
 			_fish_exited_water = not now   # 出水标记；重新入水就清掉
@@ -204,6 +220,29 @@ func _update_jump(delta: float) -> void:
 	var rate := DECELERATION if dir == 0.0 else ACCELERATION
 	velocity.x = move_toward(velocity.x, dir * SPEED, rate * delta)
 
+## 走路时按间隔播草丛脚步
+func _footstep(delta: float) -> void:
+	_foot_t = maxf(_foot_t - delta, 0.0)
+	if state != State.MOVE or not is_on_floor() or not can_be_controlled:
+		return
+	if _foot_t <= 0.0:
+		_sfx("走在草丛", -8.0, 0.12)
+		_foot_t = 0.34
+
+## 熊形态推动挡路的石头/障碍
+func _push_stone(delta: float) -> void:
+	_push_t = maxf(_push_t - delta, 0.0)
+	if ability != Ability.BEAR or absf(velocity.x) < 200.0:
+		return
+	for i in get_slide_collision_count():
+		var c := get_slide_collision(i)
+		var body := c.get_collider()
+		if body != null and String(body.name).begins_with("Barrier"):
+			if _push_t <= 0.0:
+				_sfx("推动石头", -4.0, 0.1)
+				_push_t = 0.4
+			return
+
 ## 贴地时刷新土狼时间
 func _ground_tick() -> void:
 	_coyote = coyote_time
@@ -225,6 +264,7 @@ func try_jump() -> void:
 	if is_on_floor() or _coyote > 0.0:
 		velocity.y = JUMP_VELOCITY
 		_coyote = 0.0
+		_sfx("跳跃", -4.0, 0.06)
 
 func _update_state() -> void:
 	if state == State.CHOOSE:
@@ -284,6 +324,7 @@ func close_choose() -> void:
 
 ## 死亡：由 DIE 信号的使用方（level）决定何时复活
 func die() -> void:
+	_sfx("掉落", -2.0, 0.06)
 	set_state(State.DEAD)
 
 ## 复活到指定位置
@@ -318,6 +359,7 @@ func use_ability() -> void:
 				return  # 鸟是空中补跳，地面上不消耗
 			velocity.y = ABILITY_JUMP_VELOCITY
 			animated_sprite_2d.play("bird")
+			_sfx("飞行", -4.0, 0.12)
 		Ability.BEAR:
 			emit_signal("USEBEAR")   # 进入熊形态：能力先留着，退出时再消耗
 			return                   # ← 不往下走，否则同一次按键又发 EXITBEAR 变回来

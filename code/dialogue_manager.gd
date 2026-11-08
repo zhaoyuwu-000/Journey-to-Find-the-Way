@@ -15,6 +15,8 @@ var _box: Control = null
 var _player: Node = null
 var _playing := false
 var _locked := false
+var _voice_cat := ""              # 对话对应的动物音效分类（鸟/熊/鱼）
+var _voice_t := 0.0
 
 func _ready() -> void:
 	_data = _read_json(DATA_PATH)
@@ -66,11 +68,31 @@ func play(key: String, player: Node = null) -> bool:
 	if _locked:
 		_set_player_control(false)
 	_box.show_lines(str(entry.get("speaker", "")), lines, not is_first)
+	# 对话属于哪种动物：key 形如 level1.bird / level2.bear / level3.fish
+	_voice_cat = ""
+	for suffix in [["bird", "鸟"], ["bear", "熊"], ["fish", "鱼"]]:
+		if key.to_lower().ends_with("." + suffix[0]):
+			_voice_cat = suffix[1]
+			break
+	_voice_t = 0.0
 	started.emit()
 	return true
 
+func _process(delta: float) -> void:
+	# 对话持续期间隔一会儿叫一声（鸟/熊/鱼）
+	if not _playing or _voice_cat == "":
+		return
+	_voice_t -= delta
+	if _voice_t > 0.0:
+		return
+	var sfx := get_node_or_null("/root/Sfx")
+	if sfx != null:
+		sfx.play(_voice_cat, -4.0, 0.12)
+	_voice_t = 1.6
+
 func _on_finished() -> void:
 	_playing = false
+	_voice_cat = ""
 	# 结束就一定解除本次锁定，避免出现"对话完了人不能动"
 	if _player != null and is_instance_valid(_player):
 		if _player.get("can_be_controlled") != null:

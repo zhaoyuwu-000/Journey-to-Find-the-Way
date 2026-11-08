@@ -90,6 +90,9 @@ func _on_player_eat(point: AbilityPoint) -> void:
 	var music := get_node_or_null("/root/Music")
 	if music != null and music.has_method("play_ability"):
 		music.play_ability(point.property)
+	var sfx := get_node_or_null("/root/Sfx")
+	if sfx != null:
+		sfx.play("变光点", -2.0, 0.08)
 	ability_acquired.emit(point.property)
 
 ## 玩家用掉了能力：移出持有、对应点重生

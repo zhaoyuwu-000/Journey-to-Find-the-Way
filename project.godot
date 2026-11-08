@@ -22,6 +22,7 @@ Dialogue="*res://code/dialogue_manager.gd"
 Save="*res://code/save_manager.gd"
 Settings="*res://code/settings.gd"
 Music="*res://code/music_manager.gd"
+Sfx="*res://code/sfx.gd"
 _mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
