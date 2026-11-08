@@ -44,12 +44,12 @@ zoom = Vector2(0.1, 0.1)
 position = Vector2(230013, -9526)
 size_tiles = 5.0
 
-[node name="AbilityPoint" parent="." unique_id=881492649 instance=ExtResource("9_cc7lp")]
+[node name="bird" parent="." unique_id=881492649 instance=ExtResource("9_cc7lp")]
 position = Vector2(32639, -2369)
 scale = Vector2(1.7203623, 1.7199805)
 property = 0
 
-[node name="AbilityPoint2" parent="." unique_id=1252686078 instance=ExtResource("9_cc7lp")]
+[node name="fish" parent="." unique_id=1252686078 instance=ExtResource("9_cc7lp")]
 position = Vector2(61451.004, -1958.0001)
 scale = Vector2(3.3200197, 3.3200197)
 property = 2
@@ -115,5 +115,10 @@ scale = Vector2(5, 21.800001)
 [node name="RebirthPoint5" parent="." unique_id=1134716205 instance=ExtResource("11_xnyoe")]
 position = Vector2(195469, 5602)
 scale = Vector2(5, 27.039997)
+
+[node name="fish2" parent="." unique_id=807494285 instance=ExtResource("9_cc7lp")]
+position = Vector2(87276, -1998)
+scale = Vector2(3.000039, 3.000039)
+property = 2
 
 [editable path="Barrier"]

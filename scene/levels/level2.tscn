@@ -44,11 +44,11 @@ zoom = Vector2(0.1, 0.1)
 position = Vector2(164050, 1271)
 size_tiles = 5.0
 
-[node name="AbilityPoint" parent="." unique_id=881492649 instance=ExtResource("9_8hvcc")]
+[node name="bird" parent="." unique_id=881492649 instance=ExtResource("9_8hvcc")]
 position = Vector2(12300, -340)
 property = 0
 
-[node name="AbilityPoint2" parent="." unique_id=599189345 instance=ExtResource("9_8hvcc")]
+[node name="bear" parent="." unique_id=599189345 instance=ExtResource("9_8hvcc")]
 position = Vector2(18445, 3849.0002)
 scale = Vector2(2.732953, 2.6832268)
 property = 1
@@ -63,7 +63,7 @@ position = Vector2(53832, -3609)
 scale = Vector2(1.88, 1.88)
 property = 0
 
-[node name="AbilityPoint5" parent="." unique_id=218279785 instance=ExtResource("9_8hvcc")]
+[node name="bear2" parent="." unique_id=218279785 instance=ExtResource("9_8hvcc")]
 position = Vector2(113620, 678)
 scale = Vector2(4.31999, 4.31999)
 property = 1

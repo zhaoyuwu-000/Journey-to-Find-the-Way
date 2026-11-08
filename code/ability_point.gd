@@ -104,11 +104,21 @@ func _on_talk_entered(body: Node2D) -> void:
 	if dlg_node.play(key, body):
 		_talk_cooldown = 1.5    # 播完前后别再被边界抖动反复触发
 
-## 没填 dialogue_id 时，按"关卡文件名.能力名"拼一个，例如 level1.bird
+## 没填 dialogue_id 时自动拼：优先用节点名（bird / bear2 / fish3 …），
+## 以名字为准、不看 property 类型；名字不像能力名的才退回按类型
 func _auto_dialogue_id() -> String:
 	var level_name := ""
 	if owner != null and owner.scene_file_path != "":
 		level_name = owner.scene_file_path.get_file().get_basename()
+	var node_name := String(name).to_lower()
+	for base_name in ["bird", "bear", "fish"]:
+		var base := String(base_name)
+		if node_name.begins_with(base):
+			var rest := node_name.substr(base.length())
+			var key_name: String = base
+			if rest.is_valid_int() and rest.to_int() >= 2:
+				key_name = "%s_%s" % [base, rest]
+			return "%s.%s" % [level_name, key_name]
 	var prop_name: String = String(Property.keys()[property]).to_lower()
 	return "%s.%s" % [level_name, prop_name]
 
